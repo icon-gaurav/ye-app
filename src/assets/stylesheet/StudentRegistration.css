@@ -1,0 +1,44 @@
+.otp-input input{
+    display: inline-block;
+    text-align:center;
+    width:20%;
+    margin-right:20px;
+}
+
+.otp-input input:hover{
+    border-width:medium;
+}
+
+.resend-otp{
+    color: blue;
+    margin-left:200px;
+    float:right;
+    text-decoration: none;
+    border:none;
+    cursor:pointer;
+    background: none;
+}
+
+
+.change-number{
+    color: blue;
+    margin-left:90px;
+    float:right;
+    text-decoration: none;
+    border:none;
+    cursor:pointer;
+    background: none;
+}
+
+.change-number:hover, .resend-otp:hover{
+    color:darkblue;
+    cursor:pointer;
+}
+
+.otp-button{
+    border-radius:15px;
+}
+
+.t-and-c{
+    font-size: 12px;
+}

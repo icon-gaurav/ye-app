@@ -1,0 +1,133 @@
+.logo-image{
+    text-align:center;
+}
+
+.logo-image img{
+    height:100px;
+    width:100px;
+}
+
+.icon-wrapper{
+    display:inline-block;
+    width:30px;
+    flex-shrink: 0;
+}
+
+.profile-title h4{
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color:#344563;
+    font-size: 18px;
+}
+
+.company-name-wrapper h5{
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color:#7A869A;
+    font-size: 16px;
+}
+
+.logo-container{
+    border-bottom: 1px solid #5E6C84;
+    display:flex;
+    padding:30px 0px;
+    justify-content: center;
+    align-items: center;
+}
+
+.top-items, .bottom-items{
+    margin-top:10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    padding-bottom: 5px;
+}
+
+.listing-card-wrapper .top-item, .listing-card-wrapper .bottom-item{
+    margin: 10px 0px;
+    color:#5E6C84;
+    font-size:16px;
+    display: flex;
+    align-items: center;
+}
+
+.listing-card-wrapper .bottom-item{
+    font-size:18px;
+}
+
+.listing-card-wrapper{
+    box-shadow: 0 0 8px 0 #7A869A;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.listing-card-wrapper:hover{
+    box-shadow: 0 0 24px 0 #7A869A;
+    cursor:pointer;
+}
+
+.visible-xs{
+    display: none;
+}
+
+@media (max-width:576px) {
+
+
+    .visible-xs{
+        display: none;
+    }
+}
+
+.ribbon{
+    position: absolute;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+    text-align: right;
+    transform: scale(1.1);
+    left: 10px;
+    top: 11px;
+}
+
+.ribbon span{
+    text-transform: uppercase;
+    position:absolute;
+    display: block;
+    background-color: #ef582e;
+    box-shadow:0 5px 10px rgba(0,0,0,0.1);
+    color:#fff;
+    text-shadow:0 1px 1px rgba(0,0,0,0.2);
+    text-align:center;
+    z-index: 1;
+    transform: rotate(-45deg);
+    top:19px;
+    left:-22px;
+    width:104px;
+    font-size: 10px;
+    font-weight:bold;
+    line-height:20px;
+}
+
+.ribbon::before, .ribbon::after{
+    position: absolute;
+    z-index: -1;
+    content: close-quote;
+    display: block;
+    border: 5px solid #ef582e;
+}
+
+.ribbon::before{
+    top:-3px;
+    right:2px;
+}
+
+.ribbon::after{
+    bottom:2px;
+    left:-2px;
+}

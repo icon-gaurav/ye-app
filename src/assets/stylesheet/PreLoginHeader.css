@@ -1,0 +1,15 @@
+@media only screen and (max-width:990px) {
+    #responsive-navbar-nav div{
+        background-color: dimgrey;
+        padding-left: 20px;
+    }
+
+    #responsive-navbar-nav div a:hover{
+        color:white;
+        font-weight: bold;
+    }
+}
+
+.brand-logo{
+    margin-left: 15px;
+}

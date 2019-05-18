@@ -1,0 +1,76 @@
+.city-search-wrapper img {
+    position:relative;
+    cursor: pointer;
+    top:10px;
+    right: 15px;
+    width: 10px;
+    height: 10px;
+    float: right;
+}
+
+.accordion{
+    background-color: white;
+    cursor:pointer;
+    padding:18px;
+    width:100%;
+    border:none;
+    text-align:left;
+    font-size:15px;
+    transition:0.5s;
+    color:#444;
+}
+
+.accordion:focus{
+    box-shadow: 0px 0px;
+}
+
+.accordion:after {
+    content: "\002B";
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+.accordion:active:after, .accordion:focus, .accordion:focus-within, .accordion:visited {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+    border-bottom: none;
+}
+
+.accordion:hover{
+    background-color: inherit;
+}
+
+.filters{
+    border-radius: 10px;
+    background-color: white;
+    margin-bottom:15px;
+}
+
+.filter-header{
+    text-align:left;
+    font-size: 20px;
+    color:black;
+    border-bottom: 1px solid grey;
+    padding: 10px 10px 10px 20px;
+}
+
+.dropdown-input-wrapper{
+    margin-left:20px;
+}
+
+
+.categories-panel, .work-location-panel, .city-search-panel{
+    border-bottom: 1px solid grey;
+}
+.dropdown-input-wrapper input{
+    margin-right: 10px;
+}
+
+.formatting-stuff{
+    height:10px;
+}
+
+
+
+

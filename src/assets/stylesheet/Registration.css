@@ -1,0 +1,26 @@
+.ye-button{
+    border-radius: 20px;
+    width: 200px;
+    border-color:black;
+}
+
+.student-button{
+    background-color: dodgerblue;
+}
+
+.student-button:hover{
+    background-color: blue;
+}
+
+.business-button{
+    background-color: orangered;
+}
+
+.business-button:hover{
+    background-color: darkorange;
+}
+
+#registrationType div{
+    position:relative;
+    text-align: center;
+}

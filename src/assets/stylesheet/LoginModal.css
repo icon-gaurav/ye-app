@@ -1,0 +1,27 @@
+.oauth-item img{
+    width: 50px;
+    height: 50px;
+}
+
+#passwordPrepend img{
+    width:20px;
+    height:20px;
+}
+
+.registration-flow{
+    color:blue;
+}
+
+.registration-flow:hover{
+    font-weight:bold;
+    color:darkblue;
+    cursor: pointer;
+}
+
+.login-button-wrapper{
+    text-align: start;
+}
+
+.error-detail p{
+    color:red;
+}

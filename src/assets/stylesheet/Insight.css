@@ -1,0 +1,23 @@
+/*
+* @author Gaurav Kumar
+*/
+.insights{
+    padding: 10px 10px 10px 10px;
+    width: 100%;
+}
+
+.insights .insight{
+    padding: 10px 10px 10px 10px;
+    margin : 10px 10px 10px 10px;
+    box-shadow: #acacac;
+    width:100%
+}
+
+
+.center-align{
+    align-items: center;
+}
+
+.insight-inline .quantity{
+    vertical-align: center;
+}

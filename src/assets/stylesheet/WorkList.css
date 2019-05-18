@@ -1,0 +1,9 @@
+/*
+* @author Gaurav Kumar
+*/
+
+.list-header{
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 10px 10px 10px;
+}
