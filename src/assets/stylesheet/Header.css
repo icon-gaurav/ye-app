@@ -30,7 +30,9 @@
 .nav-item{
     align-items: center;
 }
-
+.nav-item .btn:focus{
+    box-shadow:none;
+}
 .notification{
     position: relative;
     padding:10px 10px 0px 0px;
@@ -51,3 +53,4 @@
         padding: 10px 1.0rem 0px;
     }
 }
+

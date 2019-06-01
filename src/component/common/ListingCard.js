@@ -9,14 +9,24 @@ class ListingCard extends React.Component {
         this.state = {};
     }
 
+    calculateDuration = (start, end) => {
+        let ms = end.getTime() - start.getTime();
+        let days = Math.floor((((ms / 1000) / 60) / 60) / 24);
+        let weeks = Math.floor(days / 7);
+        days = days % 7;
+        let result = weeks > 0 ? weeks + " Weeks " : "";
+        result += days > 0 ? days + " Days " : "";
+        console.log(result)
+        return result;
+    }
     render() {
 
         /*let {data} = this.props;*/
-        let data = true;
+        let {work} = this.props;
         return (
-            <Link to="/internships/id" target="_blank">
+            <Link to={{pathname: "/internships/" + work._id, state:{work:work}}} target="_blank">
                 <div className="listing-card-wrapper">
-                    {this.isFeatured(data) ? <div className="ribbon"><span>Featured</span></div> : null}
+                    {this.isFeatured(work) ? <div className="ribbon"><span>Featured</span></div> : null}
                     <div className="top-items container">
                         <div className="row logo-container">
                             <div className="col-12 logo-wrapper">
@@ -29,24 +39,24 @@ class ListingCard extends React.Component {
                             <div className="profile-icon icon-wrapper">
                                 <i className="fa fa-briefcase" style={{color: "orange"}}
                                    aria-hidden="true"/></div>
-                            <div className="profile-title"><h4>Work-Profile</h4></div>
+                            <div className="profile-title"><h4>{work.profile}</h4></div>
                         </div>
                         <div className="row company-name-wrapper top-item">
-                            <h5>Company Name</h5>
+                            <h5>{work.company}</h5>
                         </div>
                         <div className="row work-duration-wrapper top-item">
                             <div className="duration-icon icon-wrapper">
                                 <i className="fa fa-hourglass-half" style={{color: "orange"}}
                                    aria-hidden="true"/>
                             </div>
-                            <div className="duration"><span>Duration period</span></div>
+                            <div className="duration"><span>{work.duration.weeks}</span></div>
                         </div>
                         <div className="row vacancy-wrapper top-item">
                             <div className="vacancy-icon icon-wrapper">
                                 <i className="fa fa-users" style={{color: "orange"}}
                                    aria-hidden="true"/>
                             </div>
-                            <div className="vacancy"><span>Vacancy</span></div>
+                            <div className="vacancy"><span>{work.vacancy}</span></div>
                         </div>
                         <div className="hidden-xs">
                             <hr/>
@@ -56,19 +66,19 @@ class ListingCard extends React.Component {
                                 <i className="fa fa-inr" style={{color: "orange"}}
                                    aria-hidden="true"/>
                             </div>
-                            <div className="stipend"><span>Stipend</span></div>
+                            <div className="stipend"><span>{work.stipend}</span></div>
                         </div>
                     </div>
-                    <div className="bottom-items container visible-xs">
-                        <hr/>
-                        <div className="row stipend-wrapper visible-xs bottom-item">
-                            <div className="stipend-icon icon-wrapper"><img
-                                src={require("../../assets/images/icons/facebook.svg")} alt="" height="20px"
-                                width="20px"/>
-                            </div>
-                            <div className="stipend"><span>Stipend</span></div>
-                        </div>
-                    </div>
+                    {/*<div className="bottom-items container visible-xs">*/}
+                    {/*    <hr/>*/}
+                    {/*    <div className="row stipend-wrapper visible-xs bottom-item">*/}
+                    {/*        <div className="stipend-icon icon-wrapper"><img*/}
+                    {/*            src={require("../../assets/images/icons/facebook.svg")} alt="" height="20px"*/}
+                    {/*            width="20px"/>*/}
+                    {/*        </div>*/}
+                    {/*        <div className="stipend"><span>Stipend</span></div>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </div>
             </Link>
         );
@@ -83,11 +93,9 @@ class ListingCard extends React.Component {
              return `/${data.entity}/${id}-mini-internship-from-${data.subTitle}-${data.title}`;*/
     }
 
-    isFeatured(data) {
-        /*if(data.entityData.featured){
-            return true;
-        }*/
-        return true;
+    isFeatured = (work) => {
+        console.log(work.featured)
+        return work.featured;
     }
 }
 

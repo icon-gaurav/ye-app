@@ -45,6 +45,22 @@ class Api {
             data:params
         });
     }
+
+    put = (url, params)=>{
+        return axios({
+            url:`${url}`,
+            method:'put',
+            data:params
+        });
+    }
+
+    delete = (url,params)=>{
+        return axios({
+            url:`${url}`,
+            method:'delete',
+            data:params
+        });
+    }
 }
 
 export default new Api();

@@ -8,8 +8,10 @@ import {FormControl, FormGroup} from "react-bootstrap";
 import FormLabel from "react-bootstrap/FormLabel";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
+import ForgotPassword from "./ForgotPassword";
 import "../../../assets/stylesheet/LoginModal.css";
 import ApiAction from "../../../actions/ApiAction";
+import Registration from "../signup-module/Registration";
 
 class LoginModal extends React.Component {
 
@@ -20,6 +22,8 @@ class LoginModal extends React.Component {
             password: "",
             message: "",
             error: false,
+            forgotPass: false,
+            register: false,
         };
         console.log(props);
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -29,52 +33,79 @@ class LoginModal extends React.Component {
     }
 
     render() {
-        return <ModalBody>
-            <div>
-                <div className="oauth-wrapper row">
-                    <div className="oauth-item col-md-3 ml-auto">
-                        <img src={require("../../../assets/images/icons/facebook.svg")} alt="Facebook"/>
+        return (
+            <Modal show={this.props.show} onHide={this.props.onHide} className="mt-lg-5 mt-md-3 mt-sm-auto">
+                {this.state.forgotPass ? <ForgotPassword onHide={this.props.onHide}/> : this.state.register ?
+                    <Registration onHide={this.props.onHide}/> : this.renderLoginForm()}
+            </Modal>
+        );
+    }
+
+    renderLoginForm() {
+        return (
+            <>
+                <ModalHeader style={{borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%"}}
+                             closeButton>
+                    <ModalTitle>Log In</ModalTitle>
+                </ModalHeader>
+                <ModalBody style={{paddingLeft: "10%", paddingRight: "10%"}}>
+                    <div className="login-form">
+                        {this.state.error ? this.renderInvalidUserDetails() : null}
+                        <Form>
+                            <FormGroup>
+                                <FormLabel>Username</FormLabel>
+                                <InputGroup>
+                                    <i className="fa fa-user" aria-hidden="true"></i>
+                                    <FormControl type="text" placeholder="username" aria-describedby="userPrepend"
+                                                 name="username" onChange={this.handleUsernameChange}/>
+                                </InputGroup>
+                            </FormGroup>
+                            <FormGroup>
+                                <FormLabel>Password</FormLabel>
+                                <InputGroup>
+                                    <i className="fas fa-lock"></i>
+                                    <FormControl type="password" placeholder="password"
+                                                 aria-describedby="passwordPrepend"
+                                                 name="password" onChange={this.handlePasswordChange}/>
+                                </InputGroup>
+                                <button className="forgot-password-button transparent-btn"
+                                        onClick={() => this.setState({forgotPass: true})}>Forgot Password?
+                                </button>
+                            </FormGroup>
+                            <FormGroup>
+                                <br/>
+                                <div className="login-button-wrapper">
+                                    <div className="login-button-background"></div>
+                                    <Button className="" onClick={this.logIn}>Log In</Button>
+                                </div>
+                            </FormGroup>
+                        </Form>
+                        <div className="oauth-wrapper text-align-center">
+                            <br/>
+                            <h6>Or SignUp using</h6>
+                            <br/>
+                            <div className="oauth-item col-md-4 ml-auto d-inline">
+                                <img src={require("../../../assets/images/icons/facebook.svg")} alt="Facebook"/>
+                            </div>
+                            <div className="oauth-item col-md-4 d-inline">
+                                <img src={require("../../../assets/images/icons/google-plus.svg")} alt="Google Plus"/>
+                            </div>
+                            <div className="oauth-item col-md-4 mr-auto d-inline">
+                                <img src={require("../../../assets/images/icons/linkedin.svg")} alt="LinkedIn"/>
+                            </div>
+                        </div>
+                        <br/>
+                        <p className="text-align-center">If not registered - <span className="registration-flow"
+                                                                                   onClick={() => {
+                                                                                       this.setState({
+                                                                                           register: true,
+                                                                                           forgotPass: false
+                                                                                       });
+                                                                                   }}>Register here</span>.
+                        </p>
                     </div>
-                    <div className="oauth-item col-md-3">
-                        <img src={require("../../../assets/images/icons/google-plus.svg")} alt="Google Plus"/>
-                    </div>
-                    <div className="oauth-item col-md-3 mr-auto">
-                        <img src={require("../../../assets/images/icons/linkedin.svg")} alt="LinkedIn"/>
-                    </div>
-                </div>
-                <hr/>
-                {this.state.error ? this.renderInvalidUserDetails() : null}
-                <Form>
-                    <FormGroup>
-                        <FormLabel>Username</FormLabel>
-                        <InputGroup>
-                            <InputGroup.Prepend>
-                                <InputGroup.Text id="userPrepend">@</InputGroup.Text>
-                            </InputGroup.Prepend>
-                            <FormControl type="text" placeholder="username" aria-describedby="userPrepend"
-                                         name="username" onChange={this.handleUsernameChange}/>
-                        </InputGroup>
-                    </FormGroup>
-                    <FormGroup>
-                        <FormLabel>Password</FormLabel>
-                        <InputGroup>
-                            <InputGroup.Prepend>
-                                <InputGroup.Text id="passwordPrepend">
-                                    <img
-                                        src={require("../../../assets/images/icons/password-key.svg")}/></InputGroup.Text>
-                            </InputGroup.Prepend>
-                            <FormControl type="password" placeholder="password" aria-describedby="passwordPrepend"
-                                         name="password" onChange={this.handlePasswordChange}/>
-                        </InputGroup>
-                    </FormGroup>
-                    <FormGroup className="login-button-wrapper">
-                        <Button className="border-dark" onClick={this.logIn}>Log In</Button>
-                    </FormGroup>
-                </Form>
-                <p>If not registered - <span className="registration-flow" onClick={this.props.triggerRegisterUpdate}>Register here</span>.
-                </p>
-            </div>
-        </ModalBody>;
+                </ModalBody>
+            </>);
     }
 
     handleUsernameChange(event) {
@@ -101,12 +132,13 @@ class LoginModal extends React.Component {
         let password = this.state.password;
         ApiAction.logIn(username, password)
             .then((response) => {
+                console.log(response.data)
                 if (response.data.success) {
                     localStorage.setItem("loggedIn", JSON.stringify(true));
-                    let user = response.data.student;
-                    user.role = response.data.user.role;
-                    localStorage.setItem("user", JSON.stringify(user));
-                    this.props.loggedIn({user: response.data.student, role: response.data.user.role});
+                    localStorage.setItem("user", JSON.stringify(response.data.user));
+                    this.props.loggedIn(response.data.user);
+                } else {
+                    console.log(response.data);
                 }
             })
             .catch((error) => {

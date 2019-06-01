@@ -2,7 +2,34 @@
 * @author Gaurav Kumar
 */
 
+.head{
+    opacity: 0.6;
+}
+
+.work-specs .table-responsive .table thead th{
+    opacity:0.6;
+    font-weight: normal;
+}
+
+.header{
+    padding:10px 10px 10px 10px;
+}
+
+.logo-wrapper{
+    padding: 0px 10px 0px 10px;
+}
+
+.work-meta .company{
+    opacity:0.6;
+    font-size: smaller;
+}
+
+.work-details{
+    padding:10px 10px 10px 10px;
+}
+
 .apply-section{
+    padding:0px 10px 10px 10px;
     align-items: center;
     text-align: center;
 }

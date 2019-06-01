@@ -4,7 +4,7 @@
 
 import React, {Component} from 'react';
 
-import '../../assets/stylesheet/Insight.css';
+import '../../../../assets/stylesheet/Insight.css';
 
 class Insights extends Component {
     constructor(props) {
@@ -26,7 +26,7 @@ class Insights extends Component {
                                     </div>
                                     <div className="row center-align">
                                         <h2 className="col-6">
-                                            <img src={require("../../assets/images/graph.svg")} width="50px"
+                                            <img src={require("../../../../assets/images/graph.svg")} width="50px"
                                                  height="50px"/>
                                         </h2>
                                         <div className="col-6 quantity">
@@ -44,7 +44,7 @@ class Insights extends Component {
                                     </div>
                                     <div className="row center-align">
                                         <h2 className="col-6">
-                                            <img src={require("../../assets/images/graph.svg")} width="50px"
+                                            <img src={require("../../../../assets/images/graph.svg")} width="50px"
                                                  height="50px"/>
                                         </h2>
                                         <div className="col-6 quantity">
@@ -62,7 +62,7 @@ class Insights extends Component {
                                     </div>
                                     <div className="row center-align">
                                         <h2 className="col-6">
-                                            <img src={require("../../assets/images/graph.svg")} width="50px"
+                                            <img src={require("../../../../assets/images/graph.svg")} width="50px"
                                                  height="50px"/>
                                         </h2>
                                         <div className="col-6 quantity">
@@ -91,7 +91,7 @@ class Insights extends Component {
                                     </div>
                                     <div className="row center-align">
                                         <h2 className="col-6">
-                                            <img src={require("../../assets/images/graph.svg")} width="50px"
+                                            <img src={require("../../../../assets/images/graph.svg")} width="50px"
                                                  height="50px"/>
                                         </h2>
                                         <div className="col-6 quantity">
@@ -109,7 +109,7 @@ class Insights extends Component {
                                     </div>
                                     <div className="row center-align">
                                         <h2 className="col-6">
-                                            <img src={require("../../assets/images/graph.svg")} width="50px"
+                                            <img src={require("../../../../assets/images/graph.svg")} width="50px"
                                                  height="50px"/>
                                         </h2>
                                         <div className="col-6 quantity">
@@ -127,7 +127,7 @@ class Insights extends Component {
                                     </div>
                                     <div className="row center-align">
                                         <h2 className="col-6">
-                                            <img src={require("../../assets/images/graph.svg")} width="50px"
+                                            <img src={require("../../../../assets/images/graph.svg")} width="50px"
                                                  height="50px"/>
                                         </h2>
                                         <div className="col-6 quantity">
@@ -147,7 +147,7 @@ class Insights extends Component {
                                     </div>
                                     <div className="row center-align">
                                         <h2 className="col-6">
-                                            <img src={require("../../assets/images/graph.svg")} width="50px"
+                                            <img src={require("../../../../assets/images/graph.svg")} width="50px"
                                                  height="50px"/>
                                         </h2>
                                         <div className="col-6 quantity">
@@ -165,7 +165,7 @@ class Insights extends Component {
                                     </div>
                                     <div className="row center-align">
                                         <h2 className="col-6">
-                                            <img src={require("../../assets/images/graph.svg")} width="50px"
+                                            <img src={require("../../../../assets/images/graph.svg")} width="50px"
                                                  height="50px"/>
                                         </h2>
                                         <div className="col-6 quantity">

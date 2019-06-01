@@ -11,16 +11,67 @@ import Modal from "react-bootstrap/Modal";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalFooter from "react-bootstrap/ModalFooter";
+import WorkModal from "./business/works/WorkModal";
 
 import '../../assets/stylesheet/WorkList.css';
+import ApiAction from "../../actions/ApiAction";
 
 class WorkList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             modalType: "Add",
-            modalShow: false
-        }
+            modalShow: false,
+            workList: []
+        };
+        console.log(this.props);
+    }
+
+    componentWillMount() {
+        ApiAction.fetchWork(this.props.work)
+            .then((response) => {
+                if (response.data.success) {
+                    this.setState({workList: response.data.workList});
+                } else {
+
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        // let workList = [
+        //     {
+        //         mode: "internship",
+        //         company: "young engine",
+        //         profile: "webprofile",
+        //         duration: {
+        //             start: new Date(),
+        //             end: new Date(new Date().getTime() + 2000000000),
+        //             last: new Date()
+        //         },
+        //         vacancy: 3,
+        //         stipend: 5000,
+        //         workDetails: "here is work details",
+        //         skillSet: ["skill1", "skill2", "skill3"],
+        //         location: "Home"
+        //     },
+        //     {
+        //         mode: "mission",
+        //         company: "young engine mission",
+        //         profile: "web profile mission",
+        //         duration: {
+        //             start: new Date(),
+        //             end: new Date(new Date().getTime() + 2000000000),
+        //             last: new Date()
+        //         },
+        //         vacancy: 4,
+        //         stipend: 5000,
+        //         workDetails: "here is work details mission",
+        //         skillSet: ["skill1", "skill2", "skill3"],
+        //         location: "Home mission"
+        //     }
+        // ];
+        // this.setState({workList: workList});
     }
 
     handleModalView = () => {
@@ -28,27 +79,44 @@ class WorkList extends Component {
     }
 
     render() {
+        let {user} = this.props;
         return (
             <div className="container-fluid">
-                <div className="list-header">
-                    <header className="main-head">Header</header>
-                    <button className="btn btn-info" onClick={this.handleModalView}>+ Add</button>
+                <div className="">
+                    {/*<header className="main-head">{this.props.work}</header>*/}
+                    {user.role == "ADMIN" ? <div className="">
+                        <button className="btn btn-info"
+                                onClick={() => this.setState({modalShow: true, modalType: "Add"})}>+ Add
+                        </button>
+                    </div> : ""}
                 </div>
-                {this.renderAddWorkModal()}
-                <div className="row listing-details">
-                    <div className="col-md-3 col-xs-12">
-                        <div className="filter-static">
-                            <Filters/>
-                        </div>
+                {this.state.modalShow ?
+                    <WorkModal show={this.state.modalShow} onHide={() => this.setState({modalShow: false})}
+                               type={this.state.modalType} workType={this.props.work}/> : ""}
+                {this.state.workList.length == 0 ? this.renderNoWork() : this.renderList()}
+
+            </div>
+        );
+    }
+
+    renderNoWork() {
+        return (
+            <div>
+                <p>No work</p>
+            </div>
+        );
+    }
+
+    renderList() {
+        return (
+            <div className="row listing-details">
+                <div className="col-md-3 col-xs-12">
+                    <div className="filter-static">
+                        <Filters/>
                     </div>
-                    <div className="col-md-9 col-xs-12 list">
-                        <ListingContainer/>
-                        {/*<Tabs defaultActiveKey="internship">*/}
-                        {/*    <Tab eventKey="internship" title="Internship"><ListingContainer/></Tab>*/}
-                        {/*    <Tab eventKey="mission" title="Mission"><ListingContainer/></Tab>*/}
-                        {/*    <Tab eventKey="tasks" title="Tasks"><ListingContainer/></Tab>*/}
-                        {/*</Tabs>*/}
-                    </div>
+                </div>
+                <div className="col-md-9 col-xs-12 list">
+                    <ListingContainer workList={this.state.workList}/>
                 </div>
             </div>
         );
@@ -98,7 +166,7 @@ class WorkList extends Component {
                     </div>
                 </ModalBody>
                 <ModalFooter>
-                        <button className="btn btn-success">Add</button>
+                    <button className="btn btn-success">Add</button>
                 </ModalFooter>
             </Modal>
         );

@@ -1,27 +1,112 @@
-.oauth-item img{
+.oauth-item img {
     width: 50px;
     height: 50px;
+    border-radius: 50%;
 }
 
-#passwordPrepend img{
-    width:20px;
-    height:20px;
+.oauth-item img:hover{
+    transform: scale(0.97);
+    box-shadow:2px 2px 10px rgba(0,0,0,0.4);
 }
 
-.registration-flow{
-    color:blue;
+.registration-flow {
+    color: blue;
 }
 
-.registration-flow:hover{
-    font-weight:bold;
-    color:darkblue;
+.registration-flow:hover {
+    font-weight: bold;
+    color: darkblue;
     cursor: pointer;
 }
 
-.login-button-wrapper{
-    text-align: start;
+.login-button-wrapper {
+    text-align: center;
+    width: 80%;
+    display: block;
+    position: relative;
+    z-index: 1;
+    border-radius: 25px;
+    overflow: hidden;
+    margin:10px auto;
+    box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
+    -moz-box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
+    -webkit-box-shadow: 0 5px 30px 0px rgba(3, 216, 222, 0.2);
 }
 
-.error-detail p{
-    color:red;
+.login-button-background {
+    position: absolute;
+    z-index: -1;
+    width: 260%;
+    height: 100%;
+    background: #00dbde;
+    background: -webkit-linear-gradient(right, #00dbde, #fc00ff, #00dbde, #fc00ff);
+    top: 0;
+    left: -159%;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
 }
+
+.login-button-wrapper:hover .login-button-background{
+    left:-84%;
+}
+
+
+.login-button-wrapper button {
+    width:100%;
+    color:black;
+    text-transform: uppercase;
+    outline: none !important;
+    border: none;
+    background: transparent;
+}
+
+.login-button-wrapper button:hover, .login-button-wrapper button:active{
+    background:transparent;
+}
+
+.transparent-btn{
+    color: blue;
+    margin-left:90px;
+    float:right;
+    text-decoration: none;
+    border:none;
+    cursor:pointer;
+    background: none;
+}
+
+.transparent-btn:hover, .transparent-btn:active{
+    color:darkblue;
+    font-weight: bold;
+}
+
+.error-detail p {
+    color: red;
+}
+
+.login-form .input-group{
+    position:relative;
+}
+
+.login-form .input-group i{
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
+    left:0px;
+    z-index:4;
+}
+
+.login-form .input-group input{
+    border:none;
+    padding-left: 30px;
+    border-bottom: 1px solid lightgrey;
+}
+
+.login-form .input-group input:focus{
+    box-shadow: none;
+    border-bottom: 2px solid darkgrey;
+}
+
+
+

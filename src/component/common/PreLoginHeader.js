@@ -7,6 +7,7 @@ import NavbarCollapse from "react-bootstrap/NavbarCollapse";
 import NavLink from "react-bootstrap/NavLink";
 import ModalViewer from "./ModalViewer";
 import "../../assets/stylesheet/PreLoginHeader.css";
+import LoginModal from "./login-module/LoginModal";
 
 class PreLoginHeader extends React.Component {
     constructor(props) {
@@ -37,7 +38,7 @@ class PreLoginHeader extends React.Component {
                                      onClick={() => this.setState({displayModal: true})}>LogIn</NavLink>
                         </Nav>
                     </NavbarCollapse>
-                    {this.state.displayModal ? <ModalViewer show={this.state.displayModal}
+                    {this.state.displayModal ? <LoginModal show={this.state.displayModal}
                                                             onHide={() => this.setState({displayModal: false})} loggedIn={this.props.loggedIn}/> : null}
                 </Navbar>
 

@@ -1,26 +1,45 @@
 import React from "react";
-import Tabs from "react-bootstrap/Tabs";
-import Tab from "react-bootstrap/Tab";
 import "font-awesome/css/font-awesome.min.css";
-import ListingContainer from "../containers/ListingContainer";
-import Filters from "./Filters";
-import "../../assets/stylesheet/Dashboard.css";
+import "../../../assets/stylesheet/Dashboard.css";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import {Link} from "react-router-dom";
-import Insights from "./Insights";
-import OfferList from "./OfferList";
-import UserList from "./UserList";
-import WorkList from "./WorkList";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
+import Insights from "./insight/StudentInsight";
+import OfferList from "../offers/OfferList";
+import WorkList from "../WorkList";
+import {BrowserRouter, Route} from "react-router-dom";
+import IndividualWork from "../IndividualWork";
+import StudentProfile from "./profile/StudentProfile";
+import HelpCenter from "../HelpCenter";
+import ApiAction from "../../../actions/ApiAction";
+import CategoryOffers from "../offers/CategoryOffers";
 
-class AdminDashboard extends React.Component {
+class StudentDashboard extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            redirect: false,
+            leftMenuStyle: {marginLeft: "0px"}
+        };
+        console.log(this.props);
     }
 
+    componentWillMount() {
+        if (window.innerWidth < 576) {
+            this.setState({leftMenuStyle: {marginLeft: "0px"}, opacity:{opacity:0.5}});
+        } else {
+            this.setState({leftMenuStyle: {marginLeft: "113px"}});
+        }
+        window.addEventListener("resize", this.resizeWindowHandler);
+    }
 
+    resizeWindowHandler = () => {
+        if (window.innerWidth < 576) {
+            this.setState({leftMenuStyle: {marginLeft: "0px"}});
+        } else {
+            this.setState({leftMenuStyle: {marginLeft: "113px"}});
+        }
+    }
 
     render() {
         return (
@@ -32,18 +51,27 @@ class AdminDashboard extends React.Component {
     renderStats() {
         return (
 
-                <BrowserRouter>
-                    <div className="aside-left-menu">
-                        {this.renderLeftMenu()}
-                    </div>
-                    <div className="main-app">
-                        <header className="main-head"></header>
-                        <Route path="/insights" component={Insights}/>
-                        <Route path="/users" component={UserList}/>
-                        <Route path="/internships" component={WorkList}/>
-                        <Route path="/offers" component={OfferList}/>
-                    </div>
-                </BrowserRouter>
+            <BrowserRouter>
+                <div className="aside-left-menu" style={this.props.leftMenu ? {display: "block"} : {display: "none"}}>
+                    {this.props.leftMenu ? this.renderLeftMenu() : ""}
+                </div>
+                <div className="main-app" style={this.props.leftMenu ? this.state.leftMenuStyle : {marginLeft: "0px"}}>
+                    {/*{this.state.redirect ? <Redirect to="/"/> : ""}*/}
+                    <header className="main-head"></header>
+                    <Route exact path="/insights" component={Insights}/>
+                    <Route exact path="/profile" component={StudentProfile}/>
+                    <Route exact path="/internships"
+                           component={() => <WorkList work={"internship"} user={this.props.user}/>}/>
+
+                    <Route path="/internships/:id" component={(props) => <IndividualWork {...props}/>}/>
+                    <Route exact path="/missions"
+                           component={() => <WorkList work={"mission"} user={this.props.user}/>}/>
+                    <Route exact path="/offers" component={() => <OfferList user={this.props.user}/>}/>
+                    <Route exact path="/offers/:category" component={(props) => <CategoryOffers user={this.props.user} {...props}/>}/>
+                    <Route exct path="/help-center" component={HelpCenter}/>
+
+                </div>
+            </BrowserRouter>
 
         );
     }
@@ -57,11 +85,11 @@ class AdminDashboard extends React.Component {
                     </div>
                     <div className="nav-label">Insights</div>
                 </Link>
-                <Link to="/users" className="aside-item">
+                <Link to="/profile" className="aside-item">
                     <div className="nav-logo">
-                        <i className="fas fa-users"></i>
+                        <i className="fas fa-user"></i>
                     </div>
-                    <div className="nav-label">Users</div>
+                    <div className="nav-label">Profile</div>
                 </Link>
                 <Link to="/internships" className="aside-item">
                     <div className="nav-logo">
@@ -75,12 +103,6 @@ class AdminDashboard extends React.Component {
                     </div>
                     <div className="nav-label">Missions</div>
                 </Link>
-                <Link to="/tasks" className="aside-item">
-                    <div className="nav-logo">
-                        <i className="fas fa-briefcase"></i>
-                    </div>
-                    <div className="nav-label">Tasks</div>
-                </Link>
                 <Link to="/offers" className="aside-item">
                     <div className="nav-logo">
                         <i className="fab fa-free-code-camp"></i>
@@ -91,9 +113,9 @@ class AdminDashboard extends React.Component {
                     <div className="nav-logo">
                         <i className="fas fa-cog"></i>
                     </div>
-                    <div className="nav-label">Setting</div>
+                    <div className="nav-label">Settings</div>
                 </Link>
-                <Link to="/logout" className="aside-item align-content-end">
+                <Link to="/" onClick={this.logout} className="aside-item align-content-end">
                     <div className="nav-logo">
                         <i className="fas fa-power-off"></i>
                     </div>
@@ -114,7 +136,7 @@ class AdminDashboard extends React.Component {
                                     <div className="col-md-4 col-xs-12 pic-container">
                                         <div className="profile-pic-wrapper">
                                             <a href="dashboard" role="button">
-                                                <img src={require("../../assets/images/logo/YE-Merge-Black.png")}
+                                                <img src={require("../../../assets/images/logo/YE-Merge-Black.png")}
                                                      width="100px"
                                                      height="100px"/>
                                             </a>
@@ -157,9 +179,23 @@ class AdminDashboard extends React.Component {
         );
     }
 
-
+    logout = () => {
+        ApiAction.logOut()
+            .then((response) => {
+                console.log(response);
+                if (response.data.success) {
+                    localStorage.removeItem("loggedIn");
+                    localStorage.removeItem("user");
+                    // this.setState({redirect: true});
+                    this.props.history.push(`/`);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
 
 }
 
-export default AdminDashboard;
+export default StudentDashboard;

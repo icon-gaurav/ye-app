@@ -22,7 +22,8 @@ class Filters extends React.Component {
                 <div className="row filter-header">Filters</div>
 
                 <div className="row categories-panel panel panel-default">
-                    <a className="accordion" onClick={() => {
+                    <a className={catAcdOpen?"accordion expanded":"accordion unexpanded"}
+                       onClick={() => {
                         this.setState({catAcdOpen: !catAcdOpen})
                     }} aria-controls="categories-list" aria-expanded={catAcdOpen}>Categories</a>
                     <Collapse in={catAcdOpen}>
@@ -60,7 +61,8 @@ class Filters extends React.Component {
                     </Collapse>
                 </div>
                 <div className="row work-location-panel">
-                    <a className="accordion" onClick={() => {
+                    <a className={workAcdOpen?"accordion expanded":"accordion unexpanded"}
+                       onClick={() => {
                         this.setState({workAcdOpen: !workAcdOpen})
                     }} aria-controls="work-location-list" aria-expanded={workAcdOpen}>Work Location</a>
                     <Collapse in={workAcdOpen}>
@@ -81,7 +83,8 @@ class Filters extends React.Component {
                     </Collapse>
                 </div>
                 <div className="row city-search-panel">
-                    <a className="accordion" onClick={() => {
+                    <a className={cityAcdOpen?"accordion expanded":"accordion unexpanded"}
+                       onClick={() => {
                         this.setState({cityAcdOpen: !cityAcdOpen})
                     }} aria-controls="city-search" aria-expanded={cityAcdOpen}>City</a>
                     <Collapse in={cityAcdOpen}>

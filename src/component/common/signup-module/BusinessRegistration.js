@@ -6,7 +6,10 @@ import FormGroup from "react-bootstrap/FormGroup";
 import FormLabel from "react-bootstrap/FormLabel";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
+import CompanyDetails from "./CompanyDetails";
 import ApiAction from "../../../actions/ApiAction";
+import ModalHeader from "react-bootstrap/ModalHeader";
+import ModalTitle from "react-bootstrap/ModalTitle";
 
 class BusinessRegistration extends React.Component {
 
@@ -17,80 +20,115 @@ class BusinessRegistration extends React.Component {
             codeSent: false,
             resendCode: false,
             confirmError: false,
-            code:["","","",""],
+            code: ["", "", "", ""],
+            verified: false
         }
-        this.sendVerificationCode = this.sendVerificationCode.bind(this);
-        this.verifyEmail = this.verifyEmail.bind(this);
-        this.setEmailData=this.setEmailData.bind(this);
         console.log(props);
     }
 
     render() {
         return (
-            <ModalBody>
-                <div className="business-signup container-fluid">
-                    <div className="row">
-                        <div className="col-md-12 col-xs-12">
-                            <p>Get started with Young Engine to fly...</p>
-                            {this.renderForm()}
-                            <div className="t-and-c">
-                                By sign up you accept our <a href="/terms" target="_blank">Terms &amp; Condition</a>.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </ModalBody>
-
+            this.state.verified ? <CompanyDetails email={this.state.email}/> : this.renderForm()
         );
     }
 
     renderForm() {
         return (
-            <Form>
-                <FormGroup>
-                    <FormLabel>Enter your email id</FormLabel>
-                    <FormControl type="text" name="email" placeholder="example@abc.com" onChange={this.setEmailData}/>
-                </FormGroup>
-                {this.state.codeSent ? this.renderVerifyCode : null}
-                <FormGroup>
-                    <Button type="submit"
-                            onClick={this.state.codeSent ? this.verifyEmail : this.sendVerificationCode}>{this.state.codeSent ? "Verify Email" : "Send Verification Code"}</Button>
-                </FormGroup>
-            </Form>
+            <>
+                <ModalHeader style={{borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%"}}
+                             closeButton>
+                    <ModalTitle>Business Registration</ModalTitle>
+                </ModalHeader>
+                <ModalBody>
+                    <div className="business-signup container-fluid">
+                        <div className="row">
+                            <div className="col-md-12 col-xs-12">
+                                <p>Get started with Young Engine to fly...</p>
+                                <Form>
+                                    <FormGroup>
+                                        <FormLabel>Enter your email id</FormLabel>
+                                        <FormControl type="text" name="email" placeholder="example@abc.com"
+                                                     onChange={this.setEmailData}/>
+                                    </FormGroup>
+                                    {this.state.codeSent ? this.renderVerifyCode() : ""}
+                                    <FormGroup>
+                                        <Button
+                                            onClick={this.state.codeSent ? this.verifyEmail : this.sendVerificationCode}>{this.state.codeSent ? "Verify Email" : "Send Verification Code"}</Button>
+                                    </FormGroup>
+                                </Form>
+                                <div className="t-and-c">
+                                    By sign up you accept our <a href="/terms" target="_blank">Terms &amp; Condition</a>.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ModalBody>
+            </>
         );
     }
 
     renderVerifyCode = () => {
         let code = this.state.code;
+        let resendCode = this.state.resendCode;
         return (
-            <FormGroup classname="verify-otp">
-                <FormLabel>
-                    Verify OTP
-                    {this.state.resendCode ? <span className="resend-code" onClick={this.sendVerificationCode}>Resend OTP</span> : null}
+            <FormGroup className="verify-otp">
+                <FormLabel style={{width: "100%"}}>
+                    Verify OTP {resendCode ?
+                    <button className="resend-otp" onClick={this.sendOtp}>Resend OTP</button> : null}
                 </FormLabel>
-                <FormLabel className="code-input">
-                    <FormControl onFocus={this.selectText} type="number" maxLength="1" data-index="0"
-                                 onChange={this.setCodeData} value={code[0]} id="code-input" name="code-input" autoFocus/>
-                    <FormControl onFocus={this.selectText} type="number" maxLength="1" data-index="1"
-                                 onChange={this.setCodeData} value={code[1]} id="code-input" name="code-input"/>
-                    <FormControl onFocus={this.selectText} type="number" maxLength="1" data-index="2"
-                                 onChange={this.setCodeData} value={code[2]} id="code-input" name="code-input"/>
-                    <FormControl onFocus={this.selectText} type="number" maxLength="1" data-index="3"
-                                 onChange={this.setCodeData} value={code[3]} id="code-input" name="code-input"/>
+                <FormLabel className="otp-input">
+                    <FormControl onFocus={this.selectText} type="number" maxLength="1" data-index="0" min="0" max="9"
+                                 onChange={this.setCodeData} value={code[0]} className="code-input" name="otp-input"
+                                 autoFocus/>
+                    <FormControl onFocus={this.selectText} type="number" maxLength="1" data-index="1" min="0" max="9"
+                                 onChange={this.setCodeData} value={code[1]} className="code-input" name="otp-input"/>
+                    <FormControl onFocus={this.selectText} type="number" maxLength="1" data-index="2" min="0" max="9"
+                                 onChange={this.setCodeData} value={code[2]} className="code-input" name="otp-input"/>
+                    <FormControl onFocus={this.selectText} type="number" maxLength="1" data-index="3" min="0" max="9"
+                                 onChange={this.setCodeData} value={code[3]} className="code-input" name="otp-input"/>
                 </FormLabel>
             </FormGroup>
         );
+        // return (
+        //     <FormGroup classname="verify-otp">
+        //         <FormLabel>
+        //             Verify OTP
+        //             {this.state.resendCode ?
+        //                 <span className="resend-code" onClick={this.sendVerificationCode}>Resend OTP</span> : null}
+        //         </FormLabel>
+        //         <FormLabel className="code-input">
+        //             <FormControl onFocus={this.selectText} type="number" maxLength="1" data-index="0"
+        //                          onChange={this.setCodeData} value={code[0]} id="code-input" name="code-input"
+        //                          autoFocus/>
+        //             <FormControl onFocus={this.selectText} type="number" maxLength="1" data-index="1"
+        //                          onChange={this.setCodeData} value={code[1]} id="code-input" name="code-input"/>
+        //             <FormControl onFocus={this.selectText} type="number" maxLength="1" data-index="2"
+        //                          onChange={this.setCodeData} value={code[2]} id="code-input" name="code-input"/>
+        //             <FormControl onFocus={this.selectText} type="number" maxLength="1" data-index="3"
+        //                          onChange={this.setCodeData} value={code[3]} id="code-input" name="code-input"/>
+        //         </FormLabel>
+        //     </FormGroup>
+        // );
     }
 
-    verifyEmail() {
-
+    verifyEmail = () => {
+        ApiAction.verifyCode(this.state.email,parseInt(this.state.code.join(''), 10))
+            .then((response) => {
+                console.log(response);
+                if (response.data.success) {
+                    this.setState({verified: true});
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
-    selectText(event) {
+    selectText = (event) => {
         event.target.select();
     }
 
-    setEmailData(event) {
+    setEmailData = (event) => {
         let email = event.target.value;
         let regExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (regExp.test(String(email).toLowerCase())) {
@@ -98,7 +136,7 @@ class BusinessRegistration extends React.Component {
         }
     }
 
-    setCodeData(event) {
+    setCodeData = (event) => {
         let code = this.state.code;
         let codeIndex = event.target.attributes["data-index"].value;
         if (code[codeIndex].length <= 1) {
@@ -111,16 +149,25 @@ class BusinessRegistration extends React.Component {
             otpElToFocus.focus();
         }
         if (codeIndex == 3) {
-            this.form.submit();
+            this.sendVerificationCode();
         }
         this.setState({otp: code})
     }
 
-    sendVerificationCode() {
-        this.setState({resendCode: true, codeSent: true,},
-            () => {
-                ApiAction.sendOtp(this.state.mobile).then(this.updateData)
+    sendVerificationCode = () => {
+        // this.setState({resendCode: true, codeSent: true});
+        // () => {
+        ApiAction.sendOtp(this.state.mobile)
+            .then((response) => {
+                console.log(response);
+                if (response.data.success) {
+                    this.setState({resendCode: true, codeSent: true});
+                }
+            })
+            .catch((error) => {
+                console.log(error);
             });
+        // });
         console.log("send otp");
     }
 }

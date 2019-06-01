@@ -2,3 +2,9 @@
     text-align:center;
     color:red;
 }
+
+.required:after{
+    content:"*";
+    font-weight:bold;
+    color:red;
+}

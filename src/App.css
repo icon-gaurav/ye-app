@@ -1,34 +1,85 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+    animation: App-logo-spin infinite 20s linear;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    font-family: Poppins;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
+}
+
+.required:after {
+    content: "*";
+    font-weight: bold;
+    color: red;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
+button:focus, button:active {
+    box-shadow: none;
+}
+
+.ye-button {
+    border-radius: 20px;
+    border: none;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.shadow {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.6) !important;
+}
+
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.button:focus {
+    border: none;
+}
+
+
+button:active, button:focus, button:hover {
+    outline: none;
+    box-shadow: none;
+}
+
+.btn:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.opacity-50 {
+    opacity: 0.5;
+}
+
+.opacity-45 {
+    opacity: 0.45;
+}

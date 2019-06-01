@@ -1,0 +1,47 @@
+/*
+* @author Gaurav Kumar
+*/
+.accordion-btn {
+    background-color: lightgrey;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    font-size: 15px;
+    transition: 1s;
+    color: #444;
+}
+
+.accordion-btn.expanded{
+    background-color: gray;
+}
+
+.accordion-btn:active, .accordion-btn:hover, .accordion-btn:visited, .accordion-btn:focus{
+    box-shadow: none;
+    outline:none;
+}
+
+.accordion-btn.expanded:after {
+    content: "-";
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+.accordion-btn.unexpanded:after {
+    content: "+";
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+.accordion-btn:hover{
+    background-color: #555555;
+}
+
+.faq-list{
+    background-color: lightgray;
+}

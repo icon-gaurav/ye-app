@@ -2,8 +2,15 @@
 * @author Gaurav Kumar
 */
 
-.notification-button{
+.notification-button {
     display: flex;
     justify-content: flex-end;
     padding: 10px 10px 10px 10px;
+}
+
+.verify-user {
+    position: sticky;
+    float:right;
+    top: 50%;
+    right: 0%;
 }

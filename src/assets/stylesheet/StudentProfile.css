@@ -1,0 +1,67 @@
+/*
+* @author Gaurav Kumar
+*/
+
+.sticky{
+    position: sticky;
+    top:87px;
+}
+
+.pic-wrapper input{
+    max-width: 100%;
+}
+
+.rating-wrapper{
+    position:absolute;
+    bottom:2%;
+    right:2%;
+}
+
+.info-wrapper{
+    background-color: lightsalmon;
+    padding:0px 20px 0px 20px;
+}
+
+.about-me-title{
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+}
+
+.about-me{
+    border-bottom: 1px solid grey;
+    margin-bottom: 10px;
+}
+
+.info-wrapper .icon-wrapper{
+    width:25px;
+}
+
+.intro-header{
+    padding: 24px 10px 10px 10px;
+    border-bottom:1px solid grey;
+}
+
+/*
+    for experience, education, skills
+ */
+
+.item-wrapper{
+    padding:15px 10px 10px 10px;
+    width: 100%;
+}
+
+.logo-wrapper img{
+    max-width:67px;
+    max-height: 67px;
+    min-width: 60px;
+    min-height: 60px;
+}
+
+.edit-button{
+    position:absolute;
+    top:2%;
+    right:0%;
+}
+
+.item-details{
+}
