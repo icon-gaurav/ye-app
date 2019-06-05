@@ -46,20 +46,25 @@ class OfferList extends Component {
 
     render() {
         let {user} = this.props;
-        let {modalShow, selectedOffer} = this.state;
+        let {modalShow, selectedOffer, modalType} = this.state;
         return (
             <div className="container-fluid">
                 <div className="main-head">
                     <header className="d-inline-block"></header>
-                    {user.role == "ADMIN" ? <div className="d-inline-block">
-                        <button className="btn btn-info" onClick={this.handleModalView}>+ Add</button>
+                    {user.role == "ADMIN" || user.role == "COMPANY" ? <div className="d-inline-block">
+                        <button className="btn btn-info" onClick={() => this.setState({
+                            modalShow: true,
+                            selectedOffer: undefined,
+                            modalType: "Add"
+                        })}>+ Add
+                        </button>
                     </div> : ""}
                 </div>
                 {modalShow ? <OfferModal show={this.state.modalShow} onHide={() => this.setState({modalShow: false})}
-                                         type={"Add"} offer={selectedOffer}/> : ""}
+                                         type={modalType} offer={selectedOffer}/> : ""}
                 {/*{this.renderTopOffers()}*/}
                 {/*{this.renderTable()}*/}
-                {this.renderNewTable()}
+                {this.renderOfferList()}
 
             </div>
         );
@@ -159,12 +164,13 @@ class OfferList extends Component {
         return cell.last;
     }
 
-    renderNewTable() {
+    renderOfferList() {
         let {offerList} = this.state;
         return (
             <div className="offer-list">
                 {offerList.map((offer, key) =>
-                    <Offer offer={offer} key={key} edit={() => this.setState({modalShow: true, selectedOffer: offer})}/>
+                    <Offer offer={offer} key={key}
+                           edit={() => this.setState({modalShow: true, selectedOffer: offer, modalType: "Edit"})}/>
                 )}
             </div>
         );

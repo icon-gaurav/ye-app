@@ -7,7 +7,7 @@ import ModalHeader from "react-bootstrap/ModalHeader";
 import Modal from "react-bootstrap/Modal";
 import ModalBody from "react-bootstrap/ModalBody";
 import Form from "react-bootstrap/Form";
-import {FormControl, FormGroup} from "react-bootstrap";
+import {FormControl, FormGroup, Image} from "react-bootstrap";
 import FormLabel from "react-bootstrap/FormLabel";
 import ModalFooter from "react-bootstrap/ModalFooter";
 import Button from "react-bootstrap/Button";
@@ -15,6 +15,7 @@ import ApiAction from "../../../../actions/ApiAction";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import DatePicker from "react-datepicker/es";
+import Converter from "../../../utilities/Converter";
 
 class PersonalDetailModal extends Component {
     constructor(props) {
@@ -42,13 +43,36 @@ class PersonalDetailModal extends Component {
         }
     }
 
+    componentWillMount() {
+        let {user} = this.props;
+        this.setState({
+            image: Converter.bufferToBase64(user.profilePic),
+            fName: user.name.first,
+            lName: user.name.last,
+            email: user.contact.email,
+            dob: user.dob,
+            gender: user.gender,
+            college: "",
+            course: "",
+            city: user.contact.address.city,
+            state: user.contact.address.state,
+            mobile: user.contact.mobile,
+            twitter: user.social.twitter,
+            linkedIn: user.social.linkedIn,
+            facebook: user.social.facebook,
+            github: user.social.github,
+            aboutMe: user.summary.aboutMe,
+            website: user.summary.website,
+        });
+    }
+
     render() {
         let {image, fName, lName, email, mobile, dob, college, course, city, state, twitter, linkedIn, facebook, github, aboutMe, website} = this.state;
         return (
             <Modal show={this.props.show}
                    onHide={this.props.onHide}
                    animation={true}>
-                <ModalHeader>
+                <ModalHeader closeButton>
                     <Modal.Title>Edit Personal Details</Modal.Title>
                 </ModalHeader>
                 <ModalBody>
@@ -56,8 +80,9 @@ class PersonalDetailModal extends Component {
                         <div className="row">
                             <div className="col-12 text-align-center">
                                 <FormGroup>
-                                    <img src={require("../../../../assets/images/random.jpg")}
-                                         style={{width: "400px"}}/>
+                                    <Image src={image}
+                                           style={{width: "400px"}}/>
+                                    <FormControl type="file" name="profilePic" onChange={this.updateProfilePic}/>
                                 </FormGroup>
                             </div>
                         </div>
@@ -88,7 +113,8 @@ class PersonalDetailModal extends Component {
                                 <FormGroup>
                                     <FormLabel>D.O.B.</FormLabel>
                                     <DatePicker placeholderText="Click to select a date (mm/dd/yyyy)"
-                                                maxDate={new Date()} onChange={this.updateDOB} selected={dob}/>
+                                                maxDate={new Date()} onChange={this.updateDOB}
+                                                selected={new Date(dob)}/>
                                 </FormGroup>
                                 <FormGroup>
                                     <FormLabel>Mobile</FormLabel>
@@ -168,7 +194,12 @@ class PersonalDetailModal extends Component {
 
     updateProfilePic = (event) => {
         if (event.target.name == "profilePic") {
-            this.setState({image: URL.createObjectURL(event.target.files[0]), file: event.target.files[0]});
+            Converter.imageFileToBase64(event.target.files[0])
+                .then((base64) => {
+                    this.setState({
+                        image: base64,
+                    });
+                })
         }
     }
 
@@ -250,21 +281,43 @@ class PersonalDetailModal extends Component {
     }
 
     submitDetails = () => {
-        let reader = new FileReader();
-        let base64 = "";
-        reader.onload = function (event) {
-            let binary = event.target.result;
-            base64 = window.btoa(binary);
-            // ApiAction.uploadProfilePic(base64)
-            //     .then((response) => {
-            //         console.log(response);
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //     });
-        }
-        reader.readAsBinaryString(this.state.file);
-        console.log(base64);
+        let {image, fName, lName, email, mobile, dob, college, course, city, state, twitter, linkedIn, facebook, github, aboutMe, website} = this.state;
+        let updatedStudent = {
+            name: {
+                first: fName,
+                last: lName,
+            },
+            contact: {
+                email: email,
+                mobile: mobile,
+                address: {
+                    city: city,
+                    state: state,
+                }
+            },
+            dob: dob,
+            social: {
+                twitter: twitter,
+                github: github,
+                facebook: facebook,
+                linkedIn: linkedIn,
+            },
+            profilePic: image,
+            summary: {
+                aboutMe: aboutMe,
+                website: website,
+            }
+        };
+        ApiAction.updatePersonalInfo(this.props.user, updatedStudent)
+            .then((response) => {
+                console.log(response)
+                if (response.data.success) {
+                    console.log("success");
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            });
     }
 }
 

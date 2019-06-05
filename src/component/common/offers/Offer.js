@@ -12,6 +12,7 @@ import ModalFooter from "react-bootstrap/ModalFooter";
 import ModalDialog from "react-bootstrap/ModalDialog";
 import {Link} from "react-router-dom";
 import Converter from "../../utilities/Converter";
+import ApiAction from "../../../actions/ApiAction";
 
 class Offer extends Component {
     constructor(props) {
@@ -69,7 +70,7 @@ class Offer extends Component {
                         <div className="container coupon=footer">
                             <div className="text-align-center">
                                 <button className="btn btn-success"
-                                        onClick={() => this.setState({availMessage: !this.state.availMessage})}>Avail
+                                        onClick={this.availOffer}>Avail
                                 </button>
                             </div>
                         </div>
@@ -88,6 +89,20 @@ class Offer extends Component {
         let result = weeks > 0 ? weeks + " Weeks " : "";
         result += days > 0 ? days + " Days " : "";
         return result;
+    }
+
+    availOffer = ()=>{
+        let {offer} = this.props;
+        ApiAction.availOffer(offer)
+            .then((response)=>{
+                console.log(response);
+                if(response.data.success){
+                    this.setState({availMessage: true});
+                }
+            })
+            .catch((error)=>{
+                console.log(error)
+            });
     }
 
     renderModal() {

@@ -14,6 +14,7 @@ import Input from "reactstrap/es/Input";
 import FormFeedback from "reactstrap/es/FormFeedback";
 import ApiAction from "../../../../actions/ApiAction";
 import Converter from '../../../utilities/Converter';
+import Button from "react-bootstrap/Button";
 
 class OfferModal extends Component {
     constructor(props) {
@@ -48,7 +49,7 @@ class OfferModal extends Component {
                 summary: offer.summary,
                 startDate: new Date(offer.duration.start),
                 lastDate: new Date(offer.duration.last),
-                terms: offer.terms,
+                terms: offer.terms.join("\n"),
                 offerImage: offer.offerImage,
                 companyLogo: offer.companyLogo,
                 category: offer.category
@@ -57,12 +58,12 @@ class OfferModal extends Component {
     }
 
     render() {
-
+        let {type} = this.props;
         let {company, title, summary, startDate, lastDate, terms, offerImage, category, offerImageUrl, companyClass, titleClass, termsClass, categoryClass, validated, companyLogoUrl, companyLogo} = this.state;
         return (
             <Modal show={this.props.show} onHide={this.props.onHide}>
                 <ModalHeader closeButton>
-                    <Modal.Title>{this.props.type}</Modal.Title>
+                    <Modal.Title>{type}</Modal.Title>
                 </ModalHeader>
                 <ModalBody>
                     <Form validated={validated}>
@@ -159,7 +160,8 @@ class OfferModal extends Component {
                     </Form>
                 </ModalBody>
                 <ModalFooter>
-                    <button className="btn btn-success" onClick={this.submitDetails}>Add</button>
+                    {type == "Edit" ? <Button onClick={this.deleteOffer}>Delete</Button> : ""}
+                    <button className="btn btn-success" onClick={this.submitDetails}>Save</button>
                 </ModalFooter>
             </Modal>
         );
@@ -174,7 +176,7 @@ class OfferModal extends Component {
 
     updateCompanyLogo = (event) => {
         if (event.target.name == "companyLogo") {
-            Converter.fileToBase64(event.target.files[0])
+            Converter.imageFileToBase64(event.target.files[0])
                 .then((base64) => {
                     this.setState({
                         companyLogoUrl: base64,
@@ -212,7 +214,7 @@ class OfferModal extends Component {
 
     updateOfferImage = (event) => {
         if (event.target.name == "offerImage") {
-            Converter.fileToBase64(event.target.files[0])
+            Converter.imageFileToBase64(event.target.files[0])
                 .then((base64) => {
                     this.setState({
                         offerImageUrl: base64,
@@ -309,21 +311,64 @@ class OfferModal extends Component {
                     start: startDate,
                     last: lastDate,
                 },
-                terms: terms,
+                terms: terms.split("\n"),
                 offerImage: offerImage,
                 companyLogo: companyLogo,
                 category: category.toLowerCase()
             };
-            ApiAction.addOffer(offer)
-                .then((response) => {
-                    if (response.data.success) {
-                        this.props.onHide();
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+            if (this.props.type == "Add") {
+                ApiAction.addOffer(offer)
+                    .then((response) => {
+                        if (response.data.success) {
+                            this.props.onHide();
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            } else if (this.props.type == "Edit") {
+                this.editOffer();
+            }
         }
+    }
+
+    editOffer() {
+        let {company, title, summary, startDate, lastDate, terms, offerImage, category, offerImageUrl, companyLogo} = this.state;
+        let {offer} = this.props;
+        offer.company = company;
+        offer.title = title;
+        offer.summary = summary;
+        offer.duration = {
+            start: startDate,
+            last: lastDate,
+        };
+        offer.terms = terms.split("\n");
+        offer.offerImage = offerImage;
+        offer.companyLogo = companyLogo;
+        offer.category = category.toLowerCase();
+        ApiAction.editOffer(offer)
+            .then((response) => {
+                console.log(response);
+                if (response.data.success) {
+                    this.props.onHide();
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    deleteOffer = () => {
+        ApiAction.deleteOffer(this.props.offer)
+            .then((response) => {
+                console.log(response);
+                if (response.data.success) {
+                    this.props.onHide();
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 }
 

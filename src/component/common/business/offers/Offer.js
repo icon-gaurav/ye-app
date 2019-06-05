@@ -25,6 +25,9 @@ class Offer extends Component {
         let {offer} = this.props;
         offer.offerImage = Converter.bufferToBase64(offer.offerImage);
         offer.companyLogo = Converter.bufferToBase64(offer.companyLogo);
+        offer.duration.start = offer.duration.start.split("T")[0];
+        offer.duration.last = offer.duration.last.split("T")[0];
+        offer.terms = offer.terms;
     }
 
     renderoffer() {
@@ -121,7 +124,7 @@ class Offer extends Component {
                 <div className="col-12 offer-abstract border-danger">
                     <div className="row border position-relative">
                         <div className="category-code"></div>
-                        <div className="col-2 col-lg-1 logo-wrapper">
+                        <div className="col-2 col-lg-1 logo-wrapper align-self-center">
                             <Image className="img-fluid" src={offer.companyLogo} alt="companyLogo"/>
                         </div>
                         <div className="col-8 col-lg-9">
@@ -133,7 +136,7 @@ class Offer extends Component {
                             </div>
                         </div>
                         <div className="col-2 text-align-right align-self-center">
-                            <Button className="m-1" onClick={()=>this.setState({showDetails:!showDetails})}>
+                            <Button className="m-1" onClick={() => this.setState({showDetails: !showDetails})}>
                                 <i className="fas fa-greater-than"></i>
                             </Button>
                             <Button className="m-1" onClick={edit}>
@@ -160,7 +163,11 @@ class Offer extends Component {
                     <div className="row border">
                         <div className="col-9 border">
                             <h6>Terms and Condition</h6>
-                            <p className="opacity-50">{offer.terms}</p>
+                            <ul>
+                                {offer.terms.map((term, key) =>
+                                    <li className="opacity-50" key={key}>{term}</li>
+                                )}
+                            </ul>
                         </div>
                         <div className="col-3 border">
                             <Image className="img-fluid" src={offer.offerImage} alt="Offer Image"/>

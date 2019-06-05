@@ -111,7 +111,7 @@ class AdminDashboard extends React.Component {
                     </div>
                     <div className="nav-label">Setting</div>
                 </Link>
-                <Link to="/logout" onClick={this.logout} className="aside-item align-content-end">
+                <Link to="javascript:void();" onClick={this.logout} className="aside-item align-content-end">
                     <div className="nav-logo">
                         <i className="fas fa-power-off"></i>
                     </div>

@@ -14,6 +14,8 @@ import FormLabel from "react-bootstrap/FormLabel";
 import DatePicker from "react-datepicker/es";
 import Button from "react-bootstrap/Button";
 import PersonalDetailModal from "./PersonalDetailModal";
+import ApiAction from "../../../../actions/ApiAction";
+import Converter from "../../../utilities/Converter";
 
 class StudentProfile extends Component {
     constructor(props) {
@@ -120,7 +122,7 @@ class StudentProfile extends Component {
                 skill: "skill2",
                 level: "Average"
             }];
-        this.setState({experiences: experiences, education: education, certificates: certificates, skills: skills});
+        // this.setState({experiences: experiences, education: education, certificates: certificates, skills: skills});
     }
 
     render() {
@@ -140,24 +142,23 @@ class StudentProfile extends Component {
                 {this.state.experienceModalShow ? this.renderExperienceModal() : ""}
                 {this.state.certificateModalShow ? this.renderCertificateModal() : ""}
                 {this.state.skillModalShow ? this.renderSkillModal() : ""}
-                {this.state.personalDetailModalShow ? <PersonalDetailModal show={this.state.personalDetailModalShow}
-                                                                           onHide={() => this.setState({personalDetailModalShow: false})}/> : ""}
+                {this.state.personalDetailModalShow ? <PersonalDetailModal
+                    user={this.props.user}
+                    show={this.state.personalDetailModalShow}
+                    onHide={() => this.setState({personalDetailModalShow: false})}/> : ""}
             </div>
         );
     }
 
     renderPersonalDetails() {
+        let {user} = this.props;
         return (
             <div className="profile-wrapper-item1 bg-white sticky shadow">
                 <div className="pic-wrapper position-relative">
-                    <input type="image" src={require("../../../../assets/images/random.jpg")}
+                    <input type="image" src={Converter.bufferToBase64(user.profilePic)}
                            onClick={() => this.setState({personalDetailModalShow: true})}/>
                     <div className="rating-wrapper">
-                        <span><i className="fa fa-star" id="star1" aria-hidden="true"></i></span>
-                        <span><i className="fa fa-star" id="star2" aria-hidden="true"></i></span>
-                        <span><i className="fa fa-star" id="star3" aria-hidden="true"></i></span>
-                        <span><i className="fa fa-star" id="star4" aria-hidden="true"></i></span>
-                        <span><i className="fa fa-star-half-o" id="star5" aria-hidden="true"></i></span>
+                        {this.renderRating()}
                     </div>
                     <div className="edit-button">
 
@@ -165,18 +166,16 @@ class StudentProfile extends Component {
                 </div>
                 <div className="info-wrapper">
                     <div align="center">
-                        <h5 className="user-name">Young Engine</h5>
-                        <h6 className="user-city">New Delhi</h6>
-                        <h6 className="user-country">India</h6>
+                        <h5 className="user-name">{user.name.first ? user.name.first + " " + user.name.last : user.name}</h5>
+                        <h6 className="user-city">{user.contact.address.city}</h6>
+                        <h6 className="user-country">{user.contact.address.country}</h6>
                     </div>
                     <div className="about-me">
                         <div className="about-me-title text-align-center">
                             <span>About Me</span>
                         </div>
                         <div className="text-left">
-                            <p className="overflow-hidden">However after loading the components the body style is not
-                                present in the page.It shows
-                                ?</p>
+                            <p className="overflow-hidden">{user.summary.aboutMe}</p>
                         </div>
 
                     </div>
@@ -185,41 +184,64 @@ class StudentProfile extends Component {
                             <div className="d-inline-block icon-wrapper">
                                 <i className="fa fa-phone" aria-hidden="true"></i>
                             </div>
-                            <div className="d-inline-block">1230654789</div>
+                            <div className="d-inline-block">{user.contact.mobile}</div>
                         </div>
                         <div className="email-wrapper">
                             <div className="d-inline-block icon-wrapper">
                                 <i className="fa fa-envelope" aria-hidden="true"></i>
                             </div>
-                            <div className="d-inline-block"><p>youngengine@youngengine.com</p></div>
+                            <div className="d-inline-block"><p>{user.contact.email}</p></div>
                         </div>
-                        <div className="social-wrapper">
-                            <div align="center" style={{marginBottom: 20}}>
-                                <a href="#">
-                                    <i className="fa fa-facebook-square fa-2x m-1" style={{color: "#00acee"}}
-                                       aria-hidden="true"></i>
-                                </a>
-                                <a href="#">
-                                    <i className="fa fa-twitter-square fa-2x m-1" style={{color: "#00acee"}}
-                                       aria-hidden="true"></i>
-                                </a>
-                                <a href="#">
-                                    <i className="fa fa-linkedin-square fa-2x m-1" style={{color: "#00acee"}}
-                                       aria-hidden="true"></i>
-                                </a>
-                                <a href="#">
-                                    <i className="fa fa-github-square fa-2x m-1" style={{color: "#00acee"}}
-                                       aria-hidden="true"></i>
-                                </a>
+                        {user.social ?
+                            <div className="social-wrapper">
+                                <div align="center" style={{marginBottom: 20}}>
+                                    <a href={user.social.facebook}>
+                                        <i className="fa fa-facebook-square fa-2x m-1" style={{color: "#00acee"}}
+                                           aria-hidden="true"></i>
+                                    </a>
+                                    <a href={user.social.twitter}>
+                                        <i className="fa fa-twitter-square fa-2x m-1" style={{color: "#00acee"}}
+                                           aria-hidden="true"></i>
+                                    </a>
+                                    <a href={user.social.linkedIn}>
+                                        <i className="fa fa-linkedin-square fa-2x m-1" style={{color: "#00acee"}}
+                                           aria-hidden="true"></i>
+                                    </a>
+                                    <a href={user.social.github}>
+                                        <i className="fa fa-github-square fa-2x m-1" style={{color: "#00acee"}}
+                                           aria-hidden="true"></i>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
+                            : ""}
                     </div>
                 </div>
             </div>
         );
     }
 
+    renderRating = () => {
+        let {rating} = this.props.user;
+        let cumulativeRating = 0;
+        rating.map((rate) => {
+            cumulativeRating += rate;
+        });
+        cumulativeRating = Math.floor(cumulativeRating/rating.length);
+        let items = [];
+        let i = 0;
+        while (i<5) {
+            if(i<=cumulativeRating) {
+                items.push(<span><i className="fa fa-star" id="star1" aria-hidden="true"></i></span>);
+            }else{
+                items.push( <span><i className="fa fa-star-o" id="star1" aria-hidden="true"></i></span>);
+            }
+            i++;
+        }
+        return items;
+    }
+
     renderDetails() {
+        let {user} = this.props;
         return (
             <div className="row">
                 <div className="col-12 shadow mb-4">
@@ -257,15 +279,16 @@ class StudentProfile extends Component {
                             </div>
                         </div>
                         <div className="intro-item">
-                            {this.state.experiences.map((exp, key) => {
+                            {user.experience.map((exp, key) => {
                                 return (
                                     <div className="item-wrapper" key={key}>
                                         <div className="position-relative">
                                             <div className="row">
                                                 <div className="logo-wrapper col-2 text-align-center">
                                                     <a href="#">
-                                                        <img src={require("../../../../assets/images/icons/google-plus.svg")}
-                                                             className="image-cover-rect"/>
+                                                        <img
+                                                            src={require("../../../../assets/images/icons/google-plus.svg")}
+                                                            className="image-cover-rect"/>
                                                     </a>
                                                 </div>
                                                 <div className="col-10 px-5">
@@ -273,9 +296,9 @@ class StudentProfile extends Component {
                                                         <div>{exp.title}</div>
                                                         <div>{exp.organization}</div>
                                                         <div className="duration">
-                                                            {exp.duration.start.toLocaleDateString() +
+                                                            {exp.duration.start +
                                                             " -- " +
-                                                            exp.duration.end.toLocaleDateString()}
+                                                            exp.duration.end}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -340,15 +363,16 @@ class StudentProfile extends Component {
                             </div>
                         </div>
                         <div className="intro-item">
-                            {this.state.education.map((edu, key) => {
+                            {user.education.map((edu, key) => {
                                 return (
                                     <div className="item-wrapper" key={key}>
                                         <div className="position-relative">
                                             <div className="row">
                                                 <div className="logo-wrapper col-2 text-align-center">
                                                     <a href="#">
-                                                        <img src={require("../../../../assets/images/icons/google-plus.svg")}
-                                                             className="image-cover-rect"/>
+                                                        <img
+                                                            src={require("../../../../assets/images/icons/google-plus.svg")}
+                                                            className="image-cover-rect"/>
                                                     </a>
                                                 </div>
                                                 <div className="col-10 px-5">
@@ -356,7 +380,7 @@ class StudentProfile extends Component {
                                                         <div>{edu.degree}</div>
                                                         <div>{edu.school}</div>
                                                         <div className="duration">
-                                                            <span>{edu.duration.start.toLocaleDateString() + " -- " + edu.duration.end.toLocaleDateString()}</span>
+                                                            <span>{edu.duration.start + " -- " + edu.duration.end}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -422,15 +446,16 @@ class StudentProfile extends Component {
                             </div>
                         </div>
                         <div className="intro-item">
-                            {this.state.certificates.map((cer, key) => {
+                            {user.certificates.map((cer, key) => {
                                 return (
                                     <div className="item-wrapper" key={key}>
                                         <div className="position-relative">
                                             <div className="row">
                                                 <div className="logo-wrapper col-2 text-align-center">
                                                     <a href="#">
-                                                        <img src={require("../../../../assets/images/icons/google-plus.svg")}
-                                                             className="image-cover-rect"/>
+                                                        <img
+                                                            src={require("../../../../assets/images/icons/google-plus.svg")}
+                                                            className="image-cover-rect"/>
                                                     </a>
                                                 </div>
                                                 <div className="col-10 px-5">
@@ -438,9 +463,9 @@ class StudentProfile extends Component {
                                                         <div>{cer.name}</div>
                                                         <div>{cer.organization}</div>
                                                         <div className="duration">
-                                                            <span>{cer.duration.start.toLocaleDateString()
+                                                            <span>{cer.duration.start
                                                             + " -- " +
-                                                            cer.duration.end.toLocaleDateString()}</span>
+                                                            cer.duration.end}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -499,7 +524,7 @@ class StudentProfile extends Component {
                             <div className="item-wrapper">
                                 <div className="skill-list">
                                     <ul>
-                                        {this.state.skills.map((skill, key) => {
+                                        {user.skills.map((skill, key) => {
                                             return (
                                                 <li key={key}>
                                                     <div className="position-relative">
@@ -605,12 +630,12 @@ class StudentProfile extends Component {
                             <FormLabel className="d-block">Duration</FormLabel>
                             <DatePicker placeholderText="Start Date" name="start-date"
                                         className="border-top-0 border-right-0 border-left-0 mb-2"
-                                        maxDate={new Date()} selected={exp.duration.start}
+                                        maxDate={new Date()} selected={new Date(exp.duration.start)}
                                         onChange={this.updateExpDurationStart}/>
                             <div className="d-inline p-1">to</div>
                             <DatePicker placeholderText="End date" name="end-date"
                                         className="border-top-0 border-right-0 border-left-0 mb-2"
-                                        maxDate={new Date()} selected={exp.duration.end}
+                                        maxDate={new Date()} selected={new Date(exp.duration.end)}
                                         onChange={this.updateExpDurationEnd}/>
                         </FormGroup>
                         <FormGroup>
@@ -686,21 +711,45 @@ class StudentProfile extends Component {
     }
 
     deleteExperience = () => {
-        let {experiences, key} = this.state;
-        experiences.splice(key, 1);
-        this.setState({experienceModalShow: false, experiences: experiences});
+        let {experiences, key, tempExperience} = this.state;
+        ApiAction.deleteExperience(this.props.user, tempExperience)
+            .then((response) => {
+                console.log(response)
+                if (response.data.success) {
+                    console.log("success")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     editExperience = () => {
         let {experiences, key, tempExperience} = this.state;
-        experiences[key] = tempExperience;
-        this.setState({experienceModalShow: false, experiences: experiences});
+        ApiAction.updateExperience(this.props.user, tempExperience)
+            .then((response) => {
+                console.log(response)
+                if (response.data.success) {
+                    console.log("success")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     addExperience = () => {
         let {experiences, tempExperience} = this.state;
-        experiences.push(tempExperience);
-        this.setState({experienceModalShow: false, experiences: experiences});
+        ApiAction.addExperience(this.props.user, tempExperience)
+            .then((response) => {
+                console.log(response)
+                if (response.data.success) {
+                    console.log("success")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     renderEducationModal() {
@@ -737,11 +786,11 @@ class StudentProfile extends Component {
                             <FormLabel className="d-block">Duration</FormLabel>
                             <DatePicker placeholderText="From" name="start-date"
                                         className="border-top-0 border-right-0 border-left-0 mb-2"
-                                        selected={edu.duration.start} onChange={this.updateEduDurationStart}/>
+                                        selected={new Date(edu.duration.start)} onChange={this.updateEduDurationStart}/>
                             <div className="d-inline p-1">to</div>
                             <DatePicker placeholderText="To" name="end-date"
                                         className="border-top-0 border-right-0 border-left-0 mb-2"
-                                        selected={edu.duration.end} onChange={this.updateEduDurationEnd}/>
+                                        selected={new Date(edu.duration.end)} onChange={this.updateEduDurationEnd}/>
                         </FormGroup>
                         <FormGroup>
                             <FormLabel>Grades</FormLabel>
@@ -822,21 +871,45 @@ class StudentProfile extends Component {
     }
 
     deleteEducation = () => {
-        let {education, key} = this.state;
-        education.splice(key, 1);
-        this.setState({educationModalShow: false, education: education});
+        let {education, tempEducation} = this.state;
+        ApiAction.deleteEducation(this.props.user, tempEducation)
+            .then((response) => {
+                console.log(response)
+                if (response.data.success) {
+                    console.log("success")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     editEducation = () => {
         let {education, key, tempEducation} = this.state;
-        education[key] = tempEducation;
-        this.setState({educationModalShow: false, education: education});
+        ApiAction.updateEducation(this.props.user, tempEducation)
+            .then((response) => {
+                console.log(response)
+                if (response.data.success) {
+                    console.log("success")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     addEducation = () => {
         let {education, tempEducation} = this.state;
-        education.push(tempEducation);
-        this.setState({educationModalShow: false, education: education});
+        ApiAction.addEducation(this.props.user, tempEducation)
+            .then((response) => {
+                console.log(response)
+                if (response.data.success) {
+                    console.log("success")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     renderCertificateModal() {
@@ -870,11 +943,11 @@ class StudentProfile extends Component {
                             <DatePicker type="date" name="start-date"
                                         className="form-control d-inline border-top-0 border-right-0 border-left-0 mb-2"
                                         placeholder="From" style={{width: "45%"}}
-                                        selected={cer.duration.start} onChange={this.updateCerDurationStart}/>
+                                        selected={new Date(cer.duration.start)} onChange={this.updateCerDurationStart}/>
                             <DatePicker type="date" name="end-date"
                                         className="form-control d-inline border-top-0 border-right-0 border-left-0 mb-2"
                                         placeholder="To" style={{width: "45%", float: "right"}}
-                                        selected={cer.duration.end} onChange={this.updateCerDurationEnd}/>
+                                        selected={new Date(cer.duration.end)} onChange={this.updateCerDurationEnd}/>
                         </FormGroup>
                         <FormGroup>
                             <FormLabel>Credential ID</FormLabel>
@@ -947,21 +1020,45 @@ class StudentProfile extends Component {
     }
 
     deleteCertificate = () => {
-        let {certificates, key} = this.state;
-        certificates.splice(key, 1);
-        this.setState({certificateModalShow: false, certificates: certificates});
+        let {certificates, key, tempCertificate} = this.state;
+        ApiAction.deleteCertificate(this.props.user, tempCertificate)
+            .then((response) => {
+                console.log(response)
+                if (response.data.success) {
+                    console.log("success")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     editCertificate = () => {
         let {certificates, key, tempCertificate} = this.state;
-        certificates[key] = tempCertificate;
-        this.setState({certificateModalShow: false, certificates: certificates});
+        ApiAction.updateCertificate(this.props.user, tempCertificate)
+            .then((response) => {
+                console.log(response)
+                if (response.data.success) {
+                    console.log("success")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     addCertificate = () => {
         let {certificates, key, tempCertificate} = this.state;
-        certificates.push(tempCertificate);
-        this.setState({certificateModalShow: false, certificates: certificates});
+        ApiAction.addCertificate(this.props.user, tempCertificate)
+            .then((response) => {
+                console.log(response)
+                if (response.data.success) {
+                    console.log("success")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     renderSkillModal() {
@@ -1019,21 +1116,45 @@ class StudentProfile extends Component {
     }
 
     deleteSkill = () => {
-        let {skills, key} = this.state;
-        skills.splice(key, 1);
-        this.setState({skillModalShow: false, skills: skills});
+        let {skills, key, tempSkill} = this.state;
+        ApiAction.deleteSkill(this.props.user, tempSkill)
+            .then((response) => {
+                console.log(response)
+                if (response.data.success) {
+                    console.log("success")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     editSkill = () => {
         let {skills, key, tempSkill} = this.state;
-        skills[key] = tempSkill;
-        this.setState({skillModalShow: false, skills: skills});
+        ApiAction.updateSkill(this.props.user, tempSkill)
+            .then((response) => {
+                console.log(response)
+                if (response.data.success) {
+                    console.log("success")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     addSkill = () => {
         let {skills, tempSkill} = this.state;
-        skills.push(tempSkill);
-        this.setState({skillModalShow: false, skills: skills});
+        ApiAction.addSkill(this.props.user, tempSkill)
+            .then((response) => {
+                console.log(response)
+                if (response.data.success) {
+                    console.log("success")
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 }
 

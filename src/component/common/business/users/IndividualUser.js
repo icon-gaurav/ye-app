@@ -11,6 +11,8 @@ import ModalFooter from "react-bootstrap/ModalFooter";
 import {FormControl} from "react-bootstrap";
 import FormLabel from "react-bootstrap/FormLabel";
 import FormGroup from "react-bootstrap/es/FormGroup";
+import ApiAction from "../../../../actions/ApiAction";
+import Converter from "../../../utilities/Converter";
 
 class IndividualUser extends Component {
     constructor(props) {
@@ -18,17 +20,41 @@ class IndividualUser extends Component {
         this.state = {
             fullImage: false,
             image: "",
+            uploads: [],
+            selectedDocument: null,
+            userId: this.props.match.params.userId,
         }
+        console.log(this.props);
+    }
+
+    componentWillMount() {
+        let {match} = this.props;
+        if (match.isExact) {
+            let userId = match.params.userId;
+            ApiAction.getUploadsForVerification(userId)
+                .then((response) => {
+                    console.log(response);
+                    if (response.data.success) {
+                        this.setState({uploads: response.data.uploads});
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                });
+        }
+
+
     }
 
     render() {
+        let {uploads} = this.state;
         return (
             <div className="shadow">
                 <div className="container-fluid">
                     <div className="row p-2">
                         <div className="col-2">
                             <img src={require("../../../../assets/images/fitness.jpg")}
-                                 className="image-cover-circle rounded-circle"
+                                 className="border rounded-circle"
                                  style={{width: "100px", height: "100px"}}/>
                         </div>
                         <div className="col-10">
@@ -62,29 +88,30 @@ class IndividualUser extends Component {
                     <hr/>
                     <div>
                         <div className="col-12"><h5>UPLOADED FILES</h5></div>
-                        <div className="col-12">
-                            <div className="row">
-                                <div className="col-2">
-                                    <div className="verify-upload text-align-center">
-                                        <input type="image" src={require("../../../../assets/images/fitness.jpg")}
-                                               style={{width: "100px", height: "80px"}}
-                                               onClick={this.openFullImage}/>
+                        {uploads.map((upload, key) => {
+                            return (
+                                <div className="col-12" key={key}>
+                                    <div className="row">
+                                        <div className="col-2">
+                                            <div className="verify-upload text-align-center">
+                                                <input type="image"
+                                                       src={Converter.bufferToBase64(upload.document)}
+                                                       style={{width: "100px", height: "80px"}}
+                                                       onClick={(event) => this.openFullImage(event, Object.assign({}, upload))}/>
+                                            </div>
+                                        </div>
+                                        <div className="col-10">
+                                            <div>
+                                                <h6>{upload.status}</h6>
+                                            </div>
+                                            <div className="opacity-50">
+                                                <p>{upload.remark}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="col-10">
-                                    <div>
-                                        <h6>Verified/Accepted/Rejected</h6>
-                                    </div>
-                                    <div className="opacity-50">
-                                        <p>You can see it in action: http://jsfiddle.net/8WA3k/1/
-
-                                            If you want to have the button on the same line as the Text, you can achieve
-                                            it
-                                            by doing this:</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            );
+                        })}
                     </div>
                 </div>
                 {this.state.fullImage ? this.renderFullImage() : ""}
@@ -92,12 +119,12 @@ class IndividualUser extends Component {
         );
     }
 
-    openFullImage = (event) => {
-        console.log(event.target);
-        this.setState({fullImage: true, image: event.target.src});
+    openFullImage = (event, doc) => {
+        this.setState({fullImage: true, selectedDocument: doc});
     }
 
     renderFullImage() {
+        let {selectedDocument} = this.state;
         return (
             <Modal show={this.state.fullImage} onHide={() => this.setState({fullImage: false})}>
                 <ModalHeader closeButton>
@@ -106,22 +133,67 @@ class IndividualUser extends Component {
                 <ModalBody>
                     <div className="container-fluid">
                         <div>
-                            <img src={this.state.image} width="100%"/>
+                            <img src={Converter.bufferToBase64(selectedDocument.document)} width="100%"/>
                         </div>
                         <div>
                             <FormGroup>
                                 <FormLabel>Remark</FormLabel>
-                                <FormControl type="text" as="textarea" placeholder="Remark"/>
+                                <FormControl type="text" as="textarea" placeholder="Remark" name="remark"
+                                             value={selectedDocument.remark}
+                                             onChange={this.updateRemark}/>
                             </FormGroup>
                         </div>
-                        <div className="d-flex">
-                            <Button className="btn-danger float-left mr-auto">Reject</Button>
-                            <Button className="btn-success">Accept</Button>
-                        </div>
+                        {selectedDocument.status == "ACCEPTED" ? "" :
+                            <div className="d-flex">
+                                <Button className="btn-danger float-left mr-auto"
+                                        onClick={this.rejectDocument}>Reject</Button>
+                                <Button className="btn-success" onClick={this.acceptDocument}>Accept</Button>
+                            </div>
+                        }
+
                     </div>
                 </ModalBody>
             </Modal>
         );
+    }
+
+    updateRemark = (event) => {
+        if (event.target.name == "remark") {
+            let {selectedDocument} = this.state;
+            selectedDocument.remark = event.target.value;
+            this.setState({selectedDocument: selectedDocument});
+        }
+    }
+
+    rejectDocument = () => {
+        let {selectedDocument, userId} = this.state;
+        selectedDocument.status = "REJECTED";
+        ApiAction.verifyDocument(userId, selectedDocument)
+            .then((response) => {
+                console.log(response)
+                if (response.data.success) {
+
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    acceptDocument = () => {
+        let {selectedDocument, userId} = this.state;
+        selectedDocument.document = null;
+        selectedDocument.status = "ACCEPTED";
+        ApiAction.verifyDocument(userId, selectedDocument)
+            .then((response) => {
+                console.log(response)
+                if (response.data.success) {
+
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 }
 

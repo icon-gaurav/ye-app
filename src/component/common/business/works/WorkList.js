@@ -21,7 +21,7 @@ class WorkList extends Component {
     }
 
     componentWillMount() {
-        // ApiAction.fetchWork(this.props.work)
+        // ApiAction.getTypeWorks(this.props.work)
         //     .then((response) => {
         //         if (response.data.success) {
         //             this.setState({workList: response.data.workList});

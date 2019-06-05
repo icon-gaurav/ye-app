@@ -12,6 +12,9 @@ import StudentProfile from "./profile/StudentProfile";
 import HelpCenter from "../HelpCenter";
 import ApiAction from "../../../actions/ApiAction";
 import CategoryOffers from "../offers/CategoryOffers";
+import Notification from "../notification/Notification";
+import NotificationList from "../notification/NotificationList";
+import Verification from "./settings/Verification";
 
 class StudentDashboard extends React.Component {
 
@@ -21,12 +24,11 @@ class StudentDashboard extends React.Component {
             redirect: false,
             leftMenuStyle: {marginLeft: "0px"}
         };
-        console.log(this.props);
     }
 
     componentWillMount() {
         if (window.innerWidth < 576) {
-            this.setState({leftMenuStyle: {marginLeft: "0px"}, opacity:{opacity:0.5}});
+            this.setState({leftMenuStyle: {marginLeft: "0px"}, opacity: {opacity: 0.5}});
         } else {
             this.setState({leftMenuStyle: {marginLeft: "113px"}});
         }
@@ -58,8 +60,8 @@ class StudentDashboard extends React.Component {
                 <div className="main-app" style={this.props.leftMenu ? this.state.leftMenuStyle : {marginLeft: "0px"}}>
                     {/*{this.state.redirect ? <Redirect to="/"/> : ""}*/}
                     <header className="main-head"></header>
-                    <Route exact path="/insights" component={Insights}/>
-                    <Route exact path="/profile" component={StudentProfile}/>
+                    <Route exact path="/insights" component={() => <Insights user={this.props.user}/>}/>
+                    <Route exact path="/profile" component={() => <StudentProfile user={this.props.user}/>}/>
                     <Route exact path="/internships"
                            component={() => <WorkList work={"internship"} user={this.props.user}/>}/>
 
@@ -67,8 +69,11 @@ class StudentDashboard extends React.Component {
                     <Route exact path="/missions"
                            component={() => <WorkList work={"mission"} user={this.props.user}/>}/>
                     <Route exact path="/offers" component={() => <OfferList user={this.props.user}/>}/>
-                    <Route exact path="/offers/:category" component={(props) => <CategoryOffers user={this.props.user} {...props}/>}/>
-                    <Route exct path="/help-center" component={HelpCenter}/>
+                    <Route exact path="/offers/:category"
+                           component={(props) => <CategoryOffers user={this.props.user} {...props}/>}/>
+                    <Route exact path="/help-center" component={HelpCenter}/>
+                    <Route exact path="/notifications" component={() => <NotificationList user={this.props.user}/>}/>
+                    <Route exact path="/settings" component={() => <Verification user={this.props.user}/>}/>
 
                 </div>
             </BrowserRouter>

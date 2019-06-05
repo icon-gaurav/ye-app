@@ -5,7 +5,7 @@
 import ApiAction from "../../actions/ApiAction";
 
 class Converter {
-    static fileToBase64 = (file) => {
+    static imageFileToBase64 = (file) => {
         let base64 = new Promise((resolve) => {
             let reader = new FileReader();
             reader.onload = (event) => resolve(event.target.result);

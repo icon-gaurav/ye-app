@@ -19,21 +19,63 @@ class StudentInsight extends Component {
             featured: [],
             ongoing: [],
             fullImage: false,
-            image: ""
+            image: "",
+            completedInternships: [],
+            completedMissions: [],
+            topInternships: [],
+            topMissions: []
         }
     }
 
     componentWillMount() {
-        ApiAction.fetchWork("featured")
+        let {user} = this.props;
+        let {topInternships, topMissions} = this.state;
+        console.log(user)
+        ApiAction.getTypeWorks("featured")
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    this.setState({featured: response.data.featuredWork});
+                    let featured = response.data.featuredWork;
+                    featured.map((feat, key) => {
+                        let work = feat.work;
+                        if (work.mode == "internship") {
+                            topInternships.push(work);
+                        } else if (work.mode == "mission") {
+                            topMissions.push(work);
+                        }
+                    });
+                    this.setState({topInternships: topInternships, topMissions: topMissions});
                 }
             })
             .catch((error) => {
                 console.log(error);
             });
+
+        ApiAction.getCompletedWork(user)
+            .then((response) => {
+                console.log(response)
+                if (response.data.success) {
+                    let completed = response.data.workList;
+                    let {completedInternships, completedMissions} = this.state;
+                    completed.map((work) => {
+                        if (work.mode == "internship") {
+                            completedInternships.push(work);
+                        } else if (work.mode == "missions") {
+                            completedMissions.push(work);
+                        }
+                    });
+                    this.setState({completedInternships: completedInternships, completedMissions: completedMissions});
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+    }
+
+    componentDidMount() {
+        document.title = "Insights";
+        console.log(document.title)
     }
 
     render() {
@@ -52,6 +94,7 @@ class StudentInsight extends Component {
     }
 
     renderCompletedActivity() {
+        let {completedInternships,completedMissions} = this.state;
         return (
             <div className="insights">
                 <div className="insight row">
@@ -59,7 +102,7 @@ class StudentInsight extends Component {
                         <div className="card">
                             <div className="card-body">
                                 <div className="card-title">
-                                    <h6>Projects Completed</h6>
+                                    <h6>Internships Completed</h6>
                                 </div>
                                 <div className="row center-align">
                                     <h2 className="col-6">
@@ -67,7 +110,7 @@ class StudentInsight extends Component {
                                              height="50px"/>
                                     </h2>
                                     <div className="col-6 quantity">
-                                        <h2>2014</h2>
+                                        <h2>{completedInternships.length}</h2>
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +128,7 @@ class StudentInsight extends Component {
                                              height="50px"/>
                                     </h2>
                                     <div className="col-6 quantity">
-                                        <h2>2014</h2>
+                                        <h2>{completedMissions.length}</h2>
                                     </div>
                                 </div>
                             </div>
@@ -97,39 +140,49 @@ class StudentInsight extends Component {
     }
 
     renderFeatured() {
+        let {topMissions, topInternships} = this.state;
         return (
             <div className="p-2 ">
                 <div className="row mb-2">
                     <div className="col-12">
                         <div className="background-wraper top-internship-wraper">
                             <div align="left"><a href="#"><h4>Top Internship</h4></a></div>
-                            <div className="row top-internship-wrapper-item bg-white m-1" align="left">
-                                <div className="col-10 ">
-                                    <div className="">
-                                        <div className="row">
-                                            <div className="col-sm-6 col-12 p-1"><i className="fa fa-free-code-camp"
-                                                                                    aria-hidden="true"></i><span
-                                                className="span">Profile</span></div>
-                                            <div className="col-12 col-sm-6 d-sm-block p-1"><span
-                                                className="span">Salary</span><i className="fa fa-inr"
-                                                                                 aria-hidden="true"></i><span
-                                                className="span">__</span></div>
-                                            <div className="col-12 col-sm-6 d-sm-block p-1"><i
-                                                className="fa fa-map-marker" aria-hidden="true"></i><span
-                                                className="span"> Location</span></div>
-                                            <div className="col-12 col-sm-6 p-1"><i className="fa fa-hourglass-half"
-                                                                                    aria-hidden="true"></i><span
-                                                className="span"> Duration</span></div>
+                            {topInternships.map((work, key) => {
+                                return (
+                                    <div className="row top-internship-wrapper-item bg-white m-1" align="left"
+                                         key={key}>
+                                        <div className="col-10 ">
+                                            <div className="">
+
+                                                <div className="row">
+                                                    <div className="col-sm-6 col-12 p-1"><i
+                                                        className="fa fa-free-code-camp"
+                                                        aria-hidden="true"></i><span
+                                                        className="span">{work.profile}</span></div>
+                                                    <div className="col-12 col-sm-6 d-sm-block p-1"><span
+                                                        className="span">Salary</span><i className="fa fa-inr"
+                                                                                         aria-hidden="true"></i><span
+                                                        className="span">{work.stipend}</span></div>
+                                                    <div className="col-12 col-sm-6 d-sm-block p-1"><i
+                                                        className="fa fa-map-marker" aria-hidden="true"></i><span
+                                                        className="span"> {work.location}</span></div>
+                                                    <div className="col-12 col-sm-6 p-1"><i
+                                                        className="fa fa-hourglass-half"
+                                                        aria-hidden="true"></i><span
+                                                        className="span"> {work.duration.weeks + " weeks"}</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-2">
+                                            <div className="pt-3"><a href="#"><i
+                                                className="fa fa-angle-double-right fa-2x"
+                                                aria-hidden="true"
+                                                style={{color: "rgb(65, 234, 212)"}}></i></a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="col-2">
-                                    <div className="pt-3"><a href="#"><i className="fa fa-angle-double-right fa-2x"
-                                                                         aria-hidden="true"
-                                                                         style={{color: "rgb(65, 234, 212)"}}></i></a>
-                                    </div>
-                                </div>
-                            </div>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
@@ -141,35 +194,39 @@ class StudentInsight extends Component {
                                     <h4>Top Missions</h4>
                                 </a>
                             </div>
-                            <div className="row top-internship-wraper-item m-1 bg-white" align="left">
-                                <div className="col-10">
-                                    <div className="p-2">
-                                        <div className="row">
-                                            <div className="col-sm-6 col-12 p-1">
-                                                <i className="fa fa-eercast" aria-hidden="true"></i>
-                                                <span className="span">Task</span>
+                            {topMissions.map((work, key) => {
+                                return (
+                                    <div className="row top-internship-wraper-item m-1 bg-white" align="left" key={key}>
+                                        <div className="col-10">
+                                            <div className="p-2">
+                                                <div className="row">
+                                                    <div className="col-sm-6 col-12 p-1">
+                                                        <i className="fa fa-eercast" aria-hidden="true"></i>
+                                                        <span className="span">{work.profile}</span>
+                                                    </div>
+                                                    <div className="col-sm-6 col-12 d-sm-block d-none p-1">
+                                                        <span className="span">&nbsp;</span>
+                                                        <i className="fa fa-inr" aria-hidden="true"></i>
+                                                        <span>{work.stipend}</span>
+                                                    </div>
+                                                    <div className="col-12 col-sm-6 p-1">
+                                                        <i className="fa fa-hourglass-half" aria-hidden="true"></i>
+                                                        <span className="span">{work.duration.weeks + " weeks"}</span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className="col-sm-6 col-12 d-sm-block d-none p-1">
-                                                <span className="span">Earning&nbsp;</span>
-                                                <i className="fa fa-inr" aria-hidden="true"></i>
-                                                <span>__</span>
-                                            </div>
-                                            <div className="col-12 col-sm-6 p-1">
-                                                <i className="fa fa-hourglass-half" aria-hidden="true"></i>
-                                                <span className="span">Duration</span>
+                                        </div>
+                                        <div className="col-2 p-2">
+                                            <div className="pt-3">
+                                                <a href="#">
+                                                    <i className="fa fa-angle-double-right fa-2x" aria-hidden="true"
+                                                       style={{color: "#41ead4"}}></i>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="col-2 p-2">
-                                    <div className="pt-3">
-                                        <a href="#">
-                                            <i className="fa fa-angle-double-right fa-2x" aria-hidden="true"
-                                               style={{color: "#41ead4"}}></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
