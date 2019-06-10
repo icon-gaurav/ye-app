@@ -13,3 +13,11 @@
 .brand-logo{
     margin-left: 15px;
 }
+
+.navbar{
+    height:50px;
+}
+
+.nav-link{
+    padding-bottom:0px;
+}

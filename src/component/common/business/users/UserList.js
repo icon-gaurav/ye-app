@@ -8,14 +8,16 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist/react-bootstrap-table.min.css'
 import {Link} from "react-router-dom";
 import ApiAction from "../../../../actions/ApiAction";
-import {Button, FormCheck, FormGroup} from "react-bootstrap";
+import {Button, FormCheck, FormGroup, ModalBody} from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
 
 class UserList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             notificationDialog: false,
-            users: [],
+            students: [],
+            companies: [],
             specificUser: null,
             message: "",
             confirmation: false,
@@ -139,9 +141,7 @@ class UserList extends Component {
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    let {users} = this.state;
-                    users = users.concat(response.data.studentList);
-                    this.setState({users: users})
+                    this.setState({students: response.data.studentList})
                 }
             })
             .catch((error) => {
@@ -152,9 +152,7 @@ class UserList extends Component {
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    let {users} = this.state;
-                    users = users.concat(response.data.companyList);
-                    this.setState({users: users});
+                    this.setState({companies: response.data.companyList});
                 }
             })
             .catch((error) => {
@@ -183,8 +181,7 @@ class UserList extends Component {
                 return null;
             },
         };
-        let {users, notificationDialog, specificUser} = this.state;
-        console.log(users)
+        let {students, companies, notificationDialog, specificUser} = this.state;
         return (
             <div className="container-fluid">
                 <div className="notification-button">
@@ -199,7 +196,23 @@ class UserList extends Component {
                 {this.state.notificationDialog ? this.renderNotification() : ""}
                 {specificUser ? this.renderVerifyUser() : ""}
                 <div className="table-responsive">
-                    <BootstrapTable data={users} striped hover version='4'
+                    <BootstrapTable data={students} striped hover version='4'
+                                    selectRow={selectRowPropForNotification}>
+                        <TableHeaderColumn isKey dataField="_id" hidden={true}>ID</TableHeaderColumn>
+                        <TableHeaderColumn dataField="username">Username</TableHeaderColumn>
+                        <TableHeaderColumn dataField="name" dataFormat={this.nameFormatter}>Name</TableHeaderColumn>
+                        <TableHeaderColumn dataField="contact"
+                                           dataFormat={this.mobileFormatter}>Mobile</TableHeaderColumn>
+                        <TableHeaderColumn dataField="contact"
+                                           dataFormat={this.emailFormatter}>Email</TableHeaderColumn>
+                        <TableHeaderColumn dataField="status"
+                                           dataFormat={this.statusFormatter}>Status</TableHeaderColumn>
+                        <TableHeaderColumn dataField="role">Role</TableHeaderColumn>
+                    </BootstrapTable>
+                </div>
+
+                <div className="table-responsive">
+                    <BootstrapTable data={companies} striped hover version='4'
                                     selectRow={selectRowPropForNotification}>
                         <TableHeaderColumn isKey dataField="_id" hidden={true}>ID</TableHeaderColumn>
                         <TableHeaderColumn dataField="username">Username</TableHeaderColumn>
@@ -244,24 +257,31 @@ class UserList extends Component {
     }
 
     renderNotification() {
+        let {notificationDialog} = this.state;
         return (
-            <div className="notification-message">
-                <div className="form-group">
-                    <label className="control-label">Message</label>
-                    <textarea className="form-control" name="message" placeholder="Message" value={this.state.message}
-                              onChange={this.updateMessage}></textarea>
-                </div>
-                <FormGroup>
-                    <FormCheck type="checkbox" name="confirm" label={"Confirmation Required"}
-                               checked={this.state.confirmation}
-                               onChange={this.updateConfirmation}/>
-                </FormGroup>
-                <div className="form-group">
-                    <button className="btn btn-success" onClick={this.sendNotificationToSelectedUsers}>Send to selected
-                        users
-                    </button>
-                </div>
-            </div>
+            <Modal show={notificationDialog} onHide={() => this.setState({notificationDialog: false})}>
+                <ModalBody>
+                    <div className="notification-message">
+                        <div className="form-group">
+                            <label className="control-label">Message</label>
+                            <textarea className="form-control" name="message" placeholder="Message"
+                                      value={this.state.message}
+                                      onChange={this.updateMessage}></textarea>
+                        </div>
+                        <FormGroup>
+                            <FormCheck type="checkbox" name="confirm" label={"Confirmation Required"}
+                                       checked={this.state.confirmation}
+                                       onChange={this.updateConfirmation}/>
+                        </FormGroup>
+                        <div className="form-group">
+                            <button className="btn btn-success" onClick={this.sendNotificationToSelectedUsers}>Send to
+                                selected
+                                users
+                            </button>
+                        </div>
+                    </div>
+                </ModalBody>
+            </Modal>
         );
     }
 

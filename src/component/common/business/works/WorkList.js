@@ -7,6 +7,7 @@ import WorkModal from "./WorkModal";
 import '../../../../assets/stylesheet/WorkList.css';
 import ApiAction from "../../../../actions/ApiAction";
 import {BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
+import Work from "./Work";
 
 class WorkList extends Component {
     constructor(props) {
@@ -21,17 +22,17 @@ class WorkList extends Component {
     }
 
     componentWillMount() {
-        // ApiAction.getTypeWorks(this.props.work)
-        //     .then((response) => {
-        //         if (response.data.success) {
-        //             this.setState({workList: response.data.workList});
-        //         } else {
-        //
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
+        ApiAction.getTypeWorks(this.props.work)
+            .then((response) => {
+                if (response.data.success) {
+                    this.setState({workList: response.data.workList});
+                } else {
+
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         let workList = [
             {
                 _id: "fogegneiongvk",
@@ -75,7 +76,7 @@ class WorkList extends Component {
                 work: "fogegneiongvk"
             }
         ];
-        this.setState({workList: workList, featuredList: featured});
+        // this.setState({workList: workList, featuredList: featured});
     }
 
     render() {
@@ -84,7 +85,7 @@ class WorkList extends Component {
             <div className="container-fluid">
                 <div className="">
                     {/*<header className="main-head">{this.props.work}</header>*/}
-                    {user.role == "ADMIN" ? <div className="">
+                    {user.role == "ADMIN" || user.role == "COMPANY" ? <div className="">
                         <button className="btn btn-info"
                                 onClick={() => this.setState({modalShow: true, modalType: "Add"})}>+ Add
                         </button>
@@ -93,7 +94,7 @@ class WorkList extends Component {
                 {this.state.modalShow ?
                     <WorkModal show={this.state.modalShow} onHide={() => this.setState({modalShow: false})}
                                type={this.state.modalType} workType={this.props.work} user={user}/> : ""}
-                {this.state.workList.length == 0 ? this.renderNoWork() : this.renderList()}
+                {this.state.workList.length == 0 ? this.renderNoWork() : this.renderNewList()}
 
             </div>
         );
@@ -137,7 +138,7 @@ class WorkList extends Component {
     }
 
     lastDateFormatter = (cell, row) => {
-        return cell.last.toLocaleDateString();
+        return cell.last;
     }
 
     weeksFormatter = (cell, row) => {
@@ -153,6 +154,18 @@ class WorkList extends Component {
             this.setState({selectedWork: row});
             console.log(row)
         }
+    }
+
+    renderNewList(){
+        let {workList} = this.state;
+        let {user} = this.props;
+        return(
+            workList.map((work, key)=>{
+                return(
+                    <Work key={key} work={work} user={user}/>
+                );
+            })
+        );
     }
 }
 

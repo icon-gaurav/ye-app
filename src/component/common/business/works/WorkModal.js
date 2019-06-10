@@ -20,7 +20,7 @@ class WorkModal extends Component {
         super(props);
         this.state = {
             mode: "",
-            company: "",
+            company: this.props.user._id,
             profile: "",
             startDate: new Date(),
             endDate: new Date(),
@@ -39,12 +39,36 @@ class WorkModal extends Component {
 
     }
 
+    componentWillMount() {
+        let {work} = this.props;
+        if (work) {
+            this.setState({
+                mode: work.mode,
+                company: work.company,
+                profile: work.profile,
+                startDate: work.duration.start,
+                lastDate: work.duration.last,
+                endDate: work.duration.end,
+                weeks: work.duration.weeks,
+                vacancy: work.vacancy,
+                stipend: work.stipend,
+                workDetails: work.workDetails,
+                skillSet: work.skillSet,
+                location: work.location,
+                benefits: work.benefits,
+                selectionProcedure: work.selectionProcedure
+            });
+        }
+    }
+
     render() {
         let {
             mode, company, profile, startDate, endDate, lastDate,
             weeks, vacancy, stipend, workDetails, skillSet, currentSkill,
             location, benefits, selectionProcedure, featured
         } = this.state;
+
+        let {user} = this.props;
         return (
             <Modal show={this.props.show} onHide={this.props.onHide}>
                 <ModalHeader closeButton>
@@ -57,7 +81,8 @@ class WorkModal extends Component {
                                 <FormGroup>
                                     <FormLabel className="form-label">Company ID</FormLabel>
                                     <FormControl type="text" name="company" className="" placeholder="Company ID"
-                                                 value={company} onChange={this.updateCompany}/>
+                                                 value={company} onChange={this.updateCompany}
+                                                 disabled={user.role == "ADMIN" ? false : true}/>
                                     <FormFeedback>Company ID could not be empty</FormFeedback>
                                 </FormGroup>
                                 <FormGroup>
@@ -76,7 +101,7 @@ class WorkModal extends Component {
                                     <FormLabel className="form-label">Last Date</FormLabel>
                                     <DatePicker placeholderText="Click to select a date (mm/dd/yyyy)"
                                                 minDate={new Date()} onChange={this.updateLastDate}
-                                                selected={lastDate}/>
+                                                selected={new Date(lastDate)}/>
                                 </FormGroup>
                                 <FormGroup className="form-group">
                                     <FormLabel className="form-label">Stipend</FormLabel>
@@ -149,7 +174,7 @@ class WorkModal extends Component {
                     </Form>
                 </ModalBody>
                 <ModalFooter>
-                    <button className="btn btn-success" onClick={this.submitDetails}>Add</button>
+                    <button className="btn btn-success" onClick={this.submitDetails}>Save</button>
                 </ModalFooter>
             </Modal>
         );

@@ -15,6 +15,7 @@ import YEProvider from "./component/utilities/YEProvider";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Pusher from "pusher-js";
 import ApiAction from "./actions/ApiAction";
+import CompanyDashboard from "./component/common/business/CompanyDashboard";
 
 class App extends Component {
     constructor(props) {
@@ -96,8 +97,10 @@ class App extends Component {
                 return <AdminDashboard leftMenu={this.state.leftMenu} user={this.state.user}/>
             } else if (this.state.user.role == "STUDENT") {
                 return <StudentDashboard leftMenu={this.state.leftMenu} user={this.state.user}/>
+            }else if(this.state.user.role == "COMPANY"){
+                    return <CompanyDashboard leftMenu={this.state.leftMenu} user={this.state.user}/>
             } else {
-                return <OfferList/>;
+                return "";
             }
         } else {
             return (
@@ -128,11 +131,11 @@ class App extends Component {
             <YEProvider>
                 <BrowserRouter>
                     <div className="topHeader sticky-top">
-                        <Route render={(props) => this.renderHeader(props)}/>
+                       {this.renderHeader(this.props)}
 
                         {/*<Route render={(props) => this.renderFooter(props)}/>*/}
                     </div>
-                    <div className="belowtop">
+                    <div className="belowtop ml-5 mr-5">
                         {this.renderBody()}
                     </div>
                 </BrowserRouter>

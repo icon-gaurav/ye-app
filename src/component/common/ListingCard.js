@@ -2,6 +2,7 @@ import React from "react";
 import Cipher from "../../util/Cipher";
 import {Link} from "react-router-dom";
 import "../../assets/stylesheet/ListingCard.css";
+import Converter from "../utilities/Converter";
 
 class ListingCard extends React.Component {
     constructor(props) {
@@ -31,7 +32,7 @@ class ListingCard extends React.Component {
                         <div className="row logo-container">
                             <div className="col-12 logo-wrapper">
                                 <div className="col logo-image">
-                                    <img src={require("../../assets/images/icons/facebook.svg")} alt=""/>
+                                    <img src={Converter.bufferToBase64(work.company.logo)} alt=""/>
                                 </div>
                             </div>
                         </div>
@@ -42,7 +43,7 @@ class ListingCard extends React.Component {
                             <div className="profile-title"><h4>{work.profile}</h4></div>
                         </div>
                         <div className="row company-name-wrapper top-item">
-                            <h5>{work.company}</h5>
+                            <h5>{work.company.name}</h5>
                         </div>
                         <div className="row work-duration-wrapper top-item">
                             <div className="duration-icon icon-wrapper">

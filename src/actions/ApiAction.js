@@ -126,6 +126,14 @@ class ApiAction {
         return Api.get(`/api/students/${student._id}/completedWork`);
     }
 
+    static getOnGoingWork(student) {
+        return Api.get(`/api/students/${student._id}/ongoing`);
+    }
+
+    static getWallet(student){
+        return Api.get(`/api/students/${student._id}/wallet`);
+    }
+
     // admin insights
 
     static getAllStudents() {
@@ -203,21 +211,39 @@ class ApiAction {
         return Api.delete(`/api/students/${student._id}/education/${education._id}`, {education: education});
     }
 
-    static updatePersonalInfo(user,student) {
+    static updatePersonalInfo(user, student) {
         return Api.put(`/api/students/${user._id}`, {student: student});
     }
 
     // verification document
-    static getUploadsForVerification(userId){
+    static getUploadsForVerification(userId) {
         return Api.get(`/api/verification/uploads/${userId}`);
     }
 
-    static uploadDocument(user, document){
-        return Api.post(`/api/verification/upload/`, {document:document});
+    static uploadDocument(user, document) {
+        return Api.post(`/api/verification/upload/`, {document: document});
     }
 
-    static verifyDocument(userId, document){
-        return Api.put(`/api/verification/uploads/${userId}/${document._id}`,{document:document});
+    static verifyDocument(userId, document) {
+        return Api.put(`/api/verification/uploads/${userId}/${document._id}`, {document: document});
+    }
+
+    // company
+    // get application for a work
+
+    static getApplication(work) {
+        return Api.get(`/api/works/${work.mode}/${work._id}/applications`);
+    }
+
+    static updateApplication(work, notification, application) {
+        return Api.put(`/api/works/${work.mode}/${work._id}/applications/${application._id}`, {
+            application: application,
+            notification: notification
+        });
+    }
+
+    static updateCompany(user, company) {
+        return Api.put(`/api/business/${user._id}`, {company: company});
     }
 }
 

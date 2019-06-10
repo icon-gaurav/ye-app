@@ -15,6 +15,7 @@ import WorkModal from "./business/works/WorkModal";
 
 import '../../assets/stylesheet/WorkList.css';
 import ApiAction from "../../actions/ApiAction";
+import Filter from "./students/filters/Filter";
 
 class WorkList extends Component {
     constructor(props) {
@@ -22,7 +23,8 @@ class WorkList extends Component {
         this.state = {
             modalType: "Add",
             modalShow: false,
-            workList: []
+            workList: [],
+            filteredList:[],
         };
         console.log(this.props);
     }
@@ -31,7 +33,7 @@ class WorkList extends Component {
         ApiAction.getTypeWorks(this.props.work)
             .then((response) => {
                 if (response.data.success) {
-                    this.setState({workList: response.data.workList});
+                    this.setState({workList: response.data.workList, filteredList:response.data.workList});
                 } else {
 
                 }
@@ -108,15 +110,19 @@ class WorkList extends Component {
     }
 
     renderList() {
+        let {workList,filteredList} = this.state;
         return (
             <div className="row listing-details">
-                <div className="col-md-3 col-xs-12">
-                    <div className="filter-static">
-                        <Filters/>
-                    </div>
+                <div className="col-12">
+                    <Filter workList={workList} filter={this.filter}/>
                 </div>
-                <div className="col-md-9 col-xs-12 list">
-                    <ListingContainer workList={this.state.workList}/>
+                {/*<div className="col-md-3 col-xs-12">*/}
+                {/*    <div className="filter-static">*/}
+                {/*        <Filters/>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+                <div className="col-12">
+                    <ListingContainer workList={filteredList}/>
                 </div>
             </div>
         );
@@ -170,6 +176,10 @@ class WorkList extends Component {
                 </ModalFooter>
             </Modal>
         );
+    }
+
+    filter = (workList) => {
+        this.setState({filteredList: workList});
     }
 }
 

@@ -52,20 +52,20 @@ class StudentDashboard extends React.Component {
 
     renderStats() {
         return (
-
-            <BrowserRouter>
+            <div>
                 <div className="aside-left-menu" style={this.props.leftMenu ? {display: "block"} : {display: "none"}}>
                     {this.props.leftMenu ? this.renderLeftMenu() : ""}
                 </div>
                 <div className="main-app" style={this.props.leftMenu ? this.state.leftMenuStyle : {marginLeft: "0px"}}>
                     {/*{this.state.redirect ? <Redirect to="/"/> : ""}*/}
                     <header className="main-head"></header>
-                    <Route exact path="/insights" component={() => <Insights user={this.props.user}/>}/>
+                    <Route exact path="/home" component={() => <Insights user={this.props.user}/>}/>
                     <Route exact path="/profile" component={() => <StudentProfile user={this.props.user}/>}/>
                     <Route exact path="/internships"
                            component={() => <WorkList work={"internship"} user={this.props.user}/>}/>
 
                     <Route path="/internships/:id" component={(props) => <IndividualWork {...props}/>}/>
+                    <Route path="/missions/:id" component={(props) => <IndividualWork {...props}/>}/>
                     <Route exact path="/missions"
                            component={() => <WorkList work={"mission"} user={this.props.user}/>}/>
                     <Route exact path="/offers" component={() => <OfferList user={this.props.user}/>}/>
@@ -76,8 +76,7 @@ class StudentDashboard extends React.Component {
                     <Route exact path="/settings" component={() => <Verification user={this.props.user}/>}/>
 
                 </div>
-            </BrowserRouter>
-
+            </div>
         );
     }
 

@@ -18,7 +18,7 @@ class ListingContainer extends React.Component {
         return (
             <div className="row list-wrapper" style={stylesheet}>
                 {workList.map((work, key) => (
-                    <div key={key} className="col-md-4 col-xs-12">
+                    <div key={key} className="col-md-3 col-xs-12">
                         <ListingCard work={work}/>
                     </div>))}
 

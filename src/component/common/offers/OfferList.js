@@ -13,6 +13,7 @@ import {Link} from "react-router-dom";
 import OwlCarousel from 'react-owl-carousel2';
 import 'react-owl-carousel2/src/owl.carousel.css';
 import 'react-owl-carousel2/src/owl.theme.default.css';
+import 'react-owl-carousel2/lib/styles.css';
 import OfferModal from "./OfferModal";
 
 class OfferList extends Component {
@@ -38,13 +39,16 @@ class OfferList extends Component {
         let {modalShow} = this.state;
         return (
             <div className="container-fluid">
+                {this.renderOffersCarousel()}
+                {this.renderTopOffers()}
                 <div className="main-head">
                     <header className="d-inline-block"></header>
                     {user.role == "ADMIN" ? <div className="d-inline-block">
                         <button className="btn btn-info" onClick={this.handleModalView}>+ Add</button>
                     </div> : ""}
                 </div>
-                {modalShow?<OfferModal show={this.state.modalShow} onHide={() => this.setState({modalShow: false})} type={"Add"}/>:""}
+                {modalShow ? <OfferModal show={this.state.modalShow} onHide={() => this.setState({modalShow: false})}
+                                         type={"Add"}/> : ""}
                 {/*{this.renderTopOffers()}*/}
                 {this.renderCategories()}
 
@@ -106,13 +110,51 @@ class OfferList extends Component {
         );
     }
 
+    renderOffersCarousel() {
+        const options = {
+            items: 1,
+            rewind: true,
+            autoplay: true,
+            marginRight: "20px",
+            loop: true,
+        };
+        return (
+            <section>
+                <div className="container-fluid">
+                    <OwlCarousel
+                        className="owl-theme owl-carousel"
+                        options={options}>
+                        <div>
+                            <img src={require("../../../assets/images/random.jpg")} height="300px"/>
+                        </div>
+                        <div>
+                            <img src={require("../../../assets/images/categories/fitness.jpg")} height="300px"/>
+                        </div>
+                        <div>
+                            <img src={require("../../../assets/images/categories/entertainment.jpg")} height="300px"/>
+                        </div>
+                        <div>
+                            <img src={require("../../../assets/images/categories/shopping.jpg")} height="300px"/>
+                        </div>
+                        <div>
+                            <img src={require("../../../assets/images/categories/education.jpg")} height="300px"/>
+                        </div>
+
+                    </OwlCarousel>
+                </div>
+            </section>
+        );
+    }
+
     renderTopOffers() {
         const options = {
-            items: 2,
+            items: 4,
             nav: true,
             rewind: true,
             autoplay: true,
-            center: true
+            marginRight: "20px",
+            center: true,
+            loop: true,
         };
         return (
             <section>
@@ -121,7 +163,7 @@ class OfferList extends Component {
                     {/*    <div className="owl-stage-outer">*/}
                     {/*        <div className="owl-stage">*/}
                     <OwlCarousel
-                        className="owl-theme"
+                        className="owl-theme owl-carousel"
                         options={options}
                         ref="car">
                         <div className="d-inline-block">
@@ -165,22 +207,15 @@ class OfferList extends Component {
                                             </div>
                                         </div>
                                         <div className="offer-title">
-                                            <span>Buy 1 Get 1 Free</span></div>
-
+                                            <span>Buy 1 Get 1 Free</span>
+                                        </div>
                                     </div>
-
                                 </div>
                             </a>
                         </div>
+
                     </OwlCarousel>
-
-                    {/*        </div>*/}
-                    {/*    </div>*/}
-
-                    {/*</div>*/}
-
                 </div>
-
             </section>
         );
     }

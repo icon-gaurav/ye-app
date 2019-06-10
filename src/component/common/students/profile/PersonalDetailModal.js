@@ -173,7 +173,7 @@ class PersonalDetailModal extends Component {
                                 </FormGroup>
                                 <FormGroup>
                                     <FormLabel className="">Website</FormLabel>
-                                    <FormControl type="url" name="website" placeholder="Confirm Password"
+                                    <FormControl type="url" name="website" placeholder="https://"
                                                  value={website} onChange={this.updateWebsite}/>
                                 </FormGroup>
                                 <FormGroup>
