@@ -1,37 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2f9b8daa-f1c3-42ca-90a9-840ddb7f294b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/component/common/business/CompanyDashboard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/business/leftmenu/CompanyLeftMenu.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/business/profile/CompanyProfile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/business/profile/ProfileEdit.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/business/works/Application.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/business/works/Work.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/students/filters/Filter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/component/common/students/navbar/Header.js" afterDir="false" />
+    <list default="true" id="2f9b8daa-f1c3-42ca-90a9-840ddb7f294b" name="Default Changelist" comment="images added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/ApiAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/ApiAction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/stylesheet/Header.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/stylesheet/Header.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/stylesheet/Offer.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/stylesheet/Offer.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/stylesheet/PreLoginHeader.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/stylesheet/PreLoginHeader.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/common/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/common/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/common/ListingCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/common/ListingCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/common/WorkList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/common/WorkList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/common/business/users/UserList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/common/business/users/UserList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/common/business/works/WorkList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/common/business/works/WorkList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/common/business/works/WorkModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/common/business/works/WorkModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/common/offers/OfferList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/common/offers/OfferList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/common/students/StudentDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/common/students/StudentDashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/common/students/insight/StudentInsight.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/common/students/insight/StudentInsight.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/common/students/profile/PersonalDetailModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/common/students/profile/PersonalDetailModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/containers/ListingContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/containers/ListingContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -66,11 +37,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/component/common/students/filters/Filter.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
               <caret line="77" column="38" selection-start-line="77" selection-start-column="38" selection-end-line="77" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/component/common/Header.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="991">
+              <caret line="87" column="33" selection-start-line="87" selection-start-column="33" selection-end-line="87" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -278,6 +261,22 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="component" type="462c0819:PsiDirectoryNode" />
               <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="login-module" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ye-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ye-app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="component" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="notification" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ye-app" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ye-app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="component" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
               <item name="offers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -413,7 +412,7 @@
       <workItem from="1558087966935" duration="2581000" />
       <workItem from="1558091924961" duration="42443000" />
       <workItem from="1558593497671" duration="165138000" />
-      <workItem from="1559060908178" duration="232257000" />
+      <workItem from="1559060908178" duration="234373000" />
     </task>
     <task id="LOCAL-00001" summary="front-end with login auth">
       <created>1558174456640</created>
@@ -436,11 +435,25 @@
       <option name="project" value="LOCAL" />
       <updated>1559726080279</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="company profile added">
+      <created>1560158489310</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1560158489311</updated>
+    </task>
+    <task id="LOCAL-00005" summary="images added">
+      <created>1560160799351</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1560160799351</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="682483000" />
+    <option name="totallyTimeSpent" value="684599000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -453,7 +466,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.203125" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -546,7 +558,9 @@
     <MESSAGE value="front-end with login auth" />
     <MESSAGE value="offer list added" />
     <MESSAGE value="notification added" />
-    <option name="LAST_COMMIT_MESSAGE" value="notification added" />
+    <MESSAGE value="company profile added" />
+    <MESSAGE value="images added" />
+    <option name="LAST_COMMIT_MESSAGE" value="images added" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/component/common/login-module/LoginModal.js">
@@ -889,16 +903,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/component/common/Header.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1479">
-          <caret line="87" column="33" selection-start-line="87" selection-start-column="33" selection-end-line="87" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/component/common/business/CompanyDashboard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -1006,6 +1010,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="77" column="38" selection-start-line="77" selection-start-column="38" selection-end-line="77" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/component/common/Header.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="991">
+          <caret line="87" column="33" selection-start-line="87" selection-start-column="33" selection-end-line="87" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
