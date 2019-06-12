@@ -127,6 +127,7 @@ class StudentInsight extends Component {
             <div className="insights">
                 <div className="insight row">
                     <div className="col-md-4 col-lg-4 mb-2">
+                        <Link to="completed-Internship">
                         <div className="card">
                             <div className="card-body">
                                 <div className="card-title">
@@ -143,8 +144,10 @@ class StudentInsight extends Component {
                                 </div>
                             </div>
                         </div>
+                        </Link>
                     </div>
                     <div className="col-md-4 col-lg-4 mb-2">
+                        <Link to="missions-completed" >
                         <div className="card">
                             <div className="card-body">
                                 <div className="card-title">
@@ -161,6 +164,7 @@ class StudentInsight extends Component {
                                 </div>
                             </div>
                         </div>
+                        </Link>
                     </div>
                     <div className="col-md-4 col-lg-4 mb-2">
                         <div className="card">
@@ -452,9 +456,9 @@ class StudentInsight extends Component {
                             <b>Missions</b>
                         </div>
                         {onGoingMissions.length == 0 ? "" : ""}
-                        {onGoingMissions.map((mission, key) => {
-                            return (
-                                <div key={key}>
+                        {/* {onGoingMissions.map((mission, key) => {
+                            return ( */}
+                                <div >
                                     <div className="row">
                                         <div className="col-2">
                                             <div>
@@ -510,25 +514,26 @@ class StudentInsight extends Component {
                                             <div><h5>Uploads</h5></div>
                                             <div className="uploaded-summary">
                                                 <div className="row">
-                                                    <div className="col-1">
+                                                    {/* <div className="col-1">
                                                         <div className="design">
                                                             <i className="fa fa-circle" aria-hidden="true"></i>
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                     <div className="col-11">
                                                         <div className="row">
                                                             <div className="col-2">
                                                                 <div className="position-relative"
-                                                                     onClick={this.openFullImage}>
+                                                                    >
                                                                     <input type="image" className=""
                                                                            width="50px"
                                                                            height="50px"
+                                                                           onClick={this.openFullImage}
                                                                            src={require("../../../../assets/images/fitness.jpg")}
                                                                     />
-                                                                    <div className="remarked">
+                                                                    {/* <div className="remarked">
                                                                         <i className="fa fa-check text-success fa-2x mt-2"
                                                                            aria-hidden="true"> </i>
-                                                                    </div>
+                                                                    </div> */}
                                                                 </div>
                                                             </div>
                                                             <div className="remark col-10">
@@ -546,17 +551,17 @@ class StudentInsight extends Component {
                                         </div>
                                     </div>
                                 </div>
-                            );
-                        })}
+                            {/* );
+                        })} */}
                     </div>
                 </div>
             </div>
         );
     }
 
-    openFullImage = (event) => {
-        console.log(event.target);
-        this.setState({fullImage: true, image: event.target.src});
+    openFullImage = (props) => {
+        console.log(props.target);
+        this.setState({fullImage: true, image: props.target.src});
     }
 
     renderFullImage() {
