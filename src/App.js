@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Header from './component/common/Header';
 import Footer from './component/common/Footer';
@@ -36,8 +36,28 @@ class App extends Component {
                 last: "last name"
             },
             dob: new Date(),
+            notification:[],
             gender: "Male",
-            role: "STUDENT"
+            role: "STUDENT",
+            rating: [],
+            contact:{
+                mobile:324654,
+                email:"erggiu@bivre.vjoir",
+                address:{
+                    city:"hfhifh",
+                    state:"eofr",
+                    country:"India"
+                }
+            },
+            summary:{
+                aboutMe:"her is avour iurehf",
+                website:"kjeb.co"
+            },
+            experience:[],
+            education:[],
+            certificates:[],
+            skills:[],
+            
         };
         let admin = {
             username: "admin",
@@ -49,16 +69,17 @@ class App extends Component {
                 if (response.data.success) {
                     localStorage.setItem("loggedIn", JSON.stringify(true));
                     localStorage.setItem("user", JSON.stringify(response.data.user));
-                    this.setState({user: response.data.user, loggedIn: true})
+                    // this.setState({user: response.data.user, loggedIn: true})
                 } else {
                     localStorage.removeItem("loggedIn");
                     localStorage.removeItem("user");
-                    this.setState({loggedIn: false, user: null});
+                    // this.setState({loggedIn: false, user: null});
                 }
             })
             .catch((error) => {
                 console.log(error)
             })
+        // this.setState({ user: student, loggedIn: true })
     }
 
     componentDidMount() {
@@ -73,10 +94,10 @@ class App extends Component {
     }
 
     addNotifications = (data) => {
-        let {user} = this.state;
+        let { user } = this.state;
         if (data.user == user._id) {
             user.notification.push(data.notification);
-            this.setState({user: user});
+            this.setState({ user: user });
         } else {
             console.log(data);
         }
@@ -84,9 +105,9 @@ class App extends Component {
 
     renderHeader(props) {
         return this.checkUserValidated() ?
-            <Header toggleLeftMenu={() => this.setState({leftMenu: !this.state.leftMenu})} user={this.state.user}
-                    addNotification={this.addNotifications}/> :
-            <PreLoginHeader loggedIn={this.loggedIn}/>;
+            <Header toggleLeftMenu={() => this.setState({ leftMenu: !this.state.leftMenu })} user={this.state.user}
+                addNotification={this.addNotifications} /> :
+            <PreLoginHeader loggedIn={this.loggedIn} />;
         // return <Header {...props}/>
     }
 
@@ -94,11 +115,11 @@ class App extends Component {
         if (this.state.loggedIn) {
             // return this.checkUserValidated() ? <StudentDashboard/> : <StudentDashboard/>;
             if (this.state.user.role == "ADMIN") {
-                return <AdminDashboard leftMenu={this.state.leftMenu} user={this.state.user}/>
+                return <AdminDashboard leftMenu={this.state.leftMenu} user={this.state.user} />
             } else if (this.state.user.role == "STUDENT") {
-                return <StudentDashboard leftMenu={this.state.leftMenu} user={this.state.user}/>
-            }else if(this.state.user.role == "COMPANY"){
-                    return <CompanyDashboard leftMenu={this.state.leftMenu} user={this.state.user}/>
+                return <StudentDashboard leftMenu={this.state.leftMenu} user={this.state.user} />
+            } else if (this.state.user.role == "COMPANY") {
+                return <CompanyDashboard leftMenu={this.state.leftMenu} user={this.state.user} />
             } else {
                 return "";
             }
@@ -108,7 +129,7 @@ class App extends Component {
                     <div>
                         <div className="insight-section">
                             <img src={require("./assets/images/register/register-bg-pattern.svg")} width="100%"
-                                 height="100%"/>
+                                height="100%" />
                         </div>
                         {this.renderFooter()}
                     </div>
@@ -119,11 +140,11 @@ class App extends Component {
     }
 
     renderFooter(props) {
-        return <Footer {...props}/>
+        return <Footer {...props} />
     }
 
     renderHome(props) {
-        return <Header/>
+        return <Header />
     }
 
     render() {
@@ -131,7 +152,7 @@ class App extends Component {
             <YEProvider>
                 <BrowserRouter>
                     <div className="topHeader sticky-top">
-                       {this.renderHeader(this.props)}
+                        {this.renderHeader(this.props)}
 
                         {/*<Route render={(props) => this.renderFooter(props)}/>*/}
                     </div>
@@ -153,11 +174,11 @@ class App extends Component {
     }
 
     loggedIn = (user) => {
-        this.setState({loggedIn: true, user: user});
+        this.setState({ loggedIn: true, user: user });
     }
 
     loggedOut = () => {
-        this.setState({loggedIn: false});
+        this.setState({ loggedIn: false });
     }
 
 
