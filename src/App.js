@@ -80,6 +80,7 @@ class App extends Component {
                 console.log(error)
             })
         // this.setState({ user: student, loggedIn: true })
+            });
     }
 
     componentDidMount() {
