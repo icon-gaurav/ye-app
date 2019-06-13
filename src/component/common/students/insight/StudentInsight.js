@@ -204,16 +204,16 @@ class StudentInsight extends Component {
                                                 <Link to={{pathname: `/internships/${work._id}`}}
                                                       target="_blank">
                                                     <div className="row">
-                                                        <div className="col-2 col-md-4 col-sm-4">
-                                                            <div className="logo-wrapper">
+                                                        <div className="col-lg-4 col-md-4 col-sm-4">
+                                                            {/*<div className="logo-wrapper">*/}
                                                                 <img
                                                                     src={Converter.bufferToBase64(work.company.logo)}
-                                                                    className="rounded-circle"
-                                                                    width="50px"
-                                                                    height="50px"/>
-                                                            </div>
+                                                                    className="rounded-circle img-fluid"
+                                                                    width="100px"
+                                                                    height="100px"/>
+                                                            {/*</div>*/}
                                                         </div>
-                                                        <div className="col-10 col-md-8 col-sm-8">
+                                                        <div className="col-lg-8 col-md-8 col-sm-8">
                                                             <div>
                                                                 <h6>{work.profile}</h6>
                                                             </div>
@@ -242,17 +242,17 @@ class StudentInsight extends Component {
                                                 {/*</div>*/}
                                             </div>
                                         </div>
-                                        <div className="col-2">
-                                            <div className="pt-3">
-                                                <a href="#">
-                                                    <i className="fa fa-angle fa-2x"
-                                                       style={{
-                                                           color: "rgb(65, 234, 212)"
-                                                       }}>
-                                                    </i>
-                                                </a>
-                                            </div>
-                                        </div>
+                                        {/*<div className="col-2">*/}
+                                        {/*    <div className="pt-3">*/}
+                                        {/*        <a href="#">*/}
+                                        {/*            <i className="fa fa-angle fa-2x"*/}
+                                        {/*               style={{*/}
+                                        {/*                   color: "rgb(65, 234, 212)"*/}
+                                        {/*               }}>*/}
+                                        {/*            </i>*/}
+                                        {/*        </a>*/}
+                                        {/*    </div>*/}
+                                        {/*</div>*/}
                                     </div>
                                 );
                             })}
@@ -274,16 +274,17 @@ class StudentInsight extends Component {
                                         <div className="col-10">
                                             <div className="p-2">
                                                 <Link to={{pathname: `/missions/${work._id}`}}
+                                                      title={work.profile}
                                                       target="_blank">
                                                     <div className="row">
                                                         <div className="col-2 col-md-4 col-sm-4">
-                                                            <div className="logo-wrapper">
+                                                            {/*<div className="logo-wrapper">*/}
                                                                 <img
                                                                     src={Converter.bufferToBase64(work.company.logo)}
-                                                                    className="rounded-circle"
+                                                                    className="rounded-circle img-fluid"
                                                                     width="50px"
                                                                     height="50px"/>
-                                                            </div>
+                                                            {/*</div>*/}
                                                         </div>
                                                         <div className="col-10 col-md-8 col-sm-8">
                                                             <div>

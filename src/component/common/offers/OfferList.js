@@ -120,7 +120,7 @@ class OfferList extends Component {
         };
         return (
             <section>
-                <div className="container-fluid">
+                <div className="">
                     <OwlCarousel
                         className="owl-theme owl-carousel"
                         options={options}>
@@ -152,13 +152,13 @@ class OfferList extends Component {
             nav: true,
             rewind: true,
             autoplay: true,
-            marginRight: "20px",
+            margin: 10,
             center: true,
             loop: true,
         };
         return (
             <section>
-                <div className="container-fluid">
+                <div className="">
                     {/*<div id="owl-example" className="owl-carousel owl-loaded owl-theme">*/}
                     {/*    <div className="owl-stage-outer">*/}
                     {/*        <div className="owl-stage">*/}
@@ -166,8 +166,8 @@ class OfferList extends Component {
                         className="owl-theme owl-carousel"
                         options={options}
                         ref="car">
-                        <div className="d-inline-block">
-                            <a href="google.com">
+                        <div className="">
+                            <Link href="google.com">
                                 <div className="top-offer-slide">
                                     <div className="offer-image">
                                         <img src={require("../../../assets/images/logo/YE-Merge-Black.png")} alt=""/>
@@ -188,10 +188,10 @@ class OfferList extends Component {
                                     </div>
 
                                 </div>
-                            </a>
+                            </Link>
                         </div>
                         <div className="">
-                            <a href="google.com">
+                            <Link href="google.com">
                                 <div className="top-offer-slide">
                                     <div className="offer-image">
                                         <img src={require("../../../assets/images/logo/YE-Merge-Black.png")} alt=""/>
@@ -211,7 +211,7 @@ class OfferList extends Component {
                                         </div>
                                     </div>
                                 </div>
-                            </a>
+                            </Link>
                         </div>
 
                     </OwlCarousel>
@@ -228,90 +228,175 @@ class OfferList extends Component {
                         <div className="row">
                             {/*- let categories=[{img:"food.jpg", catName:"Food"},{img:"education.jpg", catName:"Education"},{img:"entertainment.jpg", catName:"Entertainment"},{img:"fitness.jpg", catName:"Fitness"}, {img:"living.jpg", catName:"Living"}];*/}
                             {/*each category in categories*/}
-                            <div className="col-md-4 col-lg-4 col-6">
-                                <div className="category">
-                                    <img src={require("../../../assets/images/categories/fitness.jpg")} alt=""/>
-                                    <div className="title-wrapper">
-                                        <div className="category-title">
-                                            <div className="title">
-                                                <Link to="/offers/fitness" target="_blank">
-                                                    <h5>Fitness</h5>
-                                                </Link>
+                            <div className="col-md-3 col-lg-3 col-3">
+                                <Link to="/offers/fitness" target="_blank">
+                                    <div className="category">
+                                        <div>
+                                            <img src={require("../../../assets/images/categories/fitness.jpg")} alt=""/>
+                                        </div>
+                                        <div className="text-align-center title-wrapper">
+                                            <div>
+                                                <h5>Fitness</h5>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
-                            <div className="col-md-4 col-lg-4 col-6">
-                                <div className="category">
-                                    <img src={require("../../../assets/images/categories/living.jpg")} alt=""/>
-                                    <div className="title-wrapper">
-                                        <div className="category-title">
-                                            <div className="title">
-                                                <Link to="/offers/living" target="_blank">
-                                                    <h5>Living</h5>
-                                                </Link>
+                            <div className="col-md-3 col-lg-3 col-3">
+                                <Link to="/offers/living" target="_blank">
+                                    <div className="category">
+                                        <div>
+                                            <img src={require("../../../assets/images/categories/living.jpg")} alt=""/>
+                                        </div>
+                                        <div className="text-align-center title-wrapper">
+                                            <div>
+                                                <h5>Living</h5>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
-                            <div className="col-md-4 col-lg-4 col-6">
-                                <div className="category">
-                                    <img src={require("../../../assets/images/categories/education.jpg")} alt=""/>
-                                    <div className="title-wrapper">
-                                        <div className="category-title">
-                                            <div className="title">
-                                                <Link to="/offers/education" target="_blank">
-                                                    <h5>Education</h5>
-                                                </Link>
+                            <div className="col-md-3 col-lg-3 col-3">
+                                <Link to="/offers/education" target="_blank">
+                                    <div className="category">
+                                        <div>
+                                            <img src={require("../../../assets/images/categories/education.jpg")}
+                                                 alt=""/>
+                                        </div>
+                                        <div className="text-align-center title-wrapper">
+                                            <div>
+                                                <h5>Education</h5>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
-                            <div className="col-md-4 col-lg-4 col-6">
-                                <div className="category">
-                                    <img src={require("../../../assets/images/categories/entertainment.jpg")} alt=""/>
-                                    <div className="title-wrapper">
-                                        <div className="category-title">
-                                            <div className="title">
-                                                <Link to="/offers/entertainment" target="_blank">
-                                                    <h5>Entertainment</h5>
-                                                </Link>
+                            <div className="col-md-3 col-lg-3 col-3">
+                                <Link to="/offers/entertainment" target="_blank">
+                                    <div className="category">
+                                        <div>
+                                            <img src={require("../../../assets/images/categories/entertainment.jpg")}
+                                                 alt=""/>
+                                        </div>
+                                        <div className="text-align-center title-wrapper">
+                                            <div>
+                                                <h5>Entertainment</h5>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
-                            <div className="col-md-4 col-lg-4 col-6">
-                                <div className="category">
-                                    <img src={require("../../../assets/images/categories/shopping.jpg")} alt=""/>
-                                    <div className="title-wrapper">
-                                        <div className="category-title">
-                                            <div className="title">
-                                                <Link to="/offers/shopping" target="_blank">
-                                                    <h5>Shopping</h5>
-                                                </Link>
+                            <div className="col-md-3 col-lg-3 col-3">
+                                <Link to="/offers/shopping" target="_blank">
+                                    <div className="category">
+                                        <div>
+                                            <img src={require("../../../assets/images/categories/shopping.jpg")}
+                                                 alt=""/>
+                                        </div>
+                                        <div className="text-align-center title-wrapper">
+                                            <h5>Shopping</h5>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                            <div className="col-md-3 col-lg-3 col-3">
+                                <Link to="/offers/travel" target="_blank">
+                                    <div className="category">
+                                        <div>
+                                            <img src={require("../../../assets/images/categories/travel.jpg")} alt=""/>
+                                        </div>
+                                        <div className="text-align-center title-wrapper">
+                                            <div>
+                                                <h5>Travel</h5>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
-                            <div className="col-md-4 col-lg-4 col-6">
-                                <div className="category">
-                                    <img src={require("../../../assets/images/categories/travel.jpg")} alt=""/>
-                                    <div className="title-wrapper">
-                                        <div className="category-title">
-                                            <div className="title">
-                                                <Link to="/offers/travel" target="_blank">
-                                                    <h5>Travel</h5>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {/*<div className="col-md-4 col-lg-4 col-6">*/}
+                            {/*    <div className="category">*/}
+                            {/*        <img src={require("../../../assets/images/categories/fitness.jpg")} alt=""/>*/}
+                            {/*        <div className="title-wrapper">*/}
+                            {/*            <div className="category-title">*/}
+                            {/*                <div className="title">*/}
+                            {/*                    <Link to="/offers/fitness" target="_blank">*/}
+                            {/*                        <h5>Fitness</h5>*/}
+                            {/*                    </Link>*/}
+                            {/*                </div>*/}
+                            {/*            </div>*/}
+                            {/*        </div>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-md-4 col-lg-4 col-6">*/}
+                            {/*    <div className="category">*/}
+                            {/*        <img src={require("../../../assets/images/categories/living.jpg")} alt=""/>*/}
+                            {/*        <div className="title-wrapper">*/}
+                            {/*            <div className="category-title">*/}
+                            {/*                <div className="title">*/}
+                            {/*                    <Link to="/offers/living" target="_blank">*/}
+                            {/*                        <h5>Living</h5>*/}
+                            {/*                    </Link>*/}
+                            {/*                </div>*/}
+                            {/*            </div>*/}
+                            {/*        </div>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-md-4 col-lg-4 col-6">*/}
+                            {/*    <div className="category">*/}
+                            {/*        <img src={require("../../../assets/images/categories/education.jpg")} alt=""/>*/}
+                            {/*        <div className="title-wrapper">*/}
+                            {/*            <div className="category-title">*/}
+                            {/*                <div className="title">*/}
+                            {/*                    <Link to="/offers/education" target="_blank">*/}
+                            {/*                        <h5>Education</h5>*/}
+                            {/*                    </Link>*/}
+                            {/*                </div>*/}
+                            {/*            </div>*/}
+                            {/*        </div>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-md-4 col-lg-4 col-6">*/}
+                            {/*    <div className="category">*/}
+                            {/*        <img src={require("../../../assets/images/categories/entertainment.jpg")} alt=""/>*/}
+                            {/*        <div className="title-wrapper">*/}
+                            {/*            <div className="category-title">*/}
+                            {/*                <div className="title">*/}
+                            {/*                    <Link to="/offers/entertainment" target="_blank">*/}
+                            {/*                        <h5>Entertainment</h5>*/}
+                            {/*                    </Link>*/}
+                            {/*                </div>*/}
+                            {/*            </div>*/}
+                            {/*        </div>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-md-4 col-lg-4 col-6">*/}
+                            {/*    <div className="category">*/}
+                            {/*        <img src={require("../../../assets/images/categories/shopping.jpg")} alt=""/>*/}
+                            {/*        <div className="title-wrapper">*/}
+                            {/*            <div className="category-title">*/}
+                            {/*                <div className="title">*/}
+                            {/*                    <Link to="/offers/shopping" target="_blank">*/}
+                            {/*                        <h5>Shopping</h5>*/}
+                            {/*                    </Link>*/}
+                            {/*                </div>*/}
+                            {/*            </div>*/}
+                            {/*        </div>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-md-4 col-lg-4 col-6">*/}
+                            {/*    <div className="category">*/}
+                            {/*        <img src={require("../../../assets/images/categories/travel.jpg")} alt=""/>*/}
+                            {/*        <div className="title-wrapper">*/}
+                            {/*            <div className="category-title">*/}
+                            {/*                <div className="title">*/}
+                            {/*                    <Link to="/offers/travel" target="_blank">*/}
+                            {/*                        <h5>Travel</h5>*/}
+                            {/*                    </Link>*/}
+                            {/*                </div>*/}
+                            {/*            </div>*/}
+                            {/*        </div>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                 </div>

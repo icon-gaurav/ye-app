@@ -130,6 +130,10 @@ class ApiAction {
         return Api.get(`/api/students/${student._id}/ongoing`);
     }
 
+    static getStudentApplications(student){
+        return Api.get(`/api/students/${student._id}/applications`);
+    }
+
     static getWallet(student){
         return Api.get(`/api/students/${student._id}/wallet`);
     }

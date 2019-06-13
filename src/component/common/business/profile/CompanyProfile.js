@@ -6,6 +6,7 @@ import React, {Component} from 'react';
 import Converter from "../../../utilities/Converter";
 import ProfileEdit from "./ProfileEdit";
 import Button from "react-bootstrap/Button";
+import {Link} from "react-router-dom";
 
 class CompanyProfile extends Component {
     constructor(props) {
@@ -46,15 +47,20 @@ class CompanyProfile extends Component {
                             </div>
                         </div>
                         <div className="position-absolute" style={{top: "10px", right: "30px"}}>
-                            <button className="transparent-button"><i className="fa fa-ellipsis-h"></i> </button>
+                            <button className="transparent-button" onClick={() => this.setState({edit: true})}><i
+                                className="fa fa-ellipsis-h"></i></button>
                             <br/>
-                            <div className="badge">{user.status}</div>
+                            <div className="badge">
+                                <Link to="/settings">
+                                      {user.status}
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div className="">
                     <h6>Description</h6>
-                    <p className="opacity-75">{user.summary.description}</p>
+                    <p className="opacity-75">{user.summary ? user.summary.description : ""}</p>
                     {user.social ?
                         <div className="social-wrapper">
                             <div align="center" style={{marginBottom: 20}}>

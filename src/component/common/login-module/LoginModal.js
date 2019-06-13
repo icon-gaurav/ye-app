@@ -35,7 +35,7 @@ class LoginModal extends React.Component {
     render() {
         return (
             <Modal show={this.props.show} onHide={this.props.onHide} className="mt-lg-5 mt-md-3 mt-sm-auto">
-                {this.state.forgotPass ? <ForgotPassword onHide={this.props.onHide}/> : this.state.register ?
+                {this.state.forgotPass ? <ForgotPassword onHide={this.props.onHide}/>    : this.state.register ?
                     <Registration onHide={this.props.onHide}/> : this.renderLoginForm()}
             </Modal>
         );

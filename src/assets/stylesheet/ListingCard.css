@@ -59,7 +59,7 @@
 }
 
 .listing-card-wrapper{
-    box-shadow: 0 0 8px 0 #7A869A;
+    box-shadow: 0 0 4px 0 #7A869A;
     margin-top: 15px;
     margin-bottom: 15px;
     border-radius: 10px;
@@ -67,7 +67,7 @@
 }
 
 .listing-card-wrapper:hover{
-    box-shadow: 0 0 24px 0 #7A869A;
+    box-shadow: 0 0 9px 0 #7A869A;
     cursor:pointer;
 }
 
