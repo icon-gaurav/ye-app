@@ -2,13 +2,14 @@
  * @author Gaurav Kumar    
 */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Modal from "react-bootstrap/Modal";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalBody from "react-bootstrap/ModalBody";
 import Converter from "../../../utilities/Converter";
 import ApiAction from "../../../../actions/ApiAction";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import image from './rock.png'
 
 class StudentInsight extends Component {
     constructor(props) {
@@ -29,8 +30,8 @@ class StudentInsight extends Component {
     }
 
     componentWillMount() {
-        let {user} = this.props;
-        let {topInternships, topMissions} = this.state;
+        let { user } = this.props;
+        let { topInternships, topMissions } = this.state;
         console.log(user)
         ApiAction.getTypeWorks("top")
             .then((response) => {
@@ -51,7 +52,7 @@ class StudentInsight extends Component {
                 console.log(response)
                 if (response.data.success) {
                     let completed = response.data.workList;
-                    let {completedInternships, completedMissions} = this.state;
+                    let { completedInternships, completedMissions } = this.state;
                     completed.map((work) => {
                         if (work.mode == "internship") {
                             completedInternships.push(work);
@@ -59,7 +60,7 @@ class StudentInsight extends Component {
                             completedMissions.push(work);
                         }
                     });
-                    this.setState({completedInternships: completedInternships, completedMissions: completedMissions});
+                    this.setState({ completedInternships: completedInternships, completedMissions: completedMissions });
                 }
             })
             .catch((error) => {
@@ -71,7 +72,7 @@ class StudentInsight extends Component {
                 console.log(response)
                 if (response.data.success) {
                     let onGoing = response.data.workList;
-                    let {onGoingInternships, onGoingMissions} = this.state;
+                    let { onGoingInternships, onGoingMissions } = this.state;
                     onGoing.map((work) => {
                         if (work.mode == "internship") {
                             onGoingInternships.push(work);
@@ -79,7 +80,7 @@ class StudentInsight extends Component {
                             onGoingMissions.push(work);
                         }
                     });
-                    this.setState({onGoingInternships: onGoingInternships, onGoingMissions: onGoingMissions});
+                    this.setState({ onGoingInternships: onGoingInternships, onGoingMissions: onGoingMissions });
                 }
             })
             .catch((error) => {
@@ -90,7 +91,7 @@ class StudentInsight extends Component {
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    this.setState({wallet: response.data.wallet});
+                    this.setState({ wallet: response.data.wallet });
                 }
             })
             .catch((error) => {
@@ -122,63 +123,69 @@ class StudentInsight extends Component {
     }
 
     renderCompletedActivity() {
-        let {completedInternships, completedMissions, wallet} = this.state;
+        let { completedInternships, completedMissions, wallet } = this.state;
         return (
             <div className="insights">
                 <div className="insight row">
                     <div className="col-md-4 col-lg-4 mb-2">
-                        <div className="card">
-                            <div className="card-body">
-                                <div className="card-title">
-                                    <h6>Internships Completed</h6>
-                                </div>
-                                <div className="row center-align">
-                                    <h2 className="col-6">
-                                        <img src={require("../../../../assets/images/graph.svg")} width="50px"
-                                             height="50px"/>
-                                    </h2>
-                                    <div className="col-6 quantity">
-                                        <h2>{completedInternships.length}</h2>
+                        <Link to="completed-Internship">
+                            <div className="card">
+                                <div className="card-body">
+                                    <div className="card-title">
+                                        <h6>Internships Completed</h6>
+                                    </div>
+                                    <div className="row center-align">
+                                        <h2 className="col-6">
+                                            <img src={require("../../../../assets/images/graph.svg")} width="50px"
+                                                height="50px" />
+                                        </h2>
+                                        <div className="col-6 quantity">
+                                            <h2>{completedInternships.length}</h2>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     <div className="col-md-4 col-lg-4 mb-2">
-                        <div className="card">
-                            <div className="card-body">
-                                <div className="card-title">
-                                    <h6>Missions Completed</h6>
-                                </div>
-                                <div className="row center-align">
-                                    <h2 className="col-6">
-                                        <img src={require("../../../../assets/images/graph.svg")} width="50px"
-                                             height="50px"/>
-                                    </h2>
-                                    <div className="col-6 quantity">
-                                        <h2>{completedMissions.length}</h2>
+                        <Link to="missions-completed" >
+                            <div className="card">
+                                <div className="card-body">
+                                    <div className="card-title">
+                                        <h6>Missions Completed</h6>
+                                    </div>
+                                    <div className="row center-align">
+                                        <h2 className="col-6">
+                                            <img src={require("../../../../assets/images/graph.svg")} width="50px"
+                                                height="50px" />
+                                        </h2>
+                                        <div className="col-6 quantity">
+                                            <h2>{completedMissions.length}</h2>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                     <div className="col-md-4 col-lg-4 mb-2">
-                        <div className="card">
-                            <div className="card-body">
-                                <div className="card-title">
-                                    <h6>Total Earning</h6>
-                                </div>
-                                <div className="row center-align">
-                                    <h2 className="col-6">
-                                        <img src={require("../../../../assets/images/graph.svg")} width="50px"
-                                             height="50px"/>
-                                    </h2>
-                                    <div className="col-6 quantity">
-                                        <h2>{wallet ? wallet.amount : 0}</h2>
+                        <Link to="total-earnings" >
+                            <div className="card">
+                                <div className="card-body">
+                                    <div className="card-title">
+                                        <h6>Total Earning</h6>
+                                    </div>
+                                    <div className="row center-align">
+                                        <h2 className="col-6">
+                                            <img src={require("../../../../assets/images/graph.svg")} width="50px"
+                                                height="50px" />
+                                        </h2>
+                                        <div className="col-6 quantity">
+                                            <h2>{wallet ? wallet.amount : 0}</h2>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -186,7 +193,7 @@ class StudentInsight extends Component {
     }
 
     renderFeatured() {
-        let {topMissions, topInternships} = this.state;
+        let { topMissions, topInternships } = this.state;
         return (
             <div className="p-2 ">
                 <div className="row mb-2">
@@ -195,67 +202,37 @@ class StudentInsight extends Component {
                             <div align="left">
                                 <h4>Top Internship</h4>
                             </div>
-                            {topInternships.map((work, key) => {
-                                return (
-                                    <div className="row top-internship-wrapper-item bg-white m-1" align="left"
-                                         key={key}>
-                                        <div className="col-10 ">
-                                            <div className="p-2">
-                                                <Link to={{pathname: `/internships/${work._id}`}}
-                                                      target="_blank">
-                                                    <div className="row">
-                                                        <div className="col-lg-4 col-md-4 col-sm-4">
-                                                            {/*<div className="logo-wrapper">*/}
-                                                                <img
-                                                                    src={Converter.bufferToBase64(work.company.logo)}
-                                                                    className="rounded-circle img-fluid"
-                                                                    width="100px"
-                                                                    height="100px"/>
-                                                            {/*</div>*/}
-                                                        </div>
-                                                        <div className="col-lg-8 col-md-8 col-sm-8">
-                                                            <div>
-                                                                <h6>{work.profile}</h6>
-                                                            </div>
-                                                            <div>
-                                                                <p className="opacity-75">{work.company.name}                                                        </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </Link>
-                                                {/*<div className="row">*/}
-                                                {/*    <div className="col-sm-6 col-12 p-1"><i*/}
-                                                {/*        className="fa fa-free-code-camp"*/}
-                                                {/*        aria-hidden="true"></i><span*/}
-                                                {/*        className="span">{work.profile}</span></div>*/}
-                                                {/*    <div className="col-12 col-sm-6 d-sm-block p-1"><span*/}
-                                                {/*        className="span">Salary</span><i className="fa fa-inr"*/}
-                                                {/*                                         aria-hidden="true"></i><span*/}
-                                                {/*        className="span">{work.stipend}</span></div>*/}
-                                                {/*    <div className="col-12 col-sm-6 d-sm-block p-1"><i*/}
-                                                {/*        className="fa fa-map-marker" aria-hidden="true"></i><span*/}
-                                                {/*        className="span"> {work.location}</span></div>*/}
-                                                {/*    <div className="col-12 col-sm-6 p-1"><i*/}
-                                                {/*        className="fa fa-hourglass-half"*/}
-                                                {/*        aria-hidden="true"></i><span*/}
-                                                {/*        className="span"> {work.duration.weeks + " weeks"}</span></div>*/}
-                                                {/*</div>*/}
-                                            </div>
-                                        </div>
-                                        {/*<div className="col-2">*/}
-                                        {/*    <div className="pt-3">*/}
-                                        {/*        <a href="#">*/}
-                                        {/*            <i className="fa fa-angle fa-2x"*/}
-                                        {/*               style={{*/}
-                                        {/*                   color: "rgb(65, 234, 212)"*/}
-                                        {/*               }}>*/}
-                                        {/*            </i>*/}
-                                        {/*        </a>*/}
-                                        {/*    </div>*/}
-                                        {/*</div>*/}
+                            {/* {topInternships.map((work, key) => {
+                                return ( */}
+                            <div className="container bg-white">
+                                <div className="row">
+                                    <div className="col-lg-4 col-md-4 col-sm-3 col-3 ">
+                                    <img src={image} width="100px" height="100px" className="img-fluid" alt="Responsive image"/>
                                     </div>
-                                );
-                            })}
+                                    <div className="col-lg-7 col-md-7 col-sm-8 col-8 ">
+                                        <div className="row">
+                                            <h2>web</h2>
+                                        </div>
+                                        <div className="row">
+                                            <h2>Young engine</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                {/* <div className="col-2">
+                                    <div className="pt-3">
+                                        <a href="#">
+                                            <i className="fa fa-angle fa-2x"
+                                                style={{
+                                                    color: "rgb(65, 234, 212)"
+                                                }}>
+                                            </i>
+                                        </a>
+                                    </div>
+                                </div> */}
+                            </div>
+                            {/* );
+                            })} */}
                         </div>
                     </div>
                 </div>
@@ -270,21 +247,20 @@ class StudentInsight extends Component {
                             {topMissions.map((work, key) => {
                                 return (
                                     <div className="row top-internship-wraper-item m-1 bg-white"
-                                         align="left" key={key}>
+                                        align="left" key={key}>
                                         <div className="col-10">
                                             <div className="p-2">
-                                                <Link to={{pathname: `/missions/${work._id}`}}
-                                                      title={work.profile}
-                                                      target="_blank">
+                                                <Link to={{ pathname: `/missions/${work._id}` }}
+                                                    target="_blank">
                                                     <div className="row">
                                                         <div className="col-2 col-md-4 col-sm-4">
-                                                            {/*<div className="logo-wrapper">*/}
+                                                            <div className="logo-wrapper">
                                                                 <img
                                                                     src={Converter.bufferToBase64(work.company.logo)}
-                                                                    className="rounded-circle img-fluid"
+                                                                    className="rounded-circle"
                                                                     width="50px"
-                                                                    height="50px"/>
-                                                            {/*</div>*/}
+                                                                    height="50px" />
+                                                            </div>
                                                         </div>
                                                         <div className="col-10 col-md-8 col-sm-8">
                                                             <div>
@@ -338,7 +314,7 @@ class StudentInsight extends Component {
     }
 
     renderOnGoingInternships() {
-        let {onGoingInternships} = this.state;
+        let { onGoingInternships } = this.state;
         return (
             <div className="insights">
                 <div className="ongoing-activity-wrapper">
@@ -352,34 +328,34 @@ class StudentInsight extends Component {
                                     <div className="col-2">
                                         <div>
                                             <a href="#"><img src="logo.jpg"
-                                                             className="image-cover-rect"/></a>
+                                                className="image-cover-rect" /></a>
                                         </div>
                                     </div>
                                     <div className="col-10">
                                         <div className="d-inline">{internship.profile}</div>
                                         <div className="dropdown d-inline float-right">
                                             <button className="btn btn-sm dropdown-toggle" type="button"
-                                                    id="dropdownMenuButton" data-toggle="dropdown"
-                                                    aria-haspopup="true"
-                                                    aria-expanded="false">
+                                                id="dropdownMenuButton" data-toggle="dropdown"
+                                                aria-haspopup="true"
+                                                aria-expanded="false">
                                                 <i className="fa fa-bars" aria-hidden="true"></i>
                                             </button>
                                             <div className="dropdown-menu"
-                                                 aria-labelledby="dropdownMenuButton">
+                                                aria-labelledby="dropdownMenuButton">
                                                 <a className="dropdown-item" href="#">a</a>
                                                 <a className="dropdown-item" href="#">b</a>
                                                 <a className="dropdown-item" href="#">c</a>
                                             </div>
                                         </div>
-                                        <br/>
+                                        <br />
                                         Company-Name
                                     </div>
                                 </div>
                                 <div className="progress m-2">
                                     <div className="progress-bar progress-bar-success progress-bar-striped"
-                                         role="progressbar"
-                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                         style={{width: "60%"}}>
+                                        role="progressbar"
+                                        aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                        style={{ width: "60%" }}>
                                         40% Complete
                                     </div>
                                 </div>
@@ -444,7 +420,7 @@ class StudentInsight extends Component {
     }
 
     renderOnGoingMissions() {
-        let {onGoingMissions} = this.state;
+        let { onGoingMissions } = this.state;
         return (
             <div className="">
                 <div className="insights">
@@ -453,123 +429,124 @@ class StudentInsight extends Component {
                             <b>Missions</b>
                         </div>
                         {onGoingMissions.length == 0 ? "" : ""}
-                        {onGoingMissions.map((mission, key) => {
-                            return (
-                                <div key={key}>
-                                    <div className="row">
-                                        <div className="col-2">
-                                            <div>
-                                                <a href="#"><img src="logo.jpg"
-                                                                 className="image-cover-rect"/></a>
-                                            </div>
-                                        </div>
-                                        <div className="col-10">
-                                            <div className="d-inline">Work-Title/Profile</div>
-                                            <div className="dropdown d-inline float-right">
-                                                <button className="btn btn-sm dropdown-toggle" type="button"
-                                                        id="dropdownMenuButton" data-toggle="dropdown"
-                                                        aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                    <i className="fa fa-bars" aria-hidden="true"></i>
-                                                </button>
-                                                <div className="dropdown-menu"
-                                                     aria-labelledby="dropdownMenuButton">
-                                                    <a className="dropdown-item" href="#">a</a>
-                                                    <a className="dropdown-item" href="#">b</a>
-                                                    <a className="dropdown-item" href="#">c</a>
-                                                </div>
-                                            </div>
-                                            <br/>
-                                            Company-Name
+                        {/* {onGoingMissions.map((mission, key) => {
+                            return ( */}
+                        <div >
+                            <div className="row">
+                                <div className="col-2">
+                                    <div>
+                                        <a href="#"><img src="logo.jpg"
+                                            className="image-cover-rect" /></a>
+                                    </div>
+                                </div>
+                                <div className="col-10">
+                                    <div className="d-inline">Work-Title/Profile</div>
+                                    <div className="dropdown d-inline float-right">
+                                        <button className="btn btn-sm dropdown-toggle" type="button"
+                                            id="dropdownMenuButton" data-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i className="fa fa-bars" aria-hidden="true"></i>
+                                        </button>
+                                        <div className="dropdown-menu"
+                                            aria-labelledby="dropdownMenuButton">
+                                            <a className="dropdown-item" href="#">a</a>
+                                            <a className="dropdown-item" href="#">b</a>
+                                            <a className="dropdown-item" href="#">c</a>
                                         </div>
                                     </div>
-                                    <div className="progress m-2">
-                                        <div className="progress-bar progress-bar-success progress-bar-striped"
-                                             role="progressbar"
-                                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                             style={{width: "60%"}}>
-                                            40% Complete
+                                    <br />
+                                    Company-Name
                                         </div>
+                            </div>
+                            <div className="progress m-2">
+                                <div className="progress-bar progress-bar-success progress-bar-striped"
+                                    role="progressbar"
+                                    aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                    style={{ width: "60%" }}>
+                                    40% Complete
+                                        </div>
+                            </div>
+                            <div className="m-2" style={{ fontSize: "10px" }}>
+                                <span>xx/xx/xxxx</span><span className="float-right">yy/yy/yyyy</span>
+                            </div>
+                            <div className="m-2">
+                                <div className="task-header row">
+                                    <div className="sr-no d-inline-block">
+                                        <span>1</span>
                                     </div>
-                                    <div className="m-2" style={{fontSize: "10px"}}>
-                                        <span>xx/xx/xxxx</span><span className="float-right">yy/yy/yyyy</span>
-                                    </div>
-                                    <div className="m-2">
-                                        <div className="task-header row">
-                                            <div className="sr-no d-inline-block">
-                                                <span>1</span>
-                                            </div>
-                                            <div className="task-title d-inline-block">
-                                                <span>Task Title</span>
-                                                <br/>
-                                                <span className="task-start-date opacity-50">
-                            xx/yy/zzzz
+                                    <div className="task-title d-inline-block">
+                                        <span>Task Title</span>
+                                        <br />
+                                        <span className="task-start-date opacity-50">
+                                            xx/yy/zzzz
                             </span>
-                                            </div>
-                                        </div>
-                                        <div className="task-uploads">
-                                            <div><h5>Uploads</h5></div>
-                                            <div className="uploaded-summary">
-                                                <div className="row">
-                                                    <div className="col-1">
+                                    </div>
+                                </div>
+                                <div className="task-uploads">
+                                    <div><h5>Uploads</h5></div>
+                                    <div className="uploaded-summary">
+                                        <div className="row">
+                                            {/* <div className="col-1">
                                                         <div className="design">
                                                             <i className="fa fa-circle" aria-hidden="true"></i>
                                                         </div>
-                                                    </div>
-                                                    <div className="col-11">
-                                                        <div className="row">
-                                                            <div className="col-2">
-                                                                <div className="position-relative"
-                                                                     onClick={this.openFullImage}>
-                                                                    <input type="image" className=""
-                                                                           width="50px"
-                                                                           height="50px"
-                                                                           src={require("../../../../assets/images/fitness.jpg")}
-                                                                    />
-                                                                    <div className="remarked">
+                                                    </div> */}
+                                            <div className="col-11">
+                                                <div className="row">
+                                                    <div className="col-2">
+                                                        <div className="position-relative"
+                                                        >
+                                                            <input type="image" className=""
+                                                                width="50px"
+                                                                height="50px"
+                                                                onClick={this.openFullImage}
+                                                                src={require("../../../../assets/images/fitness.jpg")}
+                                                            />
+                                                            {/* <div className="remarked">
                                                                         <i className="fa fa-check text-success fa-2x mt-2"
                                                                            aria-hidden="true"> </i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="remark col-10">
-                                                                <div
-                                                                    className="upload-status d-inline-block">Approved
-                                                                </div>
-                                                                <div
-                                                                    className="remark-summary d-inline-block">Good
-                                                                </div>
-                                                            </div>
+                                                                    </div> */}
                                                         </div>
+                                                    </div>
+                                                    <div className="remark col-10">
+                                                        <div
+                                                            className="upload-status d-inline-block">Approved
+                                                                </div>
+                                                        <div
+                                                            className="remark-summary d-inline-block">Good
+                                                                </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            );
-                        })}
+                            </div>
+                        </div>
+                        {/* );
+                        })} */}
                     </div>
                 </div>
             </div>
         );
     }
 
-    openFullImage = (event) => {
-        console.log(event.target);
-        this.setState({fullImage: true, image: event.target.src});
+    openFullImage = (props) => {
+        console.log(props.target);
+        this.setState({ fullImage: true, image: props.target.src });
     }
 
     renderFullImage() {
         return (
-            <Modal show={this.state.fullImage} onHide={() => this.setState({fullImage: false})}>
+            <Modal show={this.state.fullImage} onHide={() => this.setState({ fullImage: false })}>
                 <ModalHeader closeButton>
                     <Modal.Title>Verify Uploaded Document</Modal.Title>
                 </ModalHeader>
                 <ModalBody>
                     <div className="container-fluid">
                         <div>
-                            <img src={this.state.image} width="100%"/>
+                            <img src={this.state.image} width="100%" />
                         </div>
                         <div>
                             {/*<FormGroup>*/}

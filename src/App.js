@@ -49,16 +49,17 @@ class App extends Component {
                 if (response.data.success) {
                     localStorage.setItem("loggedIn", JSON.stringify(true));
                     localStorage.setItem("user", JSON.stringify(response.data.user));
-                    this.setState({user: response.data.user, loggedIn: true})
+                    // this.setState({user: response.data.user, loggedIn: true})
                 } else {
                     localStorage.removeItem("loggedIn");
                     localStorage.removeItem("user");
-                    this.setState({loggedIn: false, user: null});
+                    // this.setState({loggedIn: false, user: null});
                 }
             })
             .catch((error) => {
                 console.log(error)
-            })
+            });
+            this.setState({user:student, loggedIn:true});
     }
 
     componentDidMount() {
