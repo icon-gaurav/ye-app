@@ -7,7 +7,7 @@ class ApiAction {
     }
 
     static sendOtp(mobile) {
-        return Api.post("api//auth/register", {
+        return Api.post("/api/auth/register", {
             mobile: mobile
         });
     }

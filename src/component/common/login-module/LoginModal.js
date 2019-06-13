@@ -4,14 +4,13 @@ import ModalHeader from "react-bootstrap/ModalHeader";
 import Form from "react-bootstrap/Form";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalTitle from "react-bootstrap/ModalTitle";
-import {FormControl, FormGroup} from "react-bootstrap";
-import FormLabel from "react-bootstrap/FormLabel";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import ForgotPassword from "./ForgotPassword";
 import "../../../assets/stylesheet/LoginModal.css";
 import ApiAction from "../../../actions/ApiAction";
 import Registration from "../signup-module/Registration";
+import LoadingAnimation from '../../library/LoadingAnimation'
 
 class LoginModal extends React.Component {
 
@@ -24,96 +23,134 @@ class LoginModal extends React.Component {
             error: false,
             forgotPass: false,
             register: false,
+            validated: false,
+            loading: false,
         };
         console.log(props);
+        // this.handleValueChange = this.handleValueChange.bind(this);
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.logIn = this.logIn.bind(this);
+        // this.handleSubmit = this.handleSubmit.bind(this)
         console.log(props);
     }
 
     render() {
         return (
             <Modal show={this.props.show} onHide={this.props.onHide} className="mt-lg-5 mt-md-3 mt-sm-auto">
-                {this.state.forgotPass ? <ForgotPassword onHide={this.props.onHide}/> : this.state.register ?
-                    <Registration onHide={this.props.onHide}/> : this.renderLoginForm()}
+                {this.state.forgotPass ? <ForgotPassword onHide={this.props.onHide} /> : this.state.register ?
+                    <Registration onHide={this.props.onHide} /> : this.renderLoginForm()}
             </Modal>
         );
     }
 
     renderLoginForm() {
+        const { username, password, loading, validated } = this.state
+
         return (
             <>
-                <ModalHeader style={{borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%"}}
-                             closeButton>
+                <ModalHeader style={{ borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%" }}
+                    closeButton>
                     <ModalTitle>Log In</ModalTitle>
                 </ModalHeader>
-                <ModalBody style={{paddingLeft: "10%", paddingRight: "10%"}}>
+                <ModalBody style={{ paddingLeft: "10%", paddingRight: "10%" }}>
                     <div className="login-form">
                         {this.state.error ? this.renderInvalidUserDetails() : null}
-                        <Form>
-                            <FormGroup>
-                                <FormLabel>Username</FormLabel>
+                        <Form noValidate validated={validated}>
+                            <Form.Group>
+                                <Form.Label>Username</Form.Label>
                                 <InputGroup>
                                     <i className="fa fa-user" aria-hidden="true"></i>
-                                    <FormControl type="text" placeholder="username" aria-describedby="userPrepend"
-                                                 name="username" onChange={this.handleUsernameChange}/>
+                                    <Form.Control required type="text" placeholder="username" aria-describedby="userPrepend"
+                                        name="username" value={username} onChange={this.handleUsernameChange} />
+                                    <Form.Control.Feedback type="invalid"> Please provide a valid username </Form.Control.Feedback>
                                 </InputGroup>
-                            </FormGroup>
-                            <FormGroup>
-                                <FormLabel>Password</FormLabel>
+                            </Form.Group>
+
+                            <Form.Group>
+                                <Form.Label>Password</Form.Label>
                                 <InputGroup>
                                     <i className="fas fa-lock"></i>
-                                    <FormControl type="password" placeholder="password"
-                                                 aria-describedby="passwordPrepend"
-                                                 name="password" onChange={this.handlePasswordChange}/>
+                                    <Form.Control required type="password" placeholder="password"
+                                        aria-describedby="passwordPrepend"
+                                        name="password" value={password} onChange={this.handlePasswordChange} />
+                                    <Form.Control.Feedback type="invalid"> Password cannot be empty </Form.Control.Feedback>
                                 </InputGroup>
                                 <button className="forgot-password-button transparent-btn"
-                                        onClick={() => this.setState({forgotPass: true})}>Forgot Password?
+                                    onClick={() => this.setState({ forgotPass: true })}>Forgot Password?
                                 </button>
-                            </FormGroup>
-                            <FormGroup>
-                                <br/>
-                                <div className="login-button-wrapper">
-                                    <div className="login-button-background"></div>
-                                    <Button className="" onClick={this.logIn}>Log In</Button>
-                                </div>
-                            </FormGroup>
+                            </Form.Group>
+
+                            <Form.Group>
+                                <br />
+                                {
+                                    loading ?
+                                        <LoadingAnimation /> :
+                                        (
+                                            <div className="login-button-wrapper">
+                                                <div className="login-button-background"></div>
+                                                <Button onClick={this.logIn}>Log In</Button>
+                                            </div>
+                                        )
+                                }
+                            </Form.Group>
+
                         </Form>
                         <div className="oauth-wrapper text-align-center">
-                            <br/>
+                            <br />
                             <h6>Or SignUp using</h6>
-                            <br/>
+                            <br />
                             <div className="oauth-item col-md-4 ml-auto d-inline">
-                                <img src={require("../../../assets/images/icons/facebook.svg")} alt="Facebook"/>
+                                <img src={require("../../../assets/images/icons/facebook.svg")} alt="Facebook" />
                             </div>
                             <div className="oauth-item col-md-4 d-inline">
-                                <img src={require("../../../assets/images/icons/google-plus.svg")} alt="Google Plus"/>
+                                <img src={require("../../../assets/images/icons/google-plus.svg")} alt="Google Plus" />
                             </div>
                             <div className="oauth-item col-md-4 mr-auto d-inline">
-                                <img src={require("../../../assets/images/icons/linkedin.svg")} alt="LinkedIn"/>
+                                <img src={require("../../../assets/images/icons/linkedin.svg")} alt="LinkedIn" />
                             </div>
                         </div>
-                        <br/>
+                        <br />
                         <p className="text-align-center">If not registered - <span className="registration-flow"
-                                                                                   onClick={() => {
-                                                                                       this.setState({
-                                                                                           register: true,
-                                                                                           forgotPass: false
-                                                                                       });
-                                                                                   }}>Register here</span>.
+                            onClick={() => {
+                                this.setState({
+                                    register: true,
+                                    forgotPass: false
+                                });
+                            }}>Register here</span>.
                         </p>
                     </div>
                 </ModalBody>
             </>);
     }
 
+    // handleValueChange(event) {
+    //     this.setState({
+    //         [event.target.name]: event.target.value
+    //     })
+    // }
+
+    // handleSubmit(event) {
+    //     console.log('form submitted')
+    //     const form = event.currentTarget;
+    //     console.log(form)
+    //     if (form.checkValidity() === false) {
+    //         console.log('check validity = false')
+    //         event.preventDefault();
+    //         event.stopPropagation();
+    //     } else {
+    //         this.logIn()
+    //     }
+    //     this.setState({ validated: true });
+
+    // }
+
     handleUsernameChange(event) {
-        this.setState({username: event.target.value});
+        this.setState({ username: event.target.value });
     }
 
     handlePasswordChange(event) {
-        this.setState({password: event.target.value});
+        this.setState({ password: event.target.value });
     }
 
     renderInvalidUserDetails() {
@@ -122,14 +159,21 @@ class LoginModal extends React.Component {
                 <div className="error-detail">
                     <p>{this.state.message}</p>
                 </div>
-                <hr/>
+                <hr />
             </div>
         );
     }
 
-    logIn() {
-        let username = this.state.username;
-        let password = this.state.password;
+    logIn(event) {
+        const { username, password } = this.state
+        console.log('in login action')
+
+        this.setState({
+            error: false,
+            message: '',
+            loading: true,
+            validated: true
+        })
         ApiAction.logIn(username, password)
             .then((response) => {
                 console.log(response.data)
@@ -140,10 +184,26 @@ class LoginModal extends React.Component {
                 } else {
                     console.log(response.data);
                 }
+                this.setState({
+                    loading: false,
+                    username: '',
+                    password: ''
+                });
             })
             .catch((error) => {
                 console.log(error);
+                this.setState({
+                    loading: false,
+                    username: '',
+                    password: '',
+                    message: 'Could not connect to Server. Please try again later.',
+                    error: true,
+                    validated: false
+                });
             });
+
+
+
         // if (response === ApiAction.NOT_FOUND) {
         //     this.setState({message: "Username does not exist!", error: true});
         // } else if (response === ApiAction.INVALID_USERNAME_OR_PASSWORD) {

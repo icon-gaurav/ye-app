@@ -93,6 +93,8 @@ button:active, button:focus, button:hover {
 }
 
 .transparent-button{
-    background-color: inherit;
+    background-color:inherit;
     border:none;
 }
+
+
