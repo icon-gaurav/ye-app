@@ -16,8 +16,8 @@ import Notification from "../notification/Notification";
 import NotificationList from "../notification/NotificationList";
 import Verification from "./settings/Verification";
 import CompletedInternship from './insight/CompletedInternship.js'
-import MissionCompleted from './insight/MissionCompleted'
-
+import MissionCompleted from './insight/MissionCompleted.js'
+import TotalEarnings from './insight/TotalEarnings.js'
 class StudentDashboard extends React.Component {
 
     constructor(props) {
@@ -78,6 +78,8 @@ class StudentDashboard extends React.Component {
                     <Route exact path="/settings" component={() => <Verification user={this.props.user}/>}/>
                     <Route exact path="/completed-internship" component={()=><CompletedInternship />}/>
                     <Route exact path="/missions-completed" component={()=>< MissionCompleted/>}/>
+                    <Route exact path="/total-earnings" component={()=>< TotalEarnings/>}/>
+
                 </div>
             </div>
         );
