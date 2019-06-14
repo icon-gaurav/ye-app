@@ -1,0 +1,89 @@
+.Block1{
+    width: 80%;
+	height: fit-content;
+	background-color:white;
+	margin: auto;
+    background-color: white;
+    border-radius: 30px;
+    border-style: ridge;
+    border-width: 2px;
+    border-color: black;
+    text-align: center;
+    padding-bottom:1%;
+    
+}
+.h1tag1{
+    text-align: center;
+    padding-top: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 40px;
+    color: black;
+}
+hr{
+    padding-top: 20px;
+}
+.Block3{
+    background-color: white;
+    width: 80%;
+    height: fit-content;
+    margin-top: 30px;
+    /* margin-left: 70px; */
+    text-align: center;
+    position: relative;
+    border-radius: 10px;
+    border-style: solid;
+    
+    text-align: left;
+    border-width: 1px;
+}
+.Block3{
+  background-color: white;
+}
+.Block3:hover{
+    
+        transform: scale(1.01);
+      
+}
+button {
+    color: black;
+    background-color: white;
+    border-width: none;
+}
+.borders{
+    border-width: none;
+    color: black;
+    background-color: white;
+}
+.dropdown_hover{
+    display: inline-block;
+    padding: 10px;
+    background: #323b48;
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+}
+.h1tag{
+    width: fit-content;
+    font-size: 20px;
+}
+
+ /* .Block1{ 
+    border-radius:10px;
+      height:70%;  
+      transition:height 0.5s; 
+      -webkit-transition:height 0.5s; 
+  
+  } */
+
+.profileclass{
+    font-size:20px; 
+}
+.ulclass{
+    padding-left: 140px;
+}
+.endclass{
+    float: right;
+    padding-right:70px;
+}
+
