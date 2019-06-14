@@ -10,6 +10,7 @@ import CompanyDetails from "./CompanyDetails";
 import ApiAction from "../../../actions/ApiAction";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalTitle from "react-bootstrap/ModalTitle";
+import isEmail from "validator/lib/isEmail"
 
 class BusinessRegistration extends React.Component {
 
@@ -21,22 +22,23 @@ class BusinessRegistration extends React.Component {
             resendCode: false,
             confirmError: false,
             code: ["", "", "", ""],
-            verified: false
+            verified: false,
+            errors: {}
         }
         console.log(props);
     }
 
     render() {
         return (
-            this.state.verified ? <CompanyDetails email={this.state.email}/> : this.renderForm()
+            this.state.verified ? <CompanyDetails email={this.state.email} /> : this.renderForm()
         );
     }
 
     renderForm() {
         return (
             <>
-                <ModalHeader style={{borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%"}}
-                             closeButton>
+                <ModalHeader style={{ borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%" }}
+                    closeButton>
                     <ModalTitle>Business Registration</ModalTitle>
                 </ModalHeader>
                 <ModalBody>
@@ -48,7 +50,7 @@ class BusinessRegistration extends React.Component {
                                     <FormGroup>
                                         <FormLabel>Enter your email id</FormLabel>
                                         <FormControl type="text" name="email" placeholder="example@abc.com"
-                                                     onChange={this.setEmailData}/>
+                                            onChange={this.setEmailData} />
                                     </FormGroup>
                                     {this.state.codeSent ? this.renderVerifyCode() : ""}
                                     <FormGroup>
@@ -72,20 +74,20 @@ class BusinessRegistration extends React.Component {
         let resendCode = this.state.resendCode;
         return (
             <FormGroup className="verify-otp">
-                <FormLabel style={{width: "100%"}}>
+                <FormLabel style={{ width: "100%" }}>
                     Verify OTP {resendCode ?
-                    <button className="resend-otp" onClick={this.sendOtp}>Resend OTP</button> : null}
+                        <button className="resend-otp" onClick={this.sendOtp}>Resend OTP</button> : null}
                 </FormLabel>
                 <FormLabel className="otp-input">
                     <FormControl onFocus={this.selectText} type="number" maxLength="1" data-index="0" min="0" max="9"
-                                 onChange={this.setCodeData} value={code[0]} className="code-input" name="otp-input"
-                                 autoFocus/>
+                        onChange={this.setCodeData} value={code[0]} className="code-input" name="otp-input"
+                        autoFocus />
                     <FormControl onFocus={this.selectText} type="number" maxLength="1" data-index="1" min="0" max="9"
-                                 onChange={this.setCodeData} value={code[1]} className="code-input" name="otp-input"/>
+                        onChange={this.setCodeData} value={code[1]} className="code-input" name="otp-input" />
                     <FormControl onFocus={this.selectText} type="number" maxLength="1" data-index="2" min="0" max="9"
-                                 onChange={this.setCodeData} value={code[2]} className="code-input" name="otp-input"/>
+                        onChange={this.setCodeData} value={code[2]} className="code-input" name="otp-input" />
                     <FormControl onFocus={this.selectText} type="number" maxLength="1" data-index="3" min="0" max="9"
-                                 onChange={this.setCodeData} value={code[3]} className="code-input" name="otp-input"/>
+                        onChange={this.setCodeData} value={code[3]} className="code-input" name="otp-input" />
                 </FormLabel>
             </FormGroup>
         );
@@ -111,17 +113,36 @@ class BusinessRegistration extends React.Component {
         // );
     }
 
+
+    checkValidOtp = () => {
+        let ans = true
+        let message = {}
+        const { code } = this.state
+        code.map(val => {
+            if (val < 0 || val > 9) {
+                ans = false
+                message.otp = "Enter a valid OTP"
+            }
+        })
+        this.setState({
+            errors: message
+        })
+        return ans
+    }
+
     verifyEmail = () => {
-        ApiAction.verifyCode(this.state.email,parseInt(this.state.code.join(''), 10))
-            .then((response) => {
-                console.log(response);
-                if (response.data.success) {
-                    this.setState({verified: true});
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        if (this.checkValidOtp()) {
+            ApiAction.verifyCode(this.state.email, parseInt(this.state.code.join(''), 10))
+                .then((response) => {
+                    console.log(response);
+                    if (response.data.success) {
+                        this.setState({ verified: true });
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     }
 
     selectText = (event) => {
@@ -132,7 +153,7 @@ class BusinessRegistration extends React.Component {
         let email = event.target.value;
         let regExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (regExp.test(String(email).toLowerCase())) {
-            this.setState({email: email});
+            this.setState({ email: email });
         }
     }
 
@@ -151,7 +172,7 @@ class BusinessRegistration extends React.Component {
         if (codeIndex == 3) {
             this.sendVerificationCode();
         }
-        this.setState({otp: code})
+        this.setState({ otp: code })
     }
 
     sendVerificationCode = () => {
@@ -161,7 +182,7 @@ class BusinessRegistration extends React.Component {
             .then((response) => {
                 console.log(response);
                 if (response.data.success) {
-                    this.setState({resendCode: true, codeSent: true});
+                    this.setState({ resendCode: true, codeSent: true });
                 }
             })
             .catch((error) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import ModalBody from "react-bootstrap/ModalBody";
 import Form from "react-bootstrap/Form";
-import {FormControl, FormGroup} from "react-bootstrap";
+import { FormControl, FormGroup } from "react-bootstrap";
 import FormLabel from "react-bootstrap/FormLabel";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -12,7 +12,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalTitle from "react-bootstrap/ModalTitle";
-
+import isEmail from "validator/lib/isEmail"
+import FieldError from "../error/FieldError"
 
 class StudentDetails extends React.Component {
     constructor(props) {
@@ -29,21 +30,22 @@ class StudentDetails extends React.Component {
             state: "",
             password: "",
             cnfPassword: "",
-            errors: []
+            errors: {},
+
         };
         console.log(props);
     }
 
     render() {
-        let {fName, lName, email, dob, college, course, city, state, password, cnfPassword} = this.state;
+        let { fName, lName, email, dob, college, course, city, state, password, cnfPassword, errors } = this.state;
         return (
             <>
-                <ModalHeader style={{borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%"}}
-                             closeButton>
+                <ModalHeader style={{ borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%" }}
+                    closeButton>
                     <ModalTitle>Student Details</ModalTitle>
                 </ModalHeader>
-                <ModalBody style={{paddingLeft: "10%", paddingRight: "10%"}}>
-                    {this.state.errors.length > 0 ? this.renderError() : ""}
+                <ModalBody style={{ paddingLeft: "10%", paddingRight: "10%" }}>
+                    {/* {this.state.errors.length > 0 ? this.renderError() : ""} */}
                     <Form>
                         <div className="row">
                             <div className="col-md-6 col-xs-12">
@@ -51,55 +53,58 @@ class StudentDetails extends React.Component {
                                     <FormLabel className="required">Full name</FormLabel>
                                     <Row>
                                         <Col>
-                                            <Form.Control type="text" name="firstName" placeholder="First name"
-                                                          value={fName}
-                                                          onChange={this.updateName}
-                                                          required/>
+                                            <FormControl type="text" name="firstName" placeholder="First name"
+                                                value={fName}
+                                                onChange={this.updateName}
+                                                required />
+
                                         </Col>
                                         <Col>
-                                            <Form.Control type="text" name="lastName" placeholder="Last Name"
-                                                          value={lName}
-                                                          onChange={this.updateName}
-                                                          required/>
+                                            <FormControl type="text" name="lastName" placeholder="Last Name"
+                                                value={lName}
+                                                onChange={this.updateName}
+                                                required />
                                         </Col>
+                                        <div className="pl-3">{errors.fName || errors.lName ? <FieldError error="Full Name required!" /> : null}</div>
                                     </Row>
                                 </FormGroup>
                                 <FormGroup>
                                     <FormLabel className="required">Email</FormLabel>
                                     <FormControl type="text" name="email" placeholder="abc@xyz.com" value={email}
-                                                 onChange={this.updateEmail} required/>
+                                        onChange={this.updateEmail} required />
+                                    {errors.email ? <FieldError error={errors.email} /> : null}
                                 </FormGroup>
                                 <FormGroup>
                                     <FormLabel>D.O.B.</FormLabel>
-                                    <DatePicker placeholderText="Click to select a date (mm/dd/yyyy)"
-                                                maxDate={new Date()} onChange={this.updateDOB} selected={dob}/>
+                                    <DatePicker placeholderText="Click to select a date (mm/dd/yyyy)" className="rounded"
+                                        maxDate={new Date()} onChange={this.updateDOB} selected={dob} id="dob-input" />
                                     {/*<FormControl type="date" value={dob} onChange={this.updateDOB} required/>*/}
                                 </FormGroup>
                                 <FormGroup>
                                     <FormLabel>Gender</FormLabel>
-                                    <br/>
+                                    <br />
                                     <div className="custom-control custom-radio custom-control-inline">
                                         <FormControl type="radio" className="custom-control-input" id="customRadio"
-                                                     name="gender"
-                                                     value="Male" onChange={this.updateGender}/>
+                                            name="gender"
+                                            value="Male" onChange={this.updateGender} />
                                         <FormLabel className="custom-control-label"
-                                                   htmlFor="customRadio">Male </FormLabel>
+                                            htmlFor="customRadio">Male </FormLabel>
                                     </div>
                                     <div className="custom-control custom-radio custom-control-inline">
                                         <FormControl type="radio" className="custom-control-input" id="customRadio1"
-                                                     name="gender"
-                                                     value="Female"
-                                                     onChange={this.updateGender}/>
+                                            name="gender"
+                                            value="Female"
+                                            onChange={this.updateGender} />
                                         <FormLabel className="custom-control-label"
-                                                   htmlFor="customRadio1">Female </FormLabel>
+                                            htmlFor="customRadio1">Female </FormLabel>
                                     </div>
                                     <div className="custom-control custom-radio custom-control-inline">
                                         <FormControl type="radio" className="custom-control-input" id="customRadio2"
-                                                     name="gender"
-                                                     value="Other"
-                                                     onChange={this.updateGender}/>
+                                            name="gender"
+                                            value="Other"
+                                            onChange={this.updateGender} />
                                         <FormLabel className="custom-control-label"
-                                                   htmlFor="customRadio2">Other </FormLabel>
+                                            htmlFor="customRadio2">Other </FormLabel>
                                     </div>
                                 </FormGroup>
                             </div>
@@ -107,22 +112,24 @@ class StudentDetails extends React.Component {
                                 <FormGroup>
                                     <FormLabel>City</FormLabel>
                                     <FormControl type="text" name="city" placeholder="City" value={city}
-                                                 onChange={this.updateCity}/>
+                                        onChange={this.updateCity} />
                                 </FormGroup>
                                 <FormGroup>
                                     <FormLabel>State</FormLabel>
                                     <FormControl type="text" name="state" placeholder="State" value={state}
-                                                 onChange={this.updateState}/>
+                                        onChange={this.updateState} />
                                 </FormGroup>
                                 <FormGroup>
                                     <FormLabel className="required">Password</FormLabel>
                                     <FormControl type="password" name="password" placeholder="Password"
-                                                 value={password} onChange={this.updatePassword}/>
+                                        value={password} onChange={this.updatePassword} />
+                                    {errors.password ? <FieldError error={errors.password} /> : null}
                                 </FormGroup>
                                 <FormGroup>
                                     <FormLabel className="required">Confirm Password</FormLabel>
                                     <FormControl type="password" name="confirm-password" placeholder="Confirm Password"
-                                                 value={cnfPassword} onChange={this.updateConfPassword}/>
+                                        value={cnfPassword} onChange={this.updateConfPassword} />
+                                    {errors.cnfPassword ? <FieldError error={errors.cnfPassword} /> : null}
                                 </FormGroup>
                             </div>
                         </div>
@@ -139,93 +146,83 @@ class StudentDetails extends React.Component {
         );
     }
 
-    renderError() {
-        const errors = this.state.errors.map((error, key) => {
-            return (
-                <li key={key}>{error}</li>
-            );
-        });
-        return (
-            <div className="error-wrapper" style={{color: "red"}}>
-                <ul>
-                    {errors}
-                </ul>
-            </div>
-        );
-    }
-
     updateName = (event) => {
         if (event.target.name == "firstName") {
-            this.setState({fName: event.target.value});
+            this.setState({ fName: event.target.value });
         } else if (event.target.name == "lastName") {
-            this.setState({lName: event.target.value});
+            this.setState({ lName: event.target.value });
         }
     }
 
     updateEmail = (event) => {
         if (event.target.name == "email") {
-            this.setState({email: event.target.value});
+            this.setState({ email: event.target.value });
         }
     }
 
     updateDOB = (date) => {
-        this.setState({dob: date});
+        this.setState({ dob: date });
     }
 
     updateGender = (event) => {
         if (event.target.name == "gender") {
-            this.setState({gender: event.target.value});
+            this.setState({ gender: event.target.value });
         }
     }
 
     updateCity = (event) => {
         if (event.target.name == "city") {
-            this.setState({city: event.target.value});
+            this.setState({ city: event.target.value });
         }
     }
 
     updateState = (event) => {
         if (event.target.name == "state") {
-            this.setState({state: event.target.value});
+            this.setState({ state: event.target.value });
         }
     }
 
     updatePassword = (event) => {
         if (event.target.name == "password") {
-            this.setState({password: event.target.value});
+            this.setState({ password: event.target.value });
         }
     }
 
     updateConfPassword = (event) => {
         if (event.target.name == "confirm-password") {
-            this.setState({cnfPassword: event.target.value});
+            this.setState({ cnfPassword: event.target.value });
         }
     }
 
     checkFormValidity() {
         let result = true;
-        let message = [];
+        let message = {};
+        console.log('checking form validity')
         if (this.state.fName.length < 1) {
             result = false;
-            message.push("First Name required!");
+            message.fName = "First Name required!";
         }
         if (this.state.lName.length < 1) {
             result = false;
-            message.push("Last Name required!");
+            message.lName = "Last Name required!";
         }
         if (this.state.email.length < 1) {
             result = false;
-            message.push("Email required!");
+            message.email = "Email required!";
+        } else if (!isEmail(this.state.email)) {
+            result = false;
+            message.email = "Enter a valid Email!"
         }
         if (this.state.password.length < 6) {
             result = false;
-            message.push("Password should be more than 6 character!");
+            message.password = "Password should be more than 6 character!";
         }
         if (this.state.cnfPassword != this.state.password) {
             result = false;
-            message.push("Password didn't match!");
+            message.cnfPassword = "Password didn't match!";
         }
-        this.setState({errors: message});
+        console.log(message)
+        this.setState({ errors: message });
         return result;
     }
 
@@ -249,7 +246,7 @@ class StudentDetails extends React.Component {
                         country: ""
                     }
                 },
-                password:this.state.password
+                password: this.state.password
             };
             ApiAction.studentRegistration(student)
                 .then((response) => {

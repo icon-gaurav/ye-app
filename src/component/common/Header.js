@@ -5,7 +5,7 @@ import NavbarBrand from "react-bootstrap/NavbarBrand";
 import "../../assets/stylesheet/Header.css";
 import ToggleBtnAnimation from '../library/ToggleBtnAnimation'
 import Converter from "../utilities/Converter";
-import { Nav, Dropdown } from "react-bootstrap";
+import { Nav, Dropdown, Modal, ModalBody } from "react-bootstrap";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
 import NavbarCollapse from "react-bootstrap/NavbarCollapse";
 import { NavLink, Link } from "react-router-dom";
@@ -40,6 +40,11 @@ class Header extends React.Component {
         }
 
         return (
+
+
+
+
+
             <Navbar className="container-fluid bg-light" expand="lg" sticky="top">
                 {/* <NavItem className="float-left">
                     <button className="btn rounded-circle" onClick={this.props.toggleLeftMenu}>
@@ -54,7 +59,13 @@ class Header extends React.Component {
                 <NavbarToggle id="navbar-toggler" aria-controls="responsive-navbar-nav" style={{ padding: "0" }}>
                     <ToggleBtnAnimation />
                 </NavbarToggle>
-                <NavbarCollapse id="responsive-navbar-nav">
+
+
+
+
+
+
+                <NavbarCollapse id="responsive-navbar-nav" style={{ zIndex: "1000" }}>
                     <Nav id="mobile-header">
 
                         <ul className="nav navbar-nav">
@@ -174,6 +185,12 @@ class Header extends React.Component {
 
                     </Nav>
                 </NavbarCollapse>
+                {/* </ModalBody>
+                </Modal> */}
+
+                {/* <div className="fade modal-backdrop show" style={{position:"absolute",top:"50px"}}>
+                    sdgdf s t tsg t gfghg rfs bs t gh std tg sh s rtg dt s hs fh sh h rh fs hrt h rsr hrs th t h  fg er g re rt h stg dkjg ddgnd ldjs idd bdds ;dgrduogihsl alljga  hrjhlreg
+                </div> */}
 
                 <Nav className="ml-auto pr-3" id="header">
 
@@ -225,10 +242,12 @@ class Header extends React.Component {
                     <NavLink className="text-dark position-relative nav-link" to="/notifications"
                         activeStyle={activeStyle}>
                         <div className="icon-div text-align-center">
-                            <i className="fa fa-bell" />
+                            <i className="fa fa-bell position-relative" >
+                            <span className="unseen-notification align-self-center" style={{top:"0px",left:"15px"}}>{unSeenNotifications}</span>
+
+                            </i>
                             <div>Notification</div>
                         </div>
-                        <span className="unseen-notification align-self-center">{unSeenNotifications}</span>
                     </NavLink>
 
                     <Dropdown className="pt-3 mr-5" >

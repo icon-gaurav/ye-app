@@ -111,6 +111,7 @@ ul li {
   }
   #mobile-header {
     display: inline-block;
+    margin-left: 40%;
     width: 60%;
   }
   ul {
