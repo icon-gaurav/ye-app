@@ -58,7 +58,7 @@ class IndividualWork extends Component {
     }
 
     calculateDuration = (start, end) => {
-        let ms = end.getTime() - start.getTime();
+        let ms = new Date(end).getTime() - new Date(start).getTime();
         let days = Math.floor((((ms / 1000) / 60) / 60) / 24);
         let weeks = Math.floor(days / 7);
         days = days % 7;
@@ -80,7 +80,7 @@ class IndividualWork extends Component {
         let {work} = this.state;
         console.log("inside render details")
         return (
-            <div>
+            <div className="bg-white p-2">
                 <header className="main-head">Work Details</header>
                 <div className="internship-detail container-fluid">
                     <div className="item work-meta">
@@ -147,7 +147,7 @@ class IndividualWork extends Component {
             <div>
                 <div className="row">
                     <div className="head col-6">Start Date</div>
-                    <div className="data col-6">{work.duration.start.toLocaleDateString()}</div>
+                    <div className="data col-6">{work.duration.start.split("T")[0]}</div>
                 </div>
                 <div className="row">
                     <div className="head col-6">Duration</div>
@@ -163,7 +163,7 @@ class IndividualWork extends Component {
                 </div>
                 <div className="row">
                     <div className="head col-6">Last Date</div>
-                    <div className="data col-6">{work.duration.last.toLocaleDateString()}</div>
+                    <div className="data col-6">{work.duration.last.split("T")[0]}</div>
                 </div>
             </div>
         );

@@ -1,0 +1,9 @@
+/*
+* @author Gaurav Kumar
+*/
+
+@media screen and (max-width: 768px) {
+    .user-description{
+        text-align: center;
+    }
+}

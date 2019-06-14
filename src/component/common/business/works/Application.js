@@ -26,23 +26,22 @@ class Application extends Component {
         let {student} = application;
         let {summary} = this.state;
         return (
-            <div className="user-wrapper border">
-                <div className="row p-2">
-                    <div className="col-lg-1 col-md-2 col-sm-2">
-                        <Image className="rounded-circle"
+            <div className="user-wrapper pt-2 pb-2">
+                <div className="row">
+                    <div className="col-lg-1 col-md-1 col-sm-2 col-2">
+                        <Image className="rounded-circle img-fluid"
                                src={Converter.bufferToBase64(student.profilePic)}
                                width="50px" height="50px"/>
                     </div>
-                    <div className="col-lg-10 col-md-8 col-sm-8">
-                        <div className="d-inline">
-                            <h6>{student.name.first + " " + student.name.last}</h6>
-                        </div>
+                    <div className="col-lg-10 col-md-10 col-sm-8 col-8">
+                        <h6>{student.name.first + " " + student.name.last}</h6>
                         <div className="rating-wrapper">
                             {this.renderRating()}
                         </div>
                     </div>
-                    <div className="col-lg-1 col-md-2 col-sm-2">
-                        <Button onClick={() => this.setState({summary: !summary})}><i className="fas fa-angle-down"></i></Button>
+                    <div className="justify-content-end ml-auto mr-2 ">
+                        <button className="transparent-button" onClick={() => this.setState({summary: !summary})}><i
+                            className="fas fa-angle-down"></i></button>
                     </div>
                 </div>
                 {summary ? this.renderSummary() : ""}
@@ -161,6 +160,7 @@ class Application extends Component {
         let notification = {
             message: "Sorry! You are not selected for the internships.",
             type: "default",
+            work:work,
             receiver: application.student
         };
         application.status = "Rejected";
@@ -180,6 +180,7 @@ class Application extends Component {
         let notification = {
             message: "Congratulations! You are selected for this internship",
             type: "confirmation",
+            work:work,
             receiver: {
                 _id: application.student._id,
                 name: application.student.name

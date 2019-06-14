@@ -15,13 +15,16 @@ import 'react-owl-carousel2/src/owl.carousel.css';
 import 'react-owl-carousel2/src/owl.theme.default.css';
 import 'react-owl-carousel2/lib/styles.css';
 import OfferModal from "./OfferModal";
+import ApiAction from "../../../actions/ApiAction";
+import Converter from "../../utilities/Converter";
 
 class OfferList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             modalType: "Add",
-            modalShow: false
+            modalShow: false,
+            topOffers: []
         };
         console.log(this.props);
     }
@@ -31,7 +34,16 @@ class OfferList extends Component {
     }
 
     componentWillMount() {
-
+        ApiAction.getTopOffers()
+            .then((response) => {
+                console.log(response)
+                if (response.data.success) {
+                    this.setState({topOffers: response.data.offers});
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     render() {
@@ -156,6 +168,8 @@ class OfferList extends Component {
             center: true,
             loop: true,
         };
+
+        let {topOffers} = this.state;
         return (
             <section>
                 <div className="">
@@ -166,53 +180,81 @@ class OfferList extends Component {
                         className="owl-theme owl-carousel"
                         options={options}
                         ref="car">
-                        <div className="">
-                            <Link href="google.com">
-                                <div className="top-offer-slide">
-                                    <div className="offer-image">
-                                        <img src={require("../../../assets/images/logo/YE-Merge-Black.png")} alt=""/>
-                                    </div>
-                                    <div className="offer-description overlay-slide">
-                                        <div className="offer-organization">
-                                            <div className="organization">
-                                                <div className="org-logo">
-                                                    <img src={require("../../../assets/images/logo/YE-Merge-Black.png")}
-                                                         alt=""/>
+                        {topOffers.map((offer, key)=>{
+                            return(
+                                <div className="">
+                                    <Link href="google.com">
+                                        <div className="top-offer-slide">
+                                            <div className="offer-image">
+                                                <img src={Converter.bufferToBase64(offer.offerImage)} alt=""/>
+                                            </div>
+                                            <div className="offer-description overlay-slide">
+                                                <div className="offer-organization">
+                                                    <div className="organization">
+                                                        <div className="org-logo">
+                                                            <img src={require("../../../assets/images/logo/YE-Merge-Black.png")}
+                                                                 alt=""/>
+                                                        </div>
+                                                        <div className="org-name">{offer.company}</div>
+                                                    </div>
                                                 </div>
-                                                <div className="org-name">Young Engine</div>
+                                                <div className="offer-title">
+                                                    <span>{offer.title}</span></div>
+
                                             </div>
                                         </div>
-                                        <div className="offer-title">
-                                            <span>Buy 1 Get 1 Free</span></div>
-
-                                    </div>
-
+                                    </Link>
                                 </div>
-                            </Link>
-                        </div>
-                        <div className="">
-                            <Link href="google.com">
-                                <div className="top-offer-slide">
-                                    <div className="offer-image">
-                                        <img src={require("../../../assets/images/logo/YE-Merge-Black.png")} alt=""/>
-                                    </div>
-                                    <div className="offer-description overlay-slide">
-                                        <div className="offer-organization">
-                                            <div className="organization">
-                                                <div className="org-logo">
-                                                    <img src={require("../../../assets/images/logo/YE-Merge-Black.png")}
-                                                         alt=""/>
-                                                </div>
-                                                <div className="org-name">Young Engine</div>
-                                            </div>
-                                        </div>
-                                        <div className="offer-title">
-                                            <span>Buy 1 Get 1 Free</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Link>
-                        </div>
+                            );
+                            }
+                        )}
+                        {/*<div className="">*/}
+                        {/*    <Link href="google.com">*/}
+                        {/*        <div className="top-offer-slide">*/}
+                        {/*            <div className="offer-image">*/}
+                        {/*                <img src={require("../../../assets/images/logo/YE-Merge-Black.png")} alt=""/>*/}
+                        {/*            </div>*/}
+                        {/*            <div className="offer-description overlay-slide">*/}
+                        {/*                <div className="offer-organization">*/}
+                        {/*                    <div className="organization">*/}
+                        {/*                        <div className="org-logo">*/}
+                        {/*                            <img src={require("../../../assets/images/logo/YE-Merge-Black.png")}*/}
+                        {/*                                 alt=""/>*/}
+                        {/*                        </div>*/}
+                        {/*                        <div className="org-name">Young Engine</div>*/}
+                        {/*                    </div>*/}
+                        {/*                </div>*/}
+                        {/*                <div className="offer-title">*/}
+                        {/*                    <span>Buy 1 Get 1 Free</span></div>*/}
+
+                        {/*            </div>*/}
+
+                        {/*        </div>*/}
+                        {/*    </Link>*/}
+                        {/*</div>*/}
+                        {/*<div className="">*/}
+                        {/*    <Link href="google.com">*/}
+                        {/*        <div className="top-offer-slide">*/}
+                        {/*            <div className="offer-image">*/}
+                        {/*                <img src={require("../../../assets/images/logo/YE-Merge-Black.png")} alt=""/>*/}
+                        {/*            </div>*/}
+                        {/*            <div className="offer-description overlay-slide">*/}
+                        {/*                <div className="offer-organization">*/}
+                        {/*                    <div className="organization">*/}
+                        {/*                        <div className="org-logo">*/}
+                        {/*                            <img src={require("../../../assets/images/logo/YE-Merge-Black.png")}*/}
+                        {/*                                 alt=""/>*/}
+                        {/*                        </div>*/}
+                        {/*                        <div className="org-name">Young Engine</div>*/}
+                        {/*                    </div>*/}
+                        {/*                </div>*/}
+                        {/*                <div className="offer-title">*/}
+                        {/*                    <span>Buy 1 Get 1 Free</span>*/}
+                        {/*                </div>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*    </Link>*/}
+                        {/*</div>*/}
 
                     </OwlCarousel>
                 </div>

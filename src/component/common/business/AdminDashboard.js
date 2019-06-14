@@ -49,13 +49,13 @@ class AdminDashboard extends React.Component {
     renderStats() {
         return (
 
-            <BrowserRouter>
+            <>
                 <div className="aside-left-menu" style={this.props.leftMenu ? {display: "block"} : {display: "none"}}>
                     {this.props.leftMenu ? this.renderLeftMenu() : ""}
                 </div>
                 <div className="main-app" style={this.props.leftMenu ? this.state.leftMenuStyle : {marginLeft: "0px"}}>
                     <header className="main-head"></header>
-                    <Route path="/insights" component={Insights}/>
+                    <Route path="/home" component={Insights}/>
                     <Route exact path="/users" component={UserList}/>
                     <Route exact path="/users/:userId" component={IndividualUser}/>
                     <Route exact path="/internships"
@@ -67,7 +67,7 @@ class AdminDashboard extends React.Component {
 
                     <Route exct path="/help-center" component={HelpCenter}/>
                 </div>
-            </BrowserRouter>
+            </>
 
         );
     }
