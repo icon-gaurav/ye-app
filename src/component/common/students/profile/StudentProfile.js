@@ -16,6 +16,7 @@ import Button from "react-bootstrap/Button";
 import PersonalDetailModal from "./PersonalDetailModal";
 import ApiAction from "../../../../actions/ApiAction";
 import Converter from "../../../utilities/Converter";
+import {Link} from "react-router-dom";
 
 class StudentProfile extends Component {
     constructor(props) {
@@ -153,70 +154,73 @@ class StudentProfile extends Component {
     renderPersonalDetails() {
         let {user} = this.props;
         return (
-            <div className="profile-wrapper-item1 bg-white sticky shadow">
-                <div className="pic-wrapper position-relative">
-                    <input type="image" src={Converter.bufferToBase64(user.profilePic)}
-                           onClick={() => this.setState({personalDetailModalShow: true})}/>
-                    <div className="rating-wrapper">
-                        {this.renderRating()}
-                    </div>
-                    <div className="edit-button">
+                <div className="profile-wrapper-item1 bg-white sticky shadow">
+                    <div className="pic-wrapper position-relative">
+                        <input type="image" src={Converter.bufferToBase64(user.profilePic)}
+                               onClick={() => this.setState({personalDetailModalShow: true})}/>
+                        <div className="rating-wrapper">
+                            {this.renderRating()}
+                        </div>
+                        <div className="edit-button">
 
-                    </div>
-                </div>
-                <div className="info-wrapper">
-                    <div align="center">
-                        <h5 className="user-name">{user.name.first ? user.name.first + " " + user.name.last : user.name}</h5>
-                        <h6 className="user-city">{user.contact.address.city}</h6>
-                        <h6 className="user-country">{user.contact.address.country}</h6>
-                    </div>
-                    <div className="about-me">
-                        <div className="about-me-title text-align-center">
-                            <span>About Me</span>
                         </div>
-                        <div className="text-left">
-                            <p className="overflow-hidden">{user.summary.aboutMe}</p>
+                    </div>
+                    <div className="info-wrapper">
+                        <div align="center">
+                            <h5 className="user-name">{user.name.first ? user.name.first + " " + user.name.last : user.name}</h5>
+                            <h6 className="user-city">{user.contact.address.city}</h6>
+                            <h6 className="user-country">{user.contact.address.country}</h6>
                         </div>
+                        <div className="about-me">
+                            <div className="about-me-title text-align-center">
+                                <span>About Me</span>
+                            </div>
+                            <div className="text-left">
+                                <p className="overflow-hidden">{user.summary.aboutMe}</p>
+                            </div>
 
-                    </div>
-                    <div className="personal-info">
-                        <div className="mobile-wrapper">
-                            <div className="d-inline-block icon-wrapper">
-                                <i className="fa fa-phone" aria-hidden="true"></i>
-                            </div>
-                            <div className="d-inline-block">{user.contact.mobile}</div>
                         </div>
-                        <div className="email-wrapper">
-                            <div className="d-inline-block icon-wrapper">
-                                <i className="fa fa-envelope" aria-hidden="true"></i>
-                            </div>
-                            <div className="d-inline-block"><p>{user.contact.email}</p></div>
-                        </div>
-                        {user.social ?
-                            <div className="social-wrapper">
-                                <div align="center" style={{marginBottom: 20}}>
-                                    <a href={user.social.facebook}>
-                                        <i className="fa fa-facebook-square fa-2x m-1" style={{color: "#00acee"}}
-                                           aria-hidden="true"></i>
-                                    </a>
-                                    <a href={user.social.twitter}>
-                                        <i className="fa fa-twitter-square fa-2x m-1" style={{color: "#00acee"}}
-                                           aria-hidden="true"></i>
-                                    </a>
-                                    <a href={user.social.linkedIn}>
-                                        <i className="fa fa-linkedin-square fa-2x m-1" style={{color: "#00acee"}}
-                                           aria-hidden="true"></i>
-                                    </a>
-                                    <a href={user.social.github}>
-                                        <i className="fa fa-github-square fa-2x m-1" style={{color: "#00acee"}}
-                                           aria-hidden="true"></i>
-                                    </a>
+                        <div className="personal-info">
+                            <div className="mobile-wrapper">
+                                <div className="d-inline-block icon-wrapper">
+                                    <i className="fa fa-phone" aria-hidden="true"></i>
                                 </div>
+                                <div className="d-inline-block">{user.contact.mobile}</div>
                             </div>
-                            : ""}
+                            <div className="email-wrapper">
+                                <div className="d-inline-block icon-wrapper">
+                                    <i className="fa fa-envelope" aria-hidden="true"></i>
+                                </div>
+                                <div className="d-inline-block"><p>{user.contact.email}</p></div>
+                            </div>
+                            {user.social ?
+                                <div className="social-wrapper">
+                                    <div align="center" style={{marginBottom: 20}}>
+                                        <a href={user.social.facebook}>
+                                            <i className="fa fa-facebook-square fa-2x m-1" style={{color: "#00acee"}}
+                                               aria-hidden="true"></i>
+                                        </a>
+                                        <a href={user.social.twitter}>
+                                            <i className="fa fa-twitter-square fa-2x m-1" style={{color: "#00acee"}}
+                                               aria-hidden="true"></i>
+                                        </a>
+                                        <a href={user.social.linkedIn}>
+                                            <i className="fa fa-linkedin-square fa-2x m-1" style={{color: "#00acee"}}
+                                               aria-hidden="true"></i>
+                                        </a>
+                                        <a href={user.social.github}>
+                                            <i className="fa fa-github-square fa-2x m-1" style={{color: "#00acee"}}
+                                               aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                : ""}
+                        </div>
+                    </div>
+                    <div className="text-align-center">
+                        <Link to="/settings">{user.status}</Link>
                     </div>
                 </div>
-            </div>
         );
     }
 
@@ -226,14 +230,14 @@ class StudentProfile extends Component {
         rating.map((rate) => {
             cumulativeRating += rate;
         });
-        cumulativeRating = Math.floor(cumulativeRating/rating.length);
+        cumulativeRating = Math.floor(cumulativeRating / rating.length);
         let items = [];
         let i = 0;
-        while (i<5) {
-            if(i<=cumulativeRating) {
+        while (i < 5) {
+            if (i <= cumulativeRating) {
                 items.push(<span><i className="fa fa-star" id="star1" aria-hidden="true"></i></span>);
-            }else{
-                items.push( <span><i className="fa fa-star-o" id="star1" aria-hidden="true"></i></span>);
+            } else {
+                items.push(<span><i className="fa fa-star-o" id="star1" aria-hidden="true"></i></span>);
             }
             i++;
         }

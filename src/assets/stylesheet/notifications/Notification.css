@@ -24,10 +24,17 @@
     width:80px;
 }
 
-.time-wrapper{
-    padding-top:30%;
-    padding-left:1%;
-    padding-right:1%;
-    padding-bottom:30%;
-    width:100%
+.category-code{
+    left:0%;
+    top:0%;
+    width: 5px;
+    position: absolute;
+    background-color: red;
+    border: 1px solid red;
+    height: 100%;
+}
+
+.confirmation-msg{
+    background-color: green;
+    border:1px solid green;
 }

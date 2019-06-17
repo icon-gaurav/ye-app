@@ -46,61 +46,70 @@ class Work extends Component {
         let {work, user} = this.props;
         let {applications, edit, applicationsDetails, selected, rejected} = this.state;
         return (
-            <div className="work-wrapper border">
+            <div className="work-wrapper border mb-2 bg-white">
                 <div className="work-abstract">
                     <div className="row m-1 p-2">
-                        <div className="col-11">
-                            <div>
+                        <div className="col-12">
+                            <div className="d-flex">
                                 <h6>{work.profile}</h6>
+                                <div className="d-flex justify-content-end ml-auto">
+                                    <button className="transparent-button" onClick={() => this.setState({edit: !edit})}><i
+                                        className="fas fa-ellipsis-v"></i></button>
+                                    <button className="transparent-button" onClick={() => this.setState({applicationsDetails: !applicationsDetails})}><i
+                                        className="fas fa-list-ul"></i></button>
+                                </div>
                             </div>
                             <div>
                                 <p className="opacity-75">{work.workDetails}</p>
                             </div>
-                            <div>
-                                <div className="d-inline px-1">
-                                    <span><b>Last date</b> : {work.duration.last}</span>
+                            <div className="d-flex col-lg-4 col-md-3 col-sm-12">
+                                <div className="">
+                                    <span><b>Last date</b> : {work.duration.last.split('T')[0]}</span>
                                 </div>
-                                <div className="d-inline">
+                                <div className="justify-content-end ml-auto">
                                     <span><b>Duration</b> : {work.duration.weeks}</span>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-1">
-                            <Button className="" onClick={() => this.setState({edit: !edit})}><i
-                                className="fas fa-ellipsis-v"></i></Button>
-                            <Button onClick={() => this.setState({applicationsDetails: !applicationsDetails})}><i
-                                className="fas fa-list-ul"></i></Button>
-                        </div>
+
                     </div>
                 </div>
                 {applicationsDetails ?
                     <Tabs>
                         <Tab eventKey="all" title="All Applications">
                             <div className="applications col-12">
-                                {applications.map((application, key) => {
+                                {applications.length>0?
+                                    applications.map((application, key) => {
                                     return <Application application={application} key={key} work={work}/>
-                                })}
+                                }):
+                                    <div>No applications</div>}
                             </div>
                         </Tab>
                         <Tab eventKey="selected" title="Selected">
                             <div className="applications col-12">
-                                {selected.map((application, key) => {
+                                {selected.length>0?
+                                    selected.map((application, key) => {
                                     return <Application application={application} key={key} work={work}/>
-                                })}
+                                }):
+                                    <div>No selected applications</div>}
                             </div>
                         </Tab>
                         <Tab eventKey="rejected" title="Rejected">
                             <div className="applications col-12">
-                                {rejected.map((application, key) => {
+                                {rejected.length>0?
+                                    rejected.map((application, key) => {
                                     return <Application application={application} key={key} work={work}/>
-                                })}
+                                }):
+                                    <div>No rejected applications</div>}
                             </div>
                         </Tab>
                     </Tabs>
                     : ""}
-                {edit ? <WorkModal show={edit} onHide={() => this.setState({edit: false})}
-                                   type="Edit" workType={this.props.work} user={user}
-                                   work={work}/> : ""}
+                {edit ?
+                    <WorkModal show={edit} onHide={() => this.setState({edit: false})}
+                               type="Edit" workType={this.props.work} user={user}
+                               work={work}/>
+                    : ""}
 
             </div>
         );

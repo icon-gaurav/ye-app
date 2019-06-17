@@ -15,11 +15,16 @@ class NotificationList extends Component {
 
     render() {
         let {user} = this.props;
+        let notification = this.filterNotification(user.notification);
         return (
-            user.notification.map((not, key) => {
+            user.notification.reverse().map((not, key) => {
                 return <Notification notification={not} key={key} user={user}/>
             })
         );
+    }
+
+    filterNotification(notification){
+
     }
 }
 

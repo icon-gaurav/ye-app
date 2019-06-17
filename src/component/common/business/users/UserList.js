@@ -195,36 +195,42 @@ class UserList extends Component {
                 </div>
                 {this.state.notificationDialog ? this.renderNotification() : ""}
                 {specificUser ? this.renderVerifyUser() : ""}
-                <div className="table-responsive">
-                    <BootstrapTable data={students} striped hover version='4'
-                                    selectRow={selectRowPropForNotification}>
-                        <TableHeaderColumn isKey dataField="_id" hidden={true}>ID</TableHeaderColumn>
-                        <TableHeaderColumn dataField="username">Username</TableHeaderColumn>
-                        <TableHeaderColumn dataField="name" dataFormat={this.nameFormatter}>Name</TableHeaderColumn>
-                        <TableHeaderColumn dataField="contact"
-                                           dataFormat={this.mobileFormatter}>Mobile</TableHeaderColumn>
-                        <TableHeaderColumn dataField="contact"
-                                           dataFormat={this.emailFormatter}>Email</TableHeaderColumn>
-                        <TableHeaderColumn dataField="status"
-                                           dataFormat={this.statusFormatter}>Status</TableHeaderColumn>
-                        <TableHeaderColumn dataField="role">Role</TableHeaderColumn>
-                    </BootstrapTable>
+                <div className="">
+                    <header>STUDENTS</header>
+                    <div className="table-responsive">
+                        <BootstrapTable data={students} striped hover version='4'
+                                        selectRow={selectRowPropForNotification}>
+                            <TableHeaderColumn isKey dataField="_id" hidden={true}>ID</TableHeaderColumn>
+                            <TableHeaderColumn dataField="username">Username</TableHeaderColumn>
+                            <TableHeaderColumn dataField="name" dataFormat={this.nameFormatter}>Name</TableHeaderColumn>
+                            <TableHeaderColumn dataField="contact"
+                                               dataFormat={this.mobileFormatter}>Mobile</TableHeaderColumn>
+                            <TableHeaderColumn dataField="contact"
+                                               dataFormat={this.emailFormatter}>Email</TableHeaderColumn>
+                            <TableHeaderColumn dataField="status"
+                                               dataFormat={this.statusFormatter}>Status</TableHeaderColumn>
+                            <TableHeaderColumn dataField="role">Role</TableHeaderColumn>
+                        </BootstrapTable>
+                    </div>
                 </div>
 
-                <div className="table-responsive">
-                    <BootstrapTable data={companies} striped hover version='4'
-                                    selectRow={selectRowPropForNotification}>
-                        <TableHeaderColumn isKey dataField="_id" hidden={true}>ID</TableHeaderColumn>
-                        <TableHeaderColumn dataField="username">Username</TableHeaderColumn>
-                        <TableHeaderColumn dataField="name" dataFormat={this.nameFormatter}>Name</TableHeaderColumn>
-                        <TableHeaderColumn dataField="contact"
-                                           dataFormat={this.mobileFormatter}>Mobile</TableHeaderColumn>
-                        <TableHeaderColumn dataField="contact"
-                                           dataFormat={this.emailFormatter}>Email</TableHeaderColumn>
-                        <TableHeaderColumn dataField="status"
-                                           dataFormat={this.statusFormatter}>Status</TableHeaderColumn>
-                        <TableHeaderColumn dataField="role">Role</TableHeaderColumn>
-                    </BootstrapTable>
+                <div>
+                    <header>COMPANIES</header>
+                    <div className="table-responsive">
+                        <BootstrapTable data={companies} striped hover version='4'
+                                        selectRow={selectRowPropForNotification}>
+                            <TableHeaderColumn isKey dataField="_id" hidden={true}>ID</TableHeaderColumn>
+                            <TableHeaderColumn dataField="username">Username</TableHeaderColumn>
+                            <TableHeaderColumn dataField="name" dataFormat={this.nameFormatter}>Name</TableHeaderColumn>
+                            <TableHeaderColumn dataField="contact"
+                                               dataFormat={this.mobileFormatter}>Mobile</TableHeaderColumn>
+                            <TableHeaderColumn dataField="contact"
+                                               dataFormat={this.emailFormatter}>Email</TableHeaderColumn>
+                            <TableHeaderColumn dataField="status"
+                                               dataFormat={this.statusFormatter}>Status</TableHeaderColumn>
+                            <TableHeaderColumn dataField="role">Role</TableHeaderColumn>
+                        </BootstrapTable>
+                    </div>
                 </div>
             </div>
         );
@@ -262,23 +268,35 @@ class UserList extends Component {
             <Modal show={notificationDialog} onHide={() => this.setState({notificationDialog: false})}>
                 <ModalBody>
                     <div className="notification-message">
-                        <div className="form-group">
-                            <label className="control-label">Message</label>
-                            <textarea className="form-control" name="message" placeholder="Message"
-                                      value={this.state.message}
-                                      onChange={this.updateMessage}></textarea>
-                        </div>
-                        <FormGroup>
-                            <FormCheck type="checkbox" name="confirm" label={"Confirmation Required"}
-                                       checked={this.state.confirmation}
-                                       onChange={this.updateConfirmation}/>
-                        </FormGroup>
-                        <div className="form-group">
-                            <button className="btn btn-success" onClick={this.sendNotificationToSelectedUsers}>Send to
-                                selected
-                                users
-                            </button>
-                        </div>
+                        {this.selectedUsers.length == 0 ?
+                            <div>
+                                <p> Please select the users first!</p>
+                                <div className="form-group float-right">
+                                    <button className="btn btn-success">Close</button>
+                                </div>
+                            </div>
+                            :
+                            <>
+                                <div className="form-group">
+                                    <label className="control-label">Message</label>
+                                    <textarea className="form-control" name="message" placeholder="Message"
+                                              value={this.state.message}
+                                              onChange={this.updateMessage}></textarea>
+                                </div>
+                                <FormGroup>
+                                    <FormCheck type="checkbox" name="confirm" label={"Confirmation Required"}
+                                               checked={this.state.confirmation}
+                                               onChange={this.updateConfirmation}/>
+                                </FormGroup>
+                                <div className="form-group">
+                                    <button className="btn btn-success"
+                                            onClick={this.sendNotificationToSelectedUsers}>Send to
+                                        selected
+                                        users
+                                    </button>
+                                </div>
+                            </>
+                        }
                     </div>
                 </ModalBody>
             </Modal>

@@ -92,9 +92,19 @@ button:active, button:focus, button:hover {
     opacity:0.75;
 }
 
+.opacity-60{
+    opacity:0.60;
+}
+
 .transparent-button{
-    background-color:inherit;
+    background-color: inherit;
     border:none;
 }
 
+.topHeader{
+    /*box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.5);*/
+}
 
+.belowTop{
+    padding:15px;
+}

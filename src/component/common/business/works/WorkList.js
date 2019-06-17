@@ -81,15 +81,17 @@ class WorkList extends Component {
 
     render() {
         let {user} = this.props;
+        let {workList} = this.state;
         return (
             <div className="container-fluid">
-                <div className="">
-                    {/*<header className="main-head">{this.props.work}</header>*/}
-                    {user.role == "ADMIN" || user.role == "COMPANY" ? <div className="">
-                        <button className="btn btn-info"
-                                onClick={() => this.setState({modalShow: true, modalType: "Add"})}>+ Add
-                        </button>
-                    </div> : ""}
+                <div className="d-flex m-2">
+                    <header className="main-head"><strong>Total {this.props.work} :</strong> {workList.length}</header>
+                    {user.role == "ADMIN" || user.role == "COMPANY" ?
+                        <div className="float-right d-flex justify-content-end ml-auto" width="100%">
+                            <button className="btn btn-info float-right"
+                                    onClick={() => this.setState({modalShow: true, modalType: "Add"})}>+ Add
+                            </button>
+                        </div> : ""}
                 </div>
                 {this.state.modalShow ?
                     <WorkModal show={this.state.modalShow} onHide={() => this.setState({modalShow: false})}
@@ -130,7 +132,8 @@ class WorkList extends Component {
                         <TableHeaderColumn dataField="vacancy">Vacancy</TableHeaderColumn>
                         <TableHeaderColumn dataField="stipend">Stipend</TableHeaderColumn>
                         <TableHeaderColumn dataField="location">Location</TableHeaderColumn>
-                        <TableHeaderColumn dataField="featured" dataFormat={this.featuredFormatter}>Featured</TableHeaderColumn>
+                        <TableHeaderColumn dataField="featured"
+                                           dataFormat={this.featuredFormatter}>Featured</TableHeaderColumn>
                     </BootstrapTable>
                 </div>
             </div>
@@ -156,12 +159,12 @@ class WorkList extends Component {
         }
     }
 
-    renderNewList(){
+    renderNewList() {
         let {workList} = this.state;
         let {user} = this.props;
-        return(
-            workList.map((work, key)=>{
-                return(
+        return (
+            workList.map((work, key) => {
+                return (
                     <Work key={key} work={work} user={user}/>
                 );
             })

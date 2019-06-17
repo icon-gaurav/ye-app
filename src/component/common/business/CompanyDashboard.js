@@ -13,6 +13,7 @@ import NotificationList from "../notification/NotificationList";
 import Verification from "../students/settings/Verification";
 import CompanyProfile from "./profile/CompanyProfile";
 import Header from "../Header";
+import CompanyInsights from "./insights/CompanyInsights";
 
 class CompanyDashboard extends Component {
     constructor(props) {
@@ -48,7 +49,7 @@ class CompanyDashboard extends Component {
                 </div>
                 <div className="main-app" style={this.props.leftMenu ? this.state.leftMenuStyle : {marginLeft: "0px"}}>
                     <header className="main-head"></header>
-                    <Route path="/insights" component={Insights}/>
+                    <Route path="/home" component={CompanyInsights}/>
                     <Route exact path="/profile" component={() => <CompanyProfile user={this.props.user}/>}/>
                     <Route exact path="/internships"
                            component={() => <WorkList work={"internship"} user={this.props.user}/>}/>

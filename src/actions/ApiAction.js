@@ -100,6 +100,10 @@ class ApiAction {
         return Api.get(`/api/offers/${category}/${id}`);
     }
 
+    static getTopOffers(){
+        return Api.get('/api/offers/top');
+    }
+
     static availOffer(offer) {
         return Api.post(`/api/offers/avail/${offer._id}`);
     }
@@ -128,6 +132,10 @@ class ApiAction {
 
     static getOnGoingWork(student) {
         return Api.get(`/api/students/${student._id}/ongoing`);
+    }
+
+    static getStudentApplications(student){
+        return Api.get(`/api/students/${student._id}/applications`);
     }
 
     static getWallet(student){
@@ -215,6 +223,14 @@ class ApiAction {
         return Api.put(`/api/students/${user._id}`, {student: student});
     }
 
+    static acceptCompanyOffer(user, notification){
+        return Api.post(`/api/students/accept/${notification._id}`, {work:notification.work});
+    }
+
+    static rejectCompanyOffer(user,notification){
+        return Api.post(`/api/students/reject/${notification._id}`,{work:notification.work});
+    }
+
     // verification document
     static getUploadsForVerification(userId) {
         return Api.get(`/api/verification/uploads/${userId}`);
@@ -241,6 +257,7 @@ class ApiAction {
             notification: notification
         });
     }
+
 
     static updateCompany(user, company) {
         return Api.put(`/api/business/${user._id}`, {company: company});

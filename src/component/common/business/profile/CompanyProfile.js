@@ -6,6 +6,8 @@ import React, {Component} from 'react';
 import Converter from "../../../utilities/Converter";
 import ProfileEdit from "./ProfileEdit";
 import Button from "react-bootstrap/Button";
+import {Link} from "react-router-dom";
+import "../../../../assets/stylesheet/business/CompanyProfile.css"
 
 class CompanyProfile extends Component {
     constructor(props) {
@@ -21,15 +23,14 @@ class CompanyProfile extends Component {
         return (
             <div className="profile-wrapper-item1 bg-white sticky shadow">
                 <div className="abstract row">
-                    <div className="pic-wrapper col-lg-3 col-md-4 col-sm-12 align-items-center">
-                        <div>
+                    <div className="pic-wrapper col-lg-3 col-md-3 col-sm-12 d-flex align-items-center justify-content-center p-3">
                             <input type="image" src={Converter.bufferToBase64(user.logo)}
                                    onClick={() => this.setState({edit: true})}
+                                   className="m-2 ml-3"
                                    width="200px"/>
-                        </div>
                     </div>
-                    <div className="company-details col-lg-9 col-md-8 col-sm-12 position-relative">
-                        <div>
+                    <div className="company-details col-lg-9 col-md-9 col-sm-12 position-relative p-2">
+                        <div className="user-description">
                             <h5 className="user-name">{user.name}</h5>
                             <div className="opacity-50">{user.contact.address.city}</div>
                             <div className="mobile-wrapper">
@@ -46,15 +47,20 @@ class CompanyProfile extends Component {
                             </div>
                         </div>
                         <div className="position-absolute" style={{top: "10px", right: "30px"}}>
-                            <button className="transparent-button"><i className="fa fa-ellipsis-h"></i> </button>
+                            <button className="transparent-button" onClick={() => this.setState({edit: true})}><i
+                                className="fa fa-ellipsis-h"></i></button>
                             <br/>
-                            <div className="badge">{user.status}</div>
+                            <div className="badge">
+                                <Link to="/settings">
+                                      {user.status}
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="">
+                <div className="p-2">
                     <h6>Description</h6>
-                    <p className="opacity-75">{user.summary.description}</p>
+                    <p className="opacity-75">{user.summary ? user.summary.description : ""}</p>
                     {user.social ?
                         <div className="social-wrapper">
                             <div align="center" style={{marginBottom: 20}}>
