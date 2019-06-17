@@ -1,10 +1,23 @@
-.submit-button-wrapper{
-    text-align:center;
-    color:red;
+.submit-button-wrapper {
+  text-align: center;
+  color: red;
 }
 
-.required:after{
-    content:"*";
-    font-weight:bold;
-    color:red;
+.required:after {
+  content: "*";
+  font-weight: bold;
+  color: red;
+}
+
+/* 
+    author 
+    ShubhamSingal07
+*/
+
+#dob-input {
+  width: 185px;
+  height: 38px;
+  box-shadow: none;
+  border-top-style: solid;
+  border-left-style: solid;
 }
