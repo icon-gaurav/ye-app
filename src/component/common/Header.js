@@ -10,6 +10,7 @@ import NavbarToggle from "react-bootstrap/NavbarToggle";
 import NavbarCollapse from "react-bootstrap/NavbarCollapse";
 import {NavLink, Link} from "react-router-dom";
 import ApiAction from '../../actions/ApiAction';
+import DropdownToggle from "react-bootstrap/DropdownToggle";
 
 class Header extends React.Component {
 
@@ -36,18 +37,21 @@ class Header extends React.Component {
             });
         }
         let activeStyle = {
-            borderBottom: "2px solid black"
-        }
+            backgroundColor: "lightgrey",
+            color: "#FF5A29",
+            borderBottom: "2px solid #FF5A29"
+        };
+        let name = user.name.first ? user.name.first + " " + user.name.last : user.name;
 
         return (
-            <Navbar className="container-fluid bg-light" expand="lg" sticky="top">
+            <Navbar className="global-header ml-1 mr-1" expand="lg" sticky="top">
                 {/* <NavItem className="float-left">
                     <button className="btn rounded-circle" onClick={this.props.toggleLeftMenu}>
                         <i className="fas fa-align-justify"></i></button>
                 </NavItem> */}
 
-                <NavbarBrand className="float-left pl-0 pr-0 mr-auto ml-5" href="/">
-                    <img className="img-fluid" src={require("../../assets/images/logo/YE-Merge-Black.png")}
+                <NavbarBrand className="float-left pl-0 pr-0 mr-auto border-right">
+                    <img className="img-fluid mr-3 " src={require("../../assets/images/logo/YE-Merge-Black.png")}
                          alt="Young Engine" width="100"
                          height="46"/>
                 </NavbarBrand>
@@ -160,7 +164,7 @@ class Header extends React.Component {
                                             <span className="ml-3">Notification</span>
                                         </div>
                                         <span
-                                            className="unseen-notification align-self-center">{unSeenNotifications}</span>
+                                            className="unseen-notification align-self-center scale-up-center">{unSeenNotifications}</span>
                                     </NavLink>
                                 </div>
                             </li>
@@ -196,36 +200,37 @@ class Header extends React.Component {
 
                 <Nav className="ml-auto pr-3" id="header">
 
-                    <NavLink className="text-dark nav-link" to="/home"
+                    <NavLink className="ye-dark nav-link" to="/home"
                              activeStyle={activeStyle}>
                         <div className="icon-div text-align-center">
-                            <i className="fa fa-home"/>
+                            <img src={require("../../assets/images/logo/work.svg")}/>
                             <div>Home</div>
                         </div>
                     </NavLink>
 
-                    <NavLink className="text-dark nav-link" to="/internships"
+                    <NavLink className="ye-dark nav-link" to="/internships"
                              activeStyle={activeStyle}>
                         <div className="icon-div text-align-center">
-                            <i className=" fa fa-briefcase"/>
+                            {/*<svg xmlnsXlink={require("../../assets/images/logo/work.svg")} fill="red"></svg>*/}
+                            <img src={require("../../assets/images/logo/work.svg")}/>
                             <div>Internships</div>
                         </div>
                     </NavLink>
 
                     {user.role == "COMPANY" ? "" :
                         <>
-                            <NavLink className="text-dark nav-link" to="/missions"
+                            <NavLink className="ye-dark nav-link" to="/missions"
                                      activeStyle={activeStyle}>
                                 <div className="icon-div text-align-center">
-                                    <i className="fa fa-fire"/>
+                                    <img src={require("../../assets/images/logo/work.svg")}/>
                                     <div>Missions</div>
                                 </div>
                             </NavLink>
 
-                            <NavLink className="text-dark nav-link" to="/offers"
+                            <NavLink className="ye-dark nav-link" to="/offers"
                                      activeStyle={activeStyle}>
                                 <div className="icon-div text-align-center">
-                                    <i className="fa fa-tag"/>
+                                    <img src={require("../../assets/images/logo/work.svg")}/>
                                     <div>Offers</div>
                                 </div>
                             </NavLink>
@@ -234,44 +239,74 @@ class Header extends React.Component {
                     }
                     {user.role == "ADMIN" ?
                         <>
-                            <NavLink className="text-dark nav-link" to="/users"
+                            <NavLink className="ye-dark nav-link" to="/users"
                                      activeStyle={activeStyle}>
                                 <div className="icon-div text-align-center">
-                                    <i className="fa fa-user"/>
+                                    <img src={require("../../assets/images/logo/work.svg")}/>
                                     <div>Users</div>
                                 </div>
                             </NavLink>
                         </> : ""
                     }
 
-                    <NavLink className="text-dark nav-link" to="/help-center"
-                             activeStyle={activeStyle}>
-                        <div className="icon-div text-align-center">
-                            <i className="fa fa-question"/>
-                            <div>Help</div>
-                        </div>
-                    </NavLink>
+                    {/*<NavLink className="ye-dark nav-link" to="/help-center"*/}
+                    {/*         activeStyle={activeStyle}>*/}
+                    {/*    <div className="icon-div text-align-center">*/}
+                    {/*        <i className="fa fa-question"/>*/}
+                    {/*        <div>Help</div>*/}
+                    {/*    </div>*/}
+                    {/*</NavLink>*/}
 
-                    <NavLink className="text-dark position-relative nav-link" to="/notifications"
-                             activeStyle={activeStyle}>
-                        <div className="icon-div text-align-center">
-                            <i className="fa fa-bell"/>
-                            <div>Notification</div>
-                        </div>
-                        <span className="unseen-notification align-self-center">{unSeenNotifications}</span>
-                    </NavLink>
+                    {/*<NavLink className="ye-dark position-relative nav-link" to="/notifications"*/}
+                    {/*         activeStyle={activeStyle}>*/}
+                    {/*    <div className="icon-div text-align-center">*/}
+                    {/*        <i className="fa fa-bell"/>*/}
+                    {/*        <div>Notification</div>*/}
+                    {/*    </div>*/}
+                    {/*    <span className="unseen-notification align-self-center">{unSeenNotifications}</span>*/}
+                    {/*</NavLink>*/}
 
-                    <Dropdown className="pt-3 mr-5">
-                        <Dropdown.Toggle alignRight id="dropdown">
-                            <Image src={Converter.bufferToBase64(user.logo ? user.logo : user.profilePic)} width="50"/>
-                            Me</Dropdown.Toggle>
-
-                        <Dropdown.Menu>
-                            <Dropdown.Item><Link className="text-dark" to="/profile">Profile</Link></Dropdown.Item>
-                            <Dropdown.Item><Link className="text-dark" to="/settings">Settings</Link></Dropdown.Item>
-                            <Dropdown.Item onClick={this.logout}>Logout</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    {/*<NavLink className="ye-dark position-relative nav-link" to="/notifications"*/}
+                    {/*         activeStyle={activeStyle}>*/}
+                    {/*    <div className="d-flex justify-content-center">*/}
+                    {/*        <Image className="rounded-circle" src={Converter.bufferToBase64(user.logo ? user.logo : user.profilePic)}*/}
+                    {/*               width="30px" height="30px"/>*/}
+                    {/*    </div>*/}
+                    {/*</NavLink>*/}
+                    <NavItem className="d-flex justify-content-center border-left">
+                        <Dropdown alignRight>
+                            <Dropdown.Toggle className="d-flex justify-content-center" id="dropdown">
+                                <div className="position-relative">
+                                    <Image className="rounded-circle border mr-1"
+                                           src={Converter.bufferToBase64(user.logo ? user.logo : user.profilePic)}
+                                           width="30px" height="30px"/>
+                                    {unSeenNotifications == 0 ?
+                                        <>
+                                            <span className="unseen-notification align-self-center scale-up-center"></span>
+                                            <span className="unseen-notification inner-circle"></span>
+                                        </> : ""}
+                                </div>
+                                <div className="ml-2 mr-3 text-left">
+                                    <div style={{fontSize: "10px"}} className="opacity-60">Welcome Back</div>
+                                    <div style={{fontSize: "14px"}}>{name}</div>
+                                </div>
+                                <div>
+                                    <i className="fa fa-caret-down"></i>
+                                </div>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item className="ye-dark w-100"><NavLink className="ye-dark w-100"
+                                                                                  to="/profile">Profile</NavLink></Dropdown.Item>
+                                <Dropdown.Item className="ye-dark"><NavLink className="ye-dark"
+                                                                            to="/settings">Settings</NavLink></Dropdown.Item>
+                                <Dropdown.Item className="ye-dark"><NavLink className="ye-dark"
+                                                                            to="/notifications">Notification</NavLink></Dropdown.Item>
+                                <Dropdown.Item className="ye-dark"><NavLink className="ye-dark" to="/help-center">Help &
+                                    Support</NavLink></Dropdown.Item>
+                                <Dropdown.Item className="ye-dark" onClick={this.logout}>Logout</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </NavItem>
                 </Nav>
             </Navbar>
         );

@@ -1,9 +1,18 @@
 /*
 * @author Gaurav Kumar
 */
+.summary-wrapper{
+    border-radius: 5px;
+    padding: 5% 15%;
+}
+
 .insights{
-    padding: 10px 10px 10px 10px;
     width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    padding-left: 15px;
+    padding-right:15px;
+
 }
 
 .insights.insight{
@@ -11,6 +20,10 @@
     margin : 10px 10px 10px 10px;
     box-shadow: #acacac;
     width:100%
+}
+
+.insight-item{
+    margin:15px 0px 15px 0px;
 }
 
 
@@ -31,4 +44,21 @@
     text-align: center;
     vertical-align: middle;
     background: rgba(0, 0, 0, 0.6);
+}
+
+.trending-section{
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.trending-item{
+    border-radius: 15px;
+    border: 1px solid #d64541;
+    min-width: 200px;
+    min-height:280px;
+    background-color: #f1a9a0;
+    color:#d64541;
+    font-weight: bold;
 }

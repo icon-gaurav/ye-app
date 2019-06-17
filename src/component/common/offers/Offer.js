@@ -132,6 +132,10 @@ class Offer extends Component {
                 </ModalHeader>
                 <ModalBody>
                     <div className="congratulations-message">
+                        <div className="overflow-hidden">
+                            {/*<img className="img-fluid" src={require("../../../assets/images/response/congratulation.jpg")}*/}
+                            {/*     width="100" alt="congrats-image"/>*/}
+                        </div>
                         <h2>Congratulations</h2>
                         <h6>You have successfully availed this offer</h6>
                         <p>See more offers</p>

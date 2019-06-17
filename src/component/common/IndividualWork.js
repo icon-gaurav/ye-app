@@ -9,6 +9,7 @@ import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalBody from "react-bootstrap/ModalBody";
 import ApiAction from "../../actions/ApiAction";
 import Api from "../../util/Api";
+import {Link} from "react-router-dom";
 
 
 class IndividualWork extends Component {
@@ -70,7 +71,7 @@ class IndividualWork extends Component {
     render() {
         let {work} = this.state;
         if (work) {
-           return this.renderDetails();
+            return this.renderDetails();
         } else {
             return <div></div>
         }
@@ -201,24 +202,43 @@ class IndividualWork extends Component {
         ApiAction.applyApplication(work)
             .then((response) => {
                 console.log(response);
-                if (response.data.success) {
-                    this.setState({modalShow: true});
-                    window.setTimeout(() => {
-                        this.setState({modalShow: false})
-                    }, 5000);
-                }
+                this.setState({modalShow: true, success: response.data.success});
+                window.setTimeout(() => {
+                    this.setState({modalShow: false})
+                }, 5000);
             })
             .catch(error => {
                 console.log(error);
+                this.setState({modalShow: true, error: true});
+                window.setTimeout(() => {
+                    this.setState({modalShow: false})
+                }, 5000);
             });
     }
 
     renderApplyModal() {
+        let {modalShow, success, error} = this.state;
         return (
-            <Modal show={this.state.modalShow} onHide={() => this.setState({modalShow: false})}>
-                <ModalHeader closeButton>Application</ModalHeader>
+            <Modal show={modalShow} onHide={() => this.setState({modalShow: false})}>
+                <ModalHeader classname="" closeButton>Application</ModalHeader>
                 <ModalBody>
-                    Successfully Applied
+                    <div>
+                        <div className="d-flex justify-content-center">
+                            {success ? <img src={require("../../assets/images/success.png")} alt="success-image"/> :
+                                error ? <img src={require("../../assets/images/error.gif")} alt="error-image"/> :
+                                    <img src={require("../../assets/images/happy.png")} alt="funny-image"/>
+                            }
+
+                        </div>
+                        <div className="d-flex justify-content-center">
+                            {success ? <h3>Successfully Applied</h3> :
+                                error ? <h3>Error in Submitting Form</h3> :
+                                    <h3>Already Applied</h3>}
+                        </div>
+                        <div className="d-flex justify-content-center">
+                            <Link to="/internships">Explore More</Link>
+                        </div>
+                    </div>
                 </ModalBody>
             </Modal>
         );

@@ -135,7 +135,8 @@ class OfferList extends Component {
                 <div className="">
                     <OwlCarousel
                         className="owl-theme owl-carousel"
-                        options={options}>
+                        options={options}
+                        lazyLoad={true}>
                         <div>
                             <img src={require("../../../assets/images/random.jpg")} height="300px"/>
                         </div>
@@ -160,16 +161,16 @@ class OfferList extends Component {
 
     renderTopOffers() {
         const options = {
-            items: 4,
+            items: 6,
             nav: true,
             rewind: true,
-            autoplay: true,
             margin: 10,
             center: true,
             loop: true,
         };
 
         let {topOffers} = this.state;
+        console.log(topOffers)
         return (
             <section>
                 <div className="">
@@ -179,33 +180,35 @@ class OfferList extends Component {
                     <OwlCarousel
                         className="owl-theme owl-carousel"
                         options={options}
-                        ref="car">
-                        {topOffers.map((offer, key)=>{
-                            return(
-                                <div className="">
-                                    <Link href="google.com">
-                                        <div className="top-offer-slide">
-                                            <div className="offer-image">
-                                                <img src={Converter.bufferToBase64(offer.offerImage)} alt=""/>
-                                            </div>
-                                            <div className="offer-description overlay-slide">
-                                                <div className="offer-organization">
-                                                    <div className="organization">
-                                                        <div className="org-logo">
-                                                            <img src={require("../../../assets/images/logo/YE-Merge-Black.png")}
-                                                                 alt=""/>
-                                                        </div>
-                                                        <div className="org-name">{offer.company}</div>
-                                                    </div>
+                        ref="car"
+                        lazyContent={true}>
+                        {topOffers.map((offer, key) => {
+                                return (
+                                    <div className="">
+                                        <Link href="google.com">
+                                            <div className="top-offer-slide">
+                                                <div className="offer-image">
+                                                    <img src={Converter.bufferToBase64(offer.offerImage)} alt=""/>
                                                 </div>
-                                                <div className="offer-title">
-                                                    <span>{offer.title}</span></div>
+                                                <div className="offer-description overlay-slide">
+                                                    <div className="offer-organization">
+                                                        <div className="organization">
+                                                            <div className="org-logo">
+                                                                <img
+                                                                    src={Converter.bufferToBase64(offer.companyLogo)}
+                                                                    alt=""/>
+                                                            </div>
+                                                            <div className="org-name">{offer.company}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="offer-title">
+                                                        <span>{offer.title}</span></div>
 
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Link>
-                                </div>
-                            );
+                                        </Link>
+                                    </div>
+                                );
                             }
                         )}
                         {/*<div className="">*/}

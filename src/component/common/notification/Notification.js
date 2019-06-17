@@ -65,7 +65,7 @@ class Notification extends Component {
 
     acceptOffer = () => {
         let {notification} = this.props;
-        ApiAction.acceptCompanyOffer(null, notification.work)
+        ApiAction.acceptCompanyOffer(null, notification)
             .then((response) => {
                 console.log(response);
                 if (response.data.success) {
@@ -78,7 +78,7 @@ class Notification extends Component {
 
     rejectOffer = () => {
         let {notification} = this.props;
-        ApiAction.rejectCompanyOffer(null, notification.work)
+        ApiAction.rejectCompanyOffer(null, notification)
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {

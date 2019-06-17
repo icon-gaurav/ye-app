@@ -223,8 +223,12 @@ class ApiAction {
         return Api.put(`/api/students/${user._id}`, {student: student});
     }
 
-    static acceptCompanyOffer(user, work){
-        return Api.post(`/api/students/accept/${work._id}`, {work:work});
+    static acceptCompanyOffer(user, notification){
+        return Api.post(`/api/students/accept/${notification._id}`, {work:notification.work});
+    }
+
+    static rejectCompanyOffer(user,notification){
+        return Api.post(`/api/students/reject/${notification._id}`,{work:notification.work});
     }
 
     // verification document

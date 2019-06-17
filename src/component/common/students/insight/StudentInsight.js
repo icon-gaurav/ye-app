@@ -10,6 +10,11 @@ import Converter from "../../../utilities/Converter";
 import ApiAction from "../../../../actions/ApiAction";
 import {Link} from "react-router-dom";
 import image from './rock.png'
+import {Image} from "react-bootstrap";
+import {Bar, Doughnut} from "react-chartjs-2";
+import ProgressBar from "react-bootstrap/ProgressBar";
+import {CircularProgressbar, buildStyles} from "react-circular-progressbar";
+import 'react-circular-progressbar/dist/styles.css';
 
 class StudentInsight extends Component {
     constructor(props) {
@@ -106,40 +111,49 @@ class StudentInsight extends Component {
 
     render() {
         return (
-            <div className="row">
-                <div className="col-12">
-                    {this.renderCompletedActivity()}
+            <React.Fragment>
+                <div className="header pl-0">DASHBOARD</div>
+                <div className="row">
+                    <div className="col-lg-6 col-sm-12">
+                        {this.renderProfileSummary()}
+                    </div>
+                    <div className="col-lg-6 col-sm-12">
+                        {this.renderCompletedActivity()}
+                    </div>
+                    <div className="col-12">
+                        {this.renderTrending()}
+                    </div>
+                    <div className="col-md-8 col-lg-8 col-12">
+                        {this.renderOnGoingInternships()}
+                        {this.renderOnGoingMissions()}
+                    </div>
+                    <div className="col-lg-4 col-12">
+                        {this.renderFeatured()}
+                    </div>
+                    {this.state.fullImage ? this.renderFullImage() : ""}
                 </div>
-                <div className="col-md-8 col-lg-8 col-12">
-                    {this.renderOnGoingInternships()}
-                    {this.renderOnGoingMissions()}
-                </div>
-                <div className="col-lg-4 col-12">
-                    {this.renderFeatured()}
-                </div>
-                {this.state.fullImage ? this.renderFullImage() : ""}
-            </div>
+            </React.Fragment>
         );
     }
 
     renderCompletedActivity() {
         let {completedInternships, completedMissions, wallet} = this.state;
         return (
-            <div className="insights">
-                <div className="insight row">
-                    <div className="col-md-4 col-lg-4 mb-2">
+            <div className="insights border">
+                <div className="row">
+                    <div className="col-md-6 col-lg-6">
                         <Link to="completed-Internship">
-                            <div className="card">
+                            <div className="card text-dark insight-item">
                                 <div className="card-body row">
-                                    <div className="card-image col-4 d-flex align-items-center justify-content-center">
-                                        <img src={require("../../../../assets/images/insights/intern.png")} width="50px"
-                                             height="50px"/>
-                                    </div>
-                                    <div className="col-8">
-                                        <div className="card-title">
-                                            <h6>Total Internships</h6>
+                                    {/*<div className="card-image col-4 d-flex align-items-center justify-content-center">*/}
+                                    {/*    <img src={require("../../../../assets/images/insights/intern.png")} width="50px"*/}
+                                    {/*         height="50px"/>*/}
+                                    {/*</div>*/}
+                                    <div className="col-12">
+                                        <div className="card-title text-align-center">
+                                            <h6>Internships Completed</h6>
                                         </div>
-                                        <div className="col-6 quantity">
+                                        <div className="quantity text-align-center">
                                             <h2>{completedInternships.length}</h2>
                                         </div>
                                     </div>
@@ -147,45 +161,148 @@ class StudentInsight extends Component {
                             </div>
                         </Link>
                     </div>
-                    <div className="col-md-4 col-lg-4 mb-2">
+                    <div className="col-md-6 col-lg-6">
                         <Link to="missions-completed">
-                            <div className="card">
+                            <div className="card text-dark insight-item">
                                 <div className="card-body row">
-                                    <div className="card-image col-4 d-flex align-items-center justify-content-center">
-                                        <img src={require("../../../../assets/images/insights/mission.png")} width="50px"
-                                             height="50px"/>
-                                    </div>
-                                    <div className="col-8">
-                                        <div className="card-title">
-                                            <h6>Total Missions</h6>
+                                    {/*<div className="card-image col-4 d-flex align-items-center justify-content-center">*/}
+                                    {/*    <img src={require("../../../../assets/images/insights/mission.png")}*/}
+                                    {/*         width="50px"*/}
+                                    {/*         height="50px"/>*/}
+                                    {/*</div>*/}
+                                    <div className="col-12 flex-row">
+                                        <div className="card-title text-align-center">
+                                            <h6>Missions Completed</h6>
                                         </div>
-                                        <div className="col-6 quantity">
-                                            <h2>{completedMissions.length}</h2>
+                                        <div className="quantity text-align-center">
+                                            <h2 className="">{completedMissions.length}</h2>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </Link>
                     </div>
-                    <div className="col-md-4 col-lg-4 mb-2">
+                    <div className="col-md-6 col-lg-6">
                         <Link to="total-earnings">
-                            <div className="card">
+                            <div className="card text-dark insight-item">
                                 <div className="card-body row">
-                                    <div className="card-image col-4 d-flex align-items-center justify-content-center">
-                                        <img src={require("../../../../assets/images/insights/money.png")} width="50px"
-                                             height="50px"/>
-                                    </div>
-                                    <div className="col-8">
-                                        <div className="card-title">
+                                    {/*<div className="card-image col-4 d-flex align-items-center justify-content-center">*/}
+                                    {/*    <img src={require("../../../../assets/images/insights/money.png")} width="50px"*/}
+                                    {/*         height="50px"/>*/}
+                                    {/*</div>*/}
+                                    <div className="col-12">
+                                        <div className="card-title text-align-center">
                                             <h6>Total Earnings</h6>
                                         </div>
-                                        <div className="col-6 quantity">
-                                            <h2>{wallet ? wallet.amount : 0}</h2>
+                                        <div className="quantity text-align-center">
+                                            <h2><i className="fas fa-rupee-sign"></i> {wallet ? wallet.amount : 0}</h2>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </Link>
+                    </div>
+                    <div className="col-md-6 col-lg-6">
+                        <Link to="total-earnings">
+                            <div className="card text-dark insight-item">
+                                <div className="card-body row">
+                                    {/*<div className="card-image col-4 d-flex align-items-center justify-content-center">*/}
+                                    {/*    <img src={require("../../../../assets/images/insights/money.png")} width="50px"*/}
+                                    {/*         height="50px"/>*/}
+                                    {/*</div>*/}
+                                    <div className="col-12">
+                                        <div className="card-title text-align-center">
+                                            <h6>Total Earnings</h6>
+                                        </div>
+                                        <div className="quantity text-align-center">
+                                            <h2><i className="fas fa-rupee-sign"></i> {wallet ? wallet.amount : 0}</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
+                    <div className="col-md-6 col-lg-6">
+                        <Link to="completed-Internship">
+                            <div className="card text-dark insight-item">
+                                <div className="card-body row">
+                                    {/*<div className="card-image col-4 d-flex align-items-center justify-content-center">*/}
+                                    {/*    <img src={require("../../../../assets/images/insights/intern.png")} width="50px"*/}
+                                    {/*         height="50px"/>*/}
+                                    {/*</div>*/}
+                                    <div className="col-12">
+                                        <div className="card-title text-align-center">
+                                            <h6>Internships Completed</h6>
+                                        </div>
+                                        <div className="quantity text-align-center">
+                                            <h2>{completedInternships.length}</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
+                    <div className="col-md-6 col-lg-6">
+                        <Link to="completed-Internship">
+                            <div className="card text-dark insight-item">
+                                <div className="card-body row">
+                                    {/*<div className="card-image col-4 d-flex align-items-center justify-content-center">*/}
+                                    {/*    <img src={require("../../../../assets/images/insights/intern.png")} width="50px"*/}
+                                    {/*         height="50px"/>*/}
+                                    {/*</div>*/}
+                                    <div className="col-12">
+                                        <div className="card-title text-align-center">
+                                            <h6>Internships Completed</h6>
+                                        </div>
+                                        <div className="quantity text-align-center">
+                                            <h2>{completedInternships.length}</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    renderTrending() {
+        return (
+            <div className="trending-section border mt-4">
+                <div className="row m-1">
+                    <div className="trending-item m-3 p-3 col-lg-2 col-sm-12">
+                        <div className="upper-item d-flex justify-content-center m-4">
+                            <img src={require("../../../../assets/images/response/suitcase.png")}
+                                 className=" rounded-circle"
+                                 width="70px" height="70px"/>
+                        </div>
+                        <div className="lower-item flex-column justify-content-center mt-5">
+                            <div className="text-align-center ">Burger</div>
+                            <div className="text-align-center">20</div>
+                        </div>
+                    </div>
+                    <div className="trending-item m-3 p-3 col-lg-2 col-sm-12">
+                        <div className="upper-item d-flex justify-content-center m-4">
+                            <img src={require("../../../../assets/images/response/suitcase.png")}
+                                 className=" rounded-circle"
+                                 width="70px" height="70px"/>
+                        </div>
+                        <div className="lower-item flex-column justify-content-center mt-5">
+                            <div className="text-align-center ">Burger</div>
+                            <div className="text-align-center">20</div>
+                        </div>
+                    </div>
+                    <div className="trending-item m-3 p-3 col-lg-2 col-sm-12">
+                        <div className="upper-item d-flex justify-content-center m-4">
+                            <img src={require("../../../../assets/images/response/suitcase.png")}
+                                 className=" rounded-circle"
+                                 width="70px" height="70px"/>
+                        </div>
+                        <div className="lower-item flex-column justify-content-center mt-5">
+                            <div className="text-align-center ">Burger</div>
+                            <div className="text-align-center">20</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -517,6 +634,87 @@ class StudentInsight extends Component {
                 </ModalBody>
             </Modal>
         );
+    }
+
+    renderProfileSummary() {
+        let {user} = this.props;
+        let percentage = 10;
+        return (
+            <div className="summary-wrapper bg-white border h-100">
+                <div className="d-flex justify-content-center">
+                    <Image className="rounded-circle"
+                           src={Converter.bufferToBase64(user.logo ? user.logo : user.profilePic)}
+                           width="100" height="100"/>
+                </div>
+                <div className="d-flex justify-content-center">
+                    <span
+                        style={{padding: "3% 0%"}}>
+                        <strong>{user.name.first ? user.name.first + " " + user.name.last : user.name}</strong>
+                    </span>
+                </div>
+                <div className="d-flex justify-content-center mb-4">
+                    <div><span>Bio</span></div>
+                    <div>{user.summary.description}</div>
+                </div>
+                <div className="d-flex">
+                    <div className="d-flex align-items-center mr-3">
+                        <div style={{maxWidth: "90px"}}>
+                            <CircularProgressbar value={percentage} text={`${percentage}%`}
+                                                 styles={buildStyles({
+                                                     strokeLinecap: 'butt',
+                                                     textSize: '16px',
+                                                     pathTransitionDuration: 1,
+                                                     pathColor: "rgba(62, 152, 199, 1)",
+                                                     textColor: '#f88',
+                                                     trailColor: '#d6d6d6',
+                                                     backgroundColor: '#3e98c7',
+                                                 })}/>
+                        </div>
+                    </div>
+                    <div className="">
+                        <div>
+                            <h6>Complete My Profile</h6>
+                        </div>
+                        <div>
+                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
+                        </div>
+                    </div>
+                </div>
+                <div className="mt-2 mb-2">
+                    <div>
+                        <ProgressBar variant="success" now={percentage} label={`${percentage}%`}/>
+                    </div>
+                </div>
+                <div className="flex-row justify-content-center">
+                    <div className="d-flex justify-content-center">
+                        {this.renderRating()}
+                    </div>
+                    <div className="d-flex justify-content-center opacity-50">({user.rating.length} reviews)</div>
+                </div>
+            </div>
+
+        );
+    }
+
+    renderRating = () => {
+        let {rating} = this.props.user;
+        let cumulativeRating = 0;
+        rating.map((rate) => {
+            cumulativeRating += rate;
+        });
+        cumulativeRating = Math.floor(cumulativeRating / rating.length);
+        let items = [];
+        let i = 0;
+        items.push(<strong className="mr-2">{cumulativeRating}</strong>);
+        while (i < 5) {
+            if (i <= cumulativeRating) {
+                items.push(<span><i className="fa fa-star" style={{color: "orange"}} id="star1" aria-hidden="true"></i></span>);
+            } else {
+                items.push(<span><i className="fa fa-star-o" id="star1" aria-hidden="true"></i></span>);
+            }
+            i++;
+        }
+        return items;
     }
 }
 

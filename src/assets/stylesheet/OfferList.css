@@ -156,3 +156,7 @@ a:hover, a h5:hover{
     color: white;
     text-decoration: none;
 }
+
+.owl-stage::after{
+    width:0px !important;
+}

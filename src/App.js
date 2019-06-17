@@ -148,12 +148,12 @@ class App extends PureComponent {
         return (
             <YEProvider>
                 <BrowserRouter>
-                    <div className="topHeader sticky-top">
+                    <div className="topHeader sticky-top bg-white">
                         {this.renderHeader(this.props)}
 
                         {/*<Route render={(props) => this.renderFooter(props)}/>*/}
                     </div>
-                    <div className="belowtop ml-5 mr-5">
+                    <div className="belowtop">
                         {this.renderBody()}
                     </div>
                 </BrowserRouter>
