@@ -38,12 +38,15 @@ class ResetPassword extends Component {
         let {pass, cnfPass, passClassName, cnfPassClassName} = this.state;
         return (
             <>
-                <ModalHeader style={{borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%"}}
-                             closeButton>
-                    <ModalTitle>Password Reset</ModalTitle>
-                </ModalHeader>
-                <ModalBody style={{paddingLeft: "10%", paddingRight: "10%"}}>
-                    {this.state.errors.length > 0 ? this.renderError() : ""}
+                {/*<ModalHeader style={{borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%"}}*/}
+                {/*             closeButton>*/}
+                {/*    <ModalTitle>Password Reset</ModalTitle>*/}
+                {/*</ModalHeader>*/}
+                {/*<ModalBody style={{paddingLeft: "10%", paddingRight: "10%"}}>*/}
+                {/*    {this.state.errors.length > 0 ? this.renderError() : ""}*/}
+                <div className="pt-3 pb-3">
+                    <h4>Password Reset</h4>
+                </div>
                     <Form noValidate>
                         <FormGroup>
                             <FormLabel>New Password</FormLabel>
@@ -65,7 +68,7 @@ class ResetPassword extends Component {
                             <Button className="btn btn-success" onClick={this.resetPassword}>Save</Button>
                         </FormGroup>
                     </Form>
-                </ModalBody>
+                {/*</ModalBody>*/}
             </>
         );
     }

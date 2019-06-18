@@ -37,12 +37,15 @@ class StudentDetails extends React.Component {
     render() {
         let {fName, lName, email, dob, college, course, city, state, password, cnfPassword} = this.state;
         return (
-            <>
-                <ModalHeader style={{borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%"}}
-                             closeButton>
-                    <ModalTitle>Student Details</ModalTitle>
-                </ModalHeader>
-                <ModalBody style={{paddingLeft: "10%", paddingRight: "10%"}}>
+            <div>
+                {/*<ModalHeader style={{borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%"}}*/}
+                {/*             closeButton>*/}
+                {/*    <ModalTitle>Student Details</ModalTitle>*/}
+                {/*</ModalHeader>*/}
+                {/*<ModalBody style={{paddingLeft: "10%", paddingRight: "10%"}}>*/}
+                <div className="pt-3 pb-3">
+                    <h4>Student Details</h4>
+                </div>
                     {this.state.errors.length > 0 ? this.renderError() : ""}
                     <Form>
                         <div className="row">
@@ -134,8 +137,8 @@ class StudentDetails extends React.Component {
                             </div>
                         </div>
                     </Form>
-                </ModalBody>
-            </>
+                {/*</ModalBody>*/}
+            </div>
         );
     }
 

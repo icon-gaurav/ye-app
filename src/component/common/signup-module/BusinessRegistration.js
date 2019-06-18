@@ -34,13 +34,16 @@ class BusinessRegistration extends React.Component {
 
     renderForm() {
         return (
-            <>
-                <ModalHeader style={{borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%"}}
-                             closeButton>
-                    <ModalTitle>Business Registration</ModalTitle>
-                </ModalHeader>
-                <ModalBody>
-                    <div className="business-signup container-fluid">
+            <div>
+                {/*<ModalHeader style={{borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%"}}*/}
+                {/*             closeButton>*/}
+                {/*    <ModalTitle>Business Registration</ModalTitle>*/}
+                {/*</ModalHeader>*/}
+                {/*<ModalBody>*/}
+                <div className="pt-3 pb-3">
+                    <h4>Business Registration</h4>
+                </div>
+                    <div className="business-signup">
                         <div className="row">
                             <div className="col-md-12 col-xs-12">
                                 <p>Get started with Young Engine to fly...</p>
@@ -62,8 +65,8 @@ class BusinessRegistration extends React.Component {
                             </div>
                         </div>
                     </div>
-                </ModalBody>
-            </>
+                {/*</ModalBody>*/}
+            </div>
         );
     }
 
@@ -112,16 +115,17 @@ class BusinessRegistration extends React.Component {
     }
 
     verifyEmail = () => {
-        ApiAction.verifyCode(this.state.email,parseInt(this.state.code.join(''), 10))
-            .then((response) => {
-                console.log(response);
-                if (response.data.success) {
-                    this.setState({verified: true});
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        // ApiAction.verifyCode(this.state.email,parseInt(this.state.code.join(''), 10))
+        //     .then((response) => {
+        //         console.log(response);
+        //         if (response.data.success) {
+        //             this.setState({verified: true});
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     });
+        this.setState({verified:true})
     }
 
     selectText = (event) => {

@@ -45,7 +45,7 @@ class LoginModal extends React.Component {
     }
 
     renderLoginForm() {
-        const { username, password, loading, validated } = this.state
+        const { username, password, loading, validated } = this.state;
 
         return (
             <>

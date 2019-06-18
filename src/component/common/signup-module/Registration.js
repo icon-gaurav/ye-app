@@ -3,7 +3,7 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import StudentRegistration from "./StudentRegistration";
 import BusinessRegistration from "./BusinessRegistration";
-import {FormGroup} from "react-bootstrap";
+import {FormGroup, ModalDialog} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import FormLabel from "react-bootstrap/FormLabel";
@@ -32,13 +32,16 @@ class Registration extends React.Component {
 
     renderForm() {
         return (
-            <>
-                <ModalHeader style={{borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%"}}
-                             closeButton>
-                    <ModalTitle>Registration</ModalTitle>
-                </ModalHeader>
-                <ModalBody>
-                    <Form className="registration-wrapper text-align-center">
+            <div className="w-25 mt-5">
+                {/*<ModalHeader style={{borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%"}}*/}
+                {/*             closeButton>*/}
+                {/*    <ModalTitle>Registration</ModalTitle>*/}
+                {/*</ModalHeader>*/}
+                {/*<ModalBody>*/}
+                <div className="pt-3 pb-3">
+                    <h4>Registration</h4>
+                </div>
+                    <Form className="registration-wrapper d-flex justify-content-center">
                         <div className="registration">
                             <div>
                                 <label className="registration-type">
@@ -61,14 +64,14 @@ class Registration extends React.Component {
                             </div>
                         </div>
                     </Form>
-                    <div className="text-align-right">
+                    <div className="d-flex justify-content-end">
                         <button className="next-button ye-button"
                                 disabled={this.state.type.length > 0 ? false : true}
                                 onClick={this.next}>Next<i
                             className="fas fa-arrow-right"></i></button>
                     </div>
-                </ModalBody>
-            </>
+                {/*</ModalBody>*/}
+            </div>
         );
     }
 

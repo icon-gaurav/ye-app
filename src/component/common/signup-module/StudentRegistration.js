@@ -39,51 +39,51 @@ class StudentRegistration extends React.Component {
 
     renderForm() {
         return (
-            <>
-                <ModalHeader style={{borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%"}}
-                             closeButton>
-                    <ModalTitle>Student Registration</ModalTitle>
-                </ModalHeader>
-                <ModalBody style={{paddingLeft: "10%", paddingRight: "10%"}}>
-                    <div className="signup container-fluid">
-                        <div className="row">
-                            <div className="col-md-12 col-xs-12">
-                                <p>Get started with new Young Engine Account using your mobile number</p>
-                                <Form /*onSubmit={this.state.otpSent ? this.verifyOtp : this.sendOtp}*/>
-                                    <FormGroup className="mobile-detail">
-                                        <FormLabel style={{width: "100%"}}>
-                                            Enter Mobile No.
-                                            {this.state.otpSent ?
-                                                <button className="change-number" onClick={this.changeNumber}>Change
-                                                    Number</button> : null}
-                                        </FormLabel>
-                                        <InputGroup>
-                                            <InputGroup.Prepend>
-                                                <InputGroup.Text id="mobilePrepend">+91</InputGroup.Text>
-                                            </InputGroup.Prepend>
-                                            <FormControl type="number" disabled={this.state.otpSent ? "disabled" : null}
-                                                         onChange={this.setMobileData}
-                                                         aria-describedby="mobilePrepend" name="mobile" placeholder=""/>
-                                        </InputGroup>
-                                    </FormGroup>
-                                    {this.state.otpSent ? this.renderVerifyOTP() : null}
-                                    {this.state.confirmOtpError ?
-                                        <div className="otp-error">{this.state.confirmOtpError}</div> : null}
-                                    {this.state.showResendOtp && this.state.confirmOtpError ?
-                                        <div className="otp-resend">OTP resend</div> : null}
-                                    <FormGroup>
-                                        <Button variant="primary" className="otp-button"
-                                                onClick={this.state.otpSent ? this.verifyOtp : this.sendOtp}>{this.state.otpSent ? "Verify Mobile" : "Send OTP"}</Button>
-                                    </FormGroup>
-                                </Form>
-                                <div className="t-and-c">
-                                    By sign up you accept our <a href="/terms" target="_blank">Terms &amp; Condition</a>.
-                                </div>
+            <div className="mt-5 ">
+                {/*<ModalHeader style={{borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%"}}*/}
+                {/*             closeButton>*/}
+                <div className="pt-3 pb-3"><h2>Student Registration</h2></div>
+                {/*</ModalHeader>*/}
+                {/*<ModalBody style={{paddingLeft: "10%", paddingRight: "10%"}}>*/}
+                <div className="signup container-fluid">
+                    <div className="row">
+                        <div className="col-md-12 col-xs-12">
+                            <p>Get started with new Young Engine Account using your mobile number</p>
+                            <Form /*onSubmit={this.state.otpSent ? this.verifyOtp : this.sendOtp}*/>
+                                <FormGroup className="mobile-detail">
+                                    <FormLabel style={{width: "100%"}}>
+                                        Enter Mobile No.
+                                        {this.state.otpSent ?
+                                            <button className="change-number" onClick={this.changeNumber}>Change
+                                                Number</button> : null}
+                                    </FormLabel>
+                                    <InputGroup>
+                                        <InputGroup.Prepend>
+                                            <InputGroup.Text id="mobilePrepend">+91</InputGroup.Text>
+                                        </InputGroup.Prepend>
+                                        <FormControl type="number" disabled={this.state.otpSent ? "disabled" : null}
+                                                     onChange={this.setMobileData}
+                                                     aria-describedby="mobilePrepend" name="mobile" placeholder=""/>
+                                    </InputGroup>
+                                </FormGroup>
+                                {this.state.otpSent ? this.renderVerifyOTP() : null}
+                                {this.state.confirmOtpError ?
+                                    <div className="otp-error">{this.state.confirmOtpError}</div> : null}
+                                {this.state.showResendOtp && this.state.confirmOtpError ?
+                                    <div className="otp-resend">OTP resend</div> : null}
+                                <FormGroup>
+                                    <Button variant="primary" className="otp-button"
+                                            onClick={this.state.otpSent ? this.verifyOtp : this.sendOtp}>{this.state.otpSent ? "Verify Mobile" : "Send OTP"}</Button>
+                                </FormGroup>
+                            </Form>
+                            <div className="t-and-c">
+                                By sign up you accept our <a href="/terms" target="_blank">Terms &amp; Condition</a>.
                             </div>
                         </div>
                     </div>
-                </ModalBody>
-            </>
+                </div>
+                {/*</ModalBody>*/}
+            </div>
         )
     }
 
