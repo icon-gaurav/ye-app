@@ -77,7 +77,7 @@ class AuthorizedUser extends PureComponent {
             .catch((error) => {
                 console.log(error)
             })
-        // this.setState({ user: student, loggedIn: true })
+        this.setState({ user: student, loggedIn: true })
     }
 
     componentDidMount() {
