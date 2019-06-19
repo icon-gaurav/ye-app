@@ -66,7 +66,10 @@ class Login extends PureComponent {
                         <br/>
                         {
                             loading ?
-                                <LoadingAnimation/> :
+                                (<div className="position-relative">
+                                    <LoadingAnimation/>
+                                </div>)
+                                :
                                 (
                                     <div className="login-button-wrapper">
                                         <div className="login-button-background"></div>
