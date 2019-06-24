@@ -108,3 +108,8 @@ button:active, button:focus, button:hover {
 .belowTop{
     padding:15px;
 }
+
+.scrollable-modal-div{
+    overflow-y: scroll;
+    max-height:65vh;
+}

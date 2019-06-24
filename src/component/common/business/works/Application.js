@@ -12,7 +12,8 @@ class Application extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            summary: false
+            summary: false,
+            application:this.props.application
         }
     }
 
@@ -21,10 +22,8 @@ class Application extends Component {
     }
 
     render() {
-        let {application} = this.props;
-        console.log(application)
+        let {application, summary} = this.state;
         let {student} = application;
-        let {summary} = this.state;
         return (
             <div className="user-wrapper pt-2 pb-2">
                 <div className="row">
@@ -167,7 +166,7 @@ class Application extends Component {
         ApiAction.updateApplication(work, notification, application)
             .then((response) => {
                 if (response.data.success) {
-                    console.log("notification send to user for rejection")
+                    this.setState({application:application});
                 }
             })
             .catch((error) => {
@@ -189,8 +188,9 @@ class Application extends Component {
         application.status = "Selected";
         ApiAction.updateApplication(work, notification, application)
             .then((response) => {
+                console.log(response)
                 if (response.data.success) {
-                    console.log("notification send to user for rejection")
+                    this.setState({application:application});
                 }
             })
             .catch((error) => {

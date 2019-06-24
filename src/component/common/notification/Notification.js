@@ -9,16 +9,19 @@ import ApiAction from "../../../actions/ApiAction";
 class Notification extends Component {
     constructor(props) {
         super(props);
+        this.state={
+            notification:this.props.notification
+        }
     }
 
     componentDidMount() {
         let {user, notification} = this.props;
-        if (notification.status != "SEEN") {
+        if (notification.status == "NOT SEEN") {
             ApiAction.notificationSeen(notification, user)
                 .then((response) => {
                     console.log(response)
                     if (response.data.success) {
-                        console.log("notification seen");
+                        this.setState({notification:response.data.notification});
                     } else {
 
                     }
@@ -30,8 +33,7 @@ class Notification extends Component {
     }
 
     render() {
-        let {notification} = this.props;
-        console.log(notification)
+        let {notification} = this.state;
         return (
             <div className="main-wrapper p-2 row border position-relative">
                 <div
@@ -51,10 +53,12 @@ class Notification extends Component {
                             <p>{notification.message}</p>
                         </div>
                     </div>
-                    {notification.type == "confirmation" ?
+                    {notification.type == "confirmation" && notification.status != "responded" ?
                         <div className="col-12">
-                            <button className="btn m-1 btn-success float-right">Accept</button>
-                            <button className="m-1 btn btn-danger float-right">Reject</button>
+                            <button className="btn m-1 btn-success float-right" onClick={this.acceptOffer}>Accept
+                            </button>
+                            <button className="m-1 btn btn-danger float-right" onClick={this.rejectOffer}>Reject
+                            </button>
                         </div>
                         : ""}
                 </div>
@@ -64,15 +68,19 @@ class Notification extends Component {
     }
 
     acceptOffer = () => {
-        let {notification} = this.props;
+        let {notification} = this.state;
         ApiAction.acceptCompanyOffer(null, notification)
             .then((response) => {
                 console.log(response);
                 if (response.data.success) {
-                    console.log("success");
+                    notification.status = "responded";
+                    this.setState({notification:notification});
                 } else {
 
                 }
+            })
+            .catch((error) => {
+                console.log(error)
             })
     }
 
@@ -82,10 +90,14 @@ class Notification extends Component {
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    console.log("success")
+                    notification.status = "responded";
+                    this.setState({notification:notification});
                 } else {
 
                 }
+            })
+            .catch((error) => {
+                console.log(error)
             })
     }
 }

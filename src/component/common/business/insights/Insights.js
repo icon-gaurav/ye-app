@@ -108,7 +108,7 @@ class Insights extends Component {
         return (
             <div>
                 <header className="main-head"></header>
-                <div className="insights">
+                <div className="insights p-4">
                     <div className="insight row">
                         <div className="col-md-6 col-lg-4 mb-2">
                             <div className="card">
@@ -165,7 +165,7 @@ class Insights extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="insight row">
+                    <div className="insight mb-2">
                         <div className="card">
                             <div className="card-body">
                                 <div className="center-align">
@@ -211,24 +211,24 @@ class Insights extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-6 col-lg-4 mb-2">
-                            <div className="card">
-                                <div className="card-body">
-                                    <div className="card-title">
-                                        <h6>Total Tasks</h6>
-                                    </div>
-                                    <div className="row center-align">
-                                        <h2 className="col-6">
-                                            <img src={require("../../../../assets/images/graph.svg")} width="50px"
-                                                 height="50px"/>
-                                        </h2>
-                                        <div className="col-6 quantity">
-                                            <h2>2014</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {/*<div className="col-md-6 col-lg-4 mb-2">*/}
+                        {/*    <div className="card">*/}
+                        {/*        <div className="card-body">*/}
+                        {/*            <div className="card-title">*/}
+                        {/*                <h6>Total Tasks</h6>*/}
+                        {/*            </div>*/}
+                        {/*            <div className="row center-align">*/}
+                        {/*                <h2 className="col-6">*/}
+                        {/*                    <img src={require("../../../../assets/images/graph.svg")} width="50px"*/}
+                        {/*                         height="50px"/>*/}
+                        {/*                </h2>*/}
+                        {/*                <div className="col-6 quantity">*/}
+                        {/*                    <h2>2014</h2>*/}
+                        {/*                </div>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                     </div>
                     <div className="insight row">
                         <div className="col-md-6 col-lg-4 mb-2">
