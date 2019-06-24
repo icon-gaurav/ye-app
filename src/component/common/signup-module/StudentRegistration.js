@@ -1,16 +1,13 @@
 import React from "react";
 import FormLabel from "react-bootstrap/FormLabel";
-import ModalBody from "react-bootstrap/ModalBody";
 import Form from "react-bootstrap/Form";
 import FormGroup from "react-bootstrap/FormGroup";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
-import ApiAction from "../../../actions/ApiAction";
 import "../../../assets/stylesheet/StudentRegistration.css";
 import StudentDetails from "./StudentDetails";
-import ModalHeader from "react-bootstrap/ModalHeader";
-import ModalTitle from "react-bootstrap/ModalTitle";
+import ApiAction from "../../../actions/ApiAction";
 
 class StudentRegistration extends React.Component {
 
@@ -31,6 +28,14 @@ class StudentRegistration extends React.Component {
         this.setOtpData = this.setOtpData.bind(this);
     }
 
+    componentWillMount() {
+        window.addEventListener("keypress", (key) => {
+            if (key.code == "Enter") {
+                this.state.otpSent ? this.verifyOtp() : this.sendOtp();
+            }
+        });
+    }
+
     render() {
         return (
             this.state.verified ? <StudentDetails mobile={this.state.mobile}/> : this.renderForm()
@@ -49,7 +54,7 @@ class StudentRegistration extends React.Component {
                     <div className="row">
                         <div className="col-md-12 col-xs-12">
                             <p>Get started with new Young Engine Account using your mobile number</p>
-                            <Form /*onSubmit={this.state.otpSent ? this.verifyOtp : this.sendOtp}*/>
+                            <Form>
                                 <FormGroup className="mobile-detail">
                                     <FormLabel style={{width: "100%"}}>
                                         Enter Mobile No.
@@ -151,32 +156,38 @@ class StudentRegistration extends React.Component {
 
     sendOtp() {
         // this.setState({showResendOtp: true});
-        this.setState({otpSent: true, showResendOtp: true});
-        // ApiAction.sendOtp(this.state.mobile)
-        //     .then((response) => {
-        //         console.log(response);
-        //         if (response.data.success) {
-        //             this.setState({otpSent: true, showResendOtp: true});
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
-        console.log("send otp");
+        // this.setState({otpSent: true, showResendOtp: true});
+        let {mobile} =this.state;
+        if (mobile.length == 10 && !isNaN(Number(mobile))) {
+            ApiAction.sendOtp(this.state.mobile)
+                .then((response) => {
+                    console.log(response);
+                    if (response.data.success) {
+                        this.setState({otpSent: true, showResendOtp: true});
+                    }else{
+
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }else{
+            console.log("Enter valid number");
+        }
     }
 
     verifyOtp() {
-        this.setState({verified: true});
-        // ApiAction.verifyOtp(parseInt(this.state.mobile, 10), parseInt(this.state.otp.join(''), 10))
-        //     .then((response) => {
-        //         console.log(response);
-        //         if (response.data.success) {
-        //             this.setState({verified: true});
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
+        // this.setState({verified: true});
+        ApiAction.verifyOtp(parseInt(this.state.mobile, 10), parseInt(this.state.otp.join(''), 10))
+            .then((response) => {
+                console.log(response);
+                if (response.data.success) {
+                    this.setState({verified: true});
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         // this.setState({verified: true});
         // console.log("Inside Otp verification");
         /* if otp is verified*/

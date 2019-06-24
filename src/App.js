@@ -35,7 +35,7 @@ class App extends PureComponent {
                 } else {
                     localStorage.removeItem("loggedIn");
                     localStorage.removeItem("user");
-                    // this.setState({loggedIn: false, user: null});
+                    this.setState({logIn: false});
                 }
             })
             .catch((error) => {

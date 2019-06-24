@@ -9,7 +9,7 @@ import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalFooter from "react-bootstrap/ModalFooter";
 import Form from "react-bootstrap/Form";
-import {FormControl, FormGroup} from "react-bootstrap";
+import {FormControl, FormGroup, Image} from "react-bootstrap";
 import FormLabel from "react-bootstrap/FormLabel";
 import DatePicker from "react-datepicker/es";
 import Button from "react-bootstrap/Button";
@@ -17,6 +17,7 @@ import PersonalDetailModal from "./PersonalDetailModal";
 import ApiAction from "../../../../actions/ApiAction";
 import Converter from "../../../utilities/Converter";
 import {Link} from "react-router-dom";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 class StudentProfile extends Component {
     constructor(props) {
@@ -130,11 +131,11 @@ class StudentProfile extends Component {
         return (
             <div>
                 <div className="row">
-                    <div className="col-lg-3  col-md-5 col-12 mb-3">
-                        {this.renderPersonalDetails()}
+                    <div className="col-lg-4  col-md-5 col-12 mb-3">
+                        {this.renderProfileSummary()}
                     </div>
-                    <div className="col-lg-9 col-md-7 col-12">
-                        <div className="profile-wraper-item2 bg-white">
+                    <div className="col-lg-8 col-md-7 col-12">
+                        <div className="">
                             {this.renderDetails()}
                         </div>
                     </div>
@@ -151,35 +152,54 @@ class StudentProfile extends Component {
         );
     }
 
-    renderPersonalDetails() {
+    renderProfileSummary() {
         let {user} = this.props;
+        let percentage = 10;
         return (
-                <div className="profile-wrapper-item1 bg-white sticky shadow">
-                    <div className="pic-wrapper position-relative">
-                        <input type="image" src={Converter.bufferToBase64(user.profilePic)}
-                               onClick={() => this.setState({personalDetailModalShow: true})}/>
-                        <div className="rating-wrapper">
-                            {this.renderRating()}
-                        </div>
-                        <div className="edit-button">
+            <div className=" bg-white border h-100">
+                <div className="d-flex justify-content-center">
+                    <div className="rounded w-100 position-relative"
+                         style={{backgroundImage: "url(" + require("../insight/Mobile4.jpg") + ")"}}>
+                        {user.logo || user.profilePic ?
+                            <input type="image" className="rounded-circle position-relative m-auto"
+                                   src={Converter.bufferToBase64(user.logo ? user.logo : user.profilePic)}
+                                   height="100px" width="100px"
+                                   style={{display: "block", top: "50%", border: "5px solid orange"}}
+                                   onClick={() => this.setState({personalDetailModalShow: true})}></input>
+                            : <input type="image" className="rounded-circle position-relative m-auto"
+                                     src={require("../insight/rock.png")}
+                                     height="100px" width="100px"
+                                     style={{display: "block", top: "50%", border: "5px solid orange"}}
+                                     onClick={() => this.setState({personalDetailModalShow: true})}></input>}
 
+                    </div>
+                    {/*<Image className="rounded-circle"*/}
+                    {/*       src={Converter.bufferToBase64(user.logo ? user.logo : user.profilePic)}*/}
+                    {/*       width="100" height="100"/>*/}
+                </div>
+                <div className="summary-wrapper mt-4">
+                    <div className="d-flex justify-content-center">
+                    <span
+                        style={{padding: "3% 0%"}}>
+                        <strong>{user.name.first ? user.name.first + " " + user.name.last : user.name}</strong>
+                    </span>
+                    </div>
+                    <div className="d-flex justify-content-center mb-4">
+                        <div><span>Bio</span></div>
+                        <div>{user.summary.description}</div>
+                    </div>
+                    <div className="mt-2 mb-2">
+                        <div>
+                            <ProgressBar variant="success" now={percentage} label={`${percentage}%`}/>
                         </div>
                     </div>
-                    <div className="info-wrapper">
-                        <div align="center">
-                            <h5 className="user-name">{user.name.first ? user.name.first + " " + user.name.last : user.name}</h5>
-                            <h6 className="user-city">{user.contact.address.city}</h6>
-                            <h6 className="user-country">{user.contact.address.country}</h6>
+                    <div className="flex-row justify-content-center">
+                        <div className="d-flex justify-content-center">
+                            {this.renderRating()}
                         </div>
-                        <div className="about-me">
-                            <div className="about-me-title text-align-center">
-                                <span>About Me</span>
-                            </div>
-                            <div className="text-left">
-                                <p className="overflow-hidden">{user.summary.aboutMe}</p>
-                            </div>
-
-                        </div>
+                        <div className="d-flex justify-content-center opacity-50">({user.rating.length} reviews)</div>
+                    </div>
+                    <div className="d-flex">
                         <div className="personal-info">
                             <div className="mobile-wrapper">
                                 <div className="d-inline-block icon-wrapper">
@@ -196,31 +216,108 @@ class StudentProfile extends Component {
                             {user.social ?
                                 <div className="social-wrapper">
                                     <div align="center" style={{marginBottom: 20}}>
-                                        <a href={user.social.facebook}>
+                                        <a href={user.social.facebook} target="_blank">
                                             <i className="fa fa-facebook-square fa-2x m-1" style={{color: "#00acee"}}
                                                aria-hidden="true"></i>
                                         </a>
-                                        <a href={user.social.twitter}>
+                                        <a href={user.social.twitter} target="_blank">
                                             <i className="fa fa-twitter-square fa-2x m-1" style={{color: "#00acee"}}
                                                aria-hidden="true"></i>
                                         </a>
-                                        <a href={user.social.linkedIn}>
+                                        <a href={user.social.linkedIn} target="_blank">
                                             <i className="fa fa-linkedin-square fa-2x m-1" style={{color: "#00acee"}}
                                                aria-hidden="true"></i>
                                         </a>
-                                        <a href={user.social.github}>
+                                        <a href={user.social.github} target="_blank">
                                             <i className="fa fa-github-square fa-2x m-1" style={{color: "#00acee"}}
                                                aria-hidden="true"></i>
                                         </a>
                                     </div>
                                 </div>
-                                : ""}
+                                :
+                                ""}
+
                         </div>
                     </div>
-                    <div className="text-align-center">
-                        <Link to="/settings">{user.status}</Link>
+                </div>
+                <div className="text-align-center">
+                    <Link to="/settings">{user.status}</Link>
+                </div>
+            </div>
+        );
+    }
+
+    renderPersonalDetails() {
+        let {user} = this.props;
+        return (
+            <div className="profile-wrapper-item1 bg-white sticky shadow">
+                <div className="pic-wrapper position-relative">
+                    <input type="image"
+                           src={user.profilePic ? Converter.bufferToBase64(user.profilePic) : require("../../../../assets/images/icons/no-image.png")}
+                           onClick={() => this.setState({personalDetailModalShow: true})}/>
+                    <div className="rating-wrapper">
+                        {this.renderRating()}
+                    </div>
+                    <div className="edit-button">
+
                     </div>
                 </div>
+                <div className="info-wrapper">
+                    <div align="center">
+                        <h5 className="user-name">{user.name.first ? user.name.first + " " + user.name.last : user.name}</h5>
+                        <h6 className="user-city">{user.contact.address.city}</h6>
+                        <h6 className="user-country">{user.contact.address.country}</h6>
+                    </div>
+                    <div className="about-me">
+                        <div className="about-me-title text-align-center">
+                            <span>About Me</span>
+                        </div>
+                        <div className="text-left">
+                            <p className="overflow-hidden">{user.summary.aboutMe}</p>
+                        </div>
+
+                    </div>
+                    <div className="personal-info">
+                        <div className="mobile-wrapper">
+                            <div className="d-inline-block icon-wrapper">
+                                <i className="fa fa-phone" aria-hidden="true"></i>
+                            </div>
+                            <div className="d-inline-block">{user.contact.mobile}</div>
+                        </div>
+                        <div className="email-wrapper">
+                            <div className="d-inline-block icon-wrapper">
+                                <i className="fa fa-envelope" aria-hidden="true"></i>
+                            </div>
+                            <div className="d-inline-block"><p>{user.contact.email}</p></div>
+                        </div>
+                        {user.social ?
+                            <div className="social-wrapper">
+                                <div align="center" style={{marginBottom: 20}}>
+                                    <a href={user.social.facebook}>
+                                        <i className="fa fa-facebook-square fa-2x m-1" style={{color: "#00acee"}}
+                                           aria-hidden="true"></i>
+                                    </a>
+                                    <a href={user.social.twitter}>
+                                        <i className="fa fa-twitter-square fa-2x m-1" style={{color: "#00acee"}}
+                                           aria-hidden="true"></i>
+                                    </a>
+                                    <a href={user.social.linkedIn}>
+                                        <i className="fa fa-linkedin-square fa-2x m-1" style={{color: "#00acee"}}
+                                           aria-hidden="true"></i>
+                                    </a>
+                                    <a href={user.social.github}>
+                                        <i className="fa fa-github-square fa-2x m-1" style={{color: "#00acee"}}
+                                           aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            : ""}
+                    </div>
+                </div>
+                <div className="text-align-center">
+                    <Link to="/settings">{user.status}</Link>
+                </div>
+            </div>
         );
     }
 
@@ -247,9 +344,9 @@ class StudentProfile extends Component {
     renderDetails() {
         let {user} = this.props;
         return (
-            <div className="row">
-                <div className="col-12 shadow mb-4">
-                    <div className="">
+            <div className="">
+                <div className="border mb-4">
+                    <div className="bg-white">
                         <div className="intro-header">
                             <div className="d-inline-block">
                                 <h4>
@@ -274,7 +371,7 @@ class StudentProfile extends Component {
                                                     summary: ""
                                                 }
                                             })}>
-                                        <i className="fa fa-plus-circle text-success "
+                                        <i className="fas fa-plus text-success "
                                            data-toggle="modal" data-target="#addexperience"
                                            aria-hidden="true">
                                         </i>
@@ -291,7 +388,7 @@ class StudentProfile extends Component {
                                                 <div className="logo-wrapper col-2 text-align-center">
                                                     <a href="#">
                                                         <img
-                                                            src={require("../../../../assets/images/icons/google-plus.svg")}
+                                                            src={require("../../../../assets/images/icons/enterprise.svg")}
                                                             className="image-cover-rect"/>
                                                     </a>
                                                 </div>
@@ -332,8 +429,8 @@ class StudentProfile extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="col-12 shadow mb-4">
-                    <div className="">
+                <div className="border mb-4">
+                    <div className="bg-white">
                         <div className="intro-header">
                             <div className="d-inline-block">
                                 <h4>
@@ -358,7 +455,7 @@ class StudentProfile extends Component {
                                                     summary: ""
                                                 }
                                             })}>
-                                        <i className="fa fa-plus-circle text-success "
+                                        <i className="fas fa-plus text-success "
                                            data-toggle="modal" data-target="#addexperience"
                                            aria-hidden="true">
                                         </i>
@@ -375,7 +472,7 @@ class StudentProfile extends Component {
                                                 <div className="logo-wrapper col-2 text-align-center">
                                                     <a href="#">
                                                         <img
-                                                            src={require("../../../../assets/images/icons/google-plus.svg")}
+                                                            src={require("../../../../assets/images/icons/graduation.svg")}
                                                             className="image-cover-rect"/>
                                                     </a>
                                                 </div>
@@ -406,7 +503,7 @@ class StudentProfile extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="row px-5 pt-3">Description</div>
+                                        <div className="row px-5 pt-3">{edu.summary}</div>
                                     </div>
                                 );
                             })}
@@ -414,8 +511,8 @@ class StudentProfile extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="col-12 shadow mb-4">
-                    <div className="">
+                <div className="border mb-4">
+                    <div className="bg-white">
                         <div className="intro-header">
                             <div className="d-inline-block">
                                 <h4>
@@ -441,7 +538,7 @@ class StudentProfile extends Component {
                                                     }
                                                 }
                                             })}>
-                                        <i className="fa fa-plus-circle text-success "
+                                        <i className="fas fa-plus text-success "
                                            data-toggle="modal" data-target="#addexperience"
                                            aria-hidden="true">
                                         </i>
@@ -458,7 +555,7 @@ class StudentProfile extends Component {
                                                 <div className="logo-wrapper col-2 text-align-center">
                                                     <a href="#">
                                                         <img
-                                                            src={require("../../../../assets/images/icons/google-plus.svg")}
+                                                            src={require("../../../../assets/images/icons/medal.svg")}
                                                             className="image-cover-rect"/>
                                                     </a>
                                                 </div>
@@ -491,15 +588,15 @@ class StudentProfile extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="row px-5 pt-3">Description</div>
+                                        <div className="row px-5 pt-3">{cer.summary}</div>
                                     </div>
                                 );
                             })}
                         </div>
                     </div>
                 </div>
-                <div className="col-12 shadow mb-4">
-                    <div className="">
+                <div className="border">
+                    <div className="bg-white">
                         <div className="intro-header">
                             <div className="d-inline-block">
                                 <h4>
@@ -508,7 +605,7 @@ class StudentProfile extends Component {
                             </div>
                             <div className="d-inline-block float-right">
                                 <div className="text-align-right">
-                                    <button className="btn plus" onClick={() => this.setState({
+                                    <button className="btn plus transparent-button" onClick={() => this.setState({
                                         skillModalShow: true,
                                         modalType: "Add",
                                         tempSkill: {
@@ -516,7 +613,7 @@ class StudentProfile extends Component {
                                             level: ""
                                         },
                                     })}>
-                                        <i className="fa fa-plus-circle text-success "
+                                        <i className="fas fa-plus text-success "
                                            data-toggle="modal" data-target="#addexperience"
                                            aria-hidden="true">
                                         </i>
@@ -525,67 +622,52 @@ class StudentProfile extends Component {
                             </div>
                         </div>
                         <div className="intro-item">
-                            <div className="item-wrapper">
-                                <div className="skill-list">
-                                    <ul>
-                                        {user.skills.map((skill, key) => {
-                                            return (
-                                                <li key={key}>
-                                                    <div className="position-relative">
-                                                        <div>
-                                                            <i className="fa fa-bolt" aria-hidden="true"></i>
-                                                            <span>{skill.skill}</span>
-                                                        </div>
-                                                        <div className="edit-button">
-                                                            <div className="text-align-right">
-                                                                <button className="btn edit"
-                                                                        onClick={() => this.setState({
-                                                                            skillModalShow: true,
-                                                                            modalType: "Edit",
-                                                                            tempSkill: Object.assign({}, skill),
-                                                                            key: key
-                                                                        })}>
-                                                                    <i className="fa fa-pencil-square-o text-danger"
-                                                                       data-toggle="modal" data-target="#editexperience"
-                                                                       aria-hidden="true">
-                                                                    </i>
-                                                                </button>
+                            {user.skills.length > 0 ?
+                                <div className="item-wrapper">
+                                    <div className="skill-list">
+                                        <ul>
+                                            {user.skills.map((skill, key) => {
+                                                return (
+                                                    <li key={key}>
+                                                        <div className="position-relative">
+                                                            <div>
+                                                                {/*<i>*/}
+                                                                {/*<img*/}
+                                                                {/*    src={require("../../../../assets/images/icons/talent.svg")}*/}
+                                                                {/*    width={15}/>*/}
+                                                                {/*</i>*/}
+                                                                <i className="fa fa-bolt" aria-hidden="true"></i>
+                                                                <span>{skill.skill}</span>
+                                                            </div>
+                                                            <div className="edit-button">
+                                                                <div className="text-align-right">
+                                                                    <button className="btn edit"
+                                                                            onClick={() => this.setState({
+                                                                                skillModalShow: true,
+                                                                                modalType: "Edit",
+                                                                                tempSkill: Object.assign({}, skill),
+                                                                                key: key
+                                                                            })}>
+                                                                        <i className="fa fa-pencil-square-o text-danger"
+                                                                           data-toggle="modal"
+                                                                           data-target="#editexperience"
+                                                                           aria-hidden="true">
+                                                                        </i>
+                                                                    </button>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
+                                : ""}
                         </div>
                     </div>
                 </div>
             </div>
-        );
-    }
-
-    renderPersonalDetailsModal() {
-        return (
-            <Modal show={this.state.personalDetailModalShow}
-                   onHide={() => this.setState({personalDetailModalShow: false})}
-                   centered>
-                <ModalHeader>
-                    <Modal.Title>Edit Personal Details</Modal.Title>
-                </ModalHeader>
-                <ModalBody>
-                    <Form>
-                        <FormGroup>
-                            <FormLabel>Profile Pic</FormLabel>
-                            <FormControl type="file"/>
-                        </FormGroup>
-                    </Form>
-                </ModalBody>
-                <ModalFooter>
-                    <Button type="button" className="btn btn-success" onClick={this.editPersonalDetails}>Save</Button>
-                </ModalFooter>
-            </Modal>
         );
     }
 
@@ -603,52 +685,56 @@ class StudentProfile extends Component {
                     <Modal.Title>{type} Experience</Modal.Title>
                 </ModalHeader>
                 <ModalBody>
-                    <Form>
-                        <FormGroup>
-                            <FormLabel>Title</FormLabel>
-                            <FormControl type="text" name="title"
-                                         className="form-control border-top-0 border-right-0 border-left-0 mb-2"
-                                         placeholder="Title" value={exp.title} onChange={this.updateExpTitle}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <FormLabel>Organization</FormLabel>
-                            <FormControl type="text" name="organization"
-                                         className="form-control border-top-0 border-right-0 border-left-0 mb-2"
-                                         placeholder="Organization" value={exp.organization}
-                                         onChange={this.updateExpOrganization}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <FormLabel>Location</FormLabel>
-                            <FormControl type="text" name="location"
-                                         className="form-control border-top-0 border-right-0 border-left-0 mb-2"
-                                         placeholder="Location" value={exp.location} onChange={this.updateExpLocation}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <FormLabel>Responsibility</FormLabel>
-                            <FormControl type="text" name="responsibility"
-                                         className="form-control border-top-0 border-right-0 border-left-0 mb-2"
-                                         placeholder="Responsibility" value={exp.responsibility}
-                                         onChange={this.updateExpResponsibility}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <FormLabel className="d-block">Duration</FormLabel>
-                            <DatePicker placeholderText="Start Date" name="start-date"
-                                        className="border-top-0 border-right-0 border-left-0 mb-2"
-                                        maxDate={new Date()} selected={new Date(exp.duration.start)}
-                                        onChange={this.updateExpDurationStart}/>
-                            <div className="d-inline p-1">to</div>
-                            <DatePicker placeholderText="End date" name="end-date"
-                                        className="border-top-0 border-right-0 border-left-0 mb-2"
-                                        maxDate={new Date()} selected={new Date(exp.duration.end)}
-                                        onChange={this.updateExpDurationEnd}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <FormLabel className="d-block">Description</FormLabel>
-                            <FormControl type="text" name="summary"
-                                         className="form-control border-top-0 border-right-0 border-left-0 mb-2"
-                                         placeholder="Description" value={exp.summary} onChange={this.updateSummary}/>
-                        </FormGroup>
-                    </Form>
+                    <div className="scrollable-modal-div">
+                        <Form>
+                            <FormGroup>
+                                <FormLabel>Title</FormLabel>
+                                <FormControl type="text" name="title"
+                                             className="form-control border-top-0 border-right-0 border-left-0 mb-2"
+                                             placeholder="Title" value={exp.title} onChange={this.updateExpTitle}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <FormLabel>Organization</FormLabel>
+                                <FormControl type="text" name="organization"
+                                             className="form-control border-top-0 border-right-0 border-left-0 mb-2"
+                                             placeholder="Organization" value={exp.organization}
+                                             onChange={this.updateExpOrganization}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <FormLabel>Location</FormLabel>
+                                <FormControl type="text" name="location"
+                                             className="form-control border-top-0 border-right-0 border-left-0 mb-2"
+                                             placeholder="Location" value={exp.location}
+                                             onChange={this.updateExpLocation}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <FormLabel>Responsibility</FormLabel>
+                                <FormControl type="text" name="responsibility"
+                                             className="form-control border-top-0 border-right-0 border-left-0 mb-2"
+                                             placeholder="Responsibility" value={exp.responsibility}
+                                             onChange={this.updateExpResponsibility}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <FormLabel className="d-block">Duration</FormLabel>
+                                <DatePicker placeholderText="Start Date" name="start-date"
+                                            className="border-top-0 border-right-0 border-left-0 mb-2"
+                                            maxDate={new Date()} selected={new Date(exp.duration.start)}
+                                            onChange={this.updateExpDurationStart}/>
+                                <div className="d-inline p-1">to</div>
+                                <DatePicker placeholderText="End date" name="end-date"
+                                            className="border-top-0 border-right-0 border-left-0 mb-2"
+                                            maxDate={new Date()} selected={new Date(exp.duration.end)}
+                                            onChange={this.updateExpDurationEnd}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <FormLabel className="d-block">Description</FormLabel>
+                                <FormControl type="text" name="summary"
+                                             className="form-control border-top-0 border-right-0 border-left-0 mb-2"
+                                             placeholder="Description" value={exp.summary}
+                                             onChange={this.updateSummary}/>
+                            </FormGroup>
+                        </Form>
+                    </div>
                 </ModalBody>
                 <ModalFooter>
                     {type == "Edit" ?
@@ -720,7 +806,8 @@ class StudentProfile extends Component {
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    console.log("success")
+                    experiences.splice(key, 1);
+                    this.setState({experiences: experiences, experienceModalShow: false});
                 }
             })
             .catch((error) => {
@@ -734,7 +821,8 @@ class StudentProfile extends Component {
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    console.log("success")
+                    experiences[key] = response.data.experience;
+                    this.setState({experiences: experiences, experienceModalShow: false});
                 }
             })
             .catch((error) => {
@@ -748,7 +836,8 @@ class StudentProfile extends Component {
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    console.log("success")
+                    experiences.push(response.data.experience);
+                    this.setState({experiences: experiences, experienceModalShow: false});
                 }
             })
             .catch((error) => {
@@ -766,49 +855,53 @@ class StudentProfile extends Component {
                     <Modal.Title>{type} Education</Modal.Title>
                 </ModalHeader>
                 <ModalBody>
-                    <Form>
-                        <FormGroup className="form-group">
-                            <FormLabel>School / College</FormLabel><br/>
-                            <FormControl type="text" name="school"
-                                         className="form-control border-top-0 border-right-0 border-left-0 mb-2"
-                                         placeholder="School / College" value={edu.school}
-                                         onChange={this.updateEduSchool}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <FormLabel>Degree</FormLabel>
-                            <FormControl type="text" name="degree"
-                                         className="form-control border-top-0 border-right-0 border-left-0 mb-2"
-                                         placeholder="Degree" value={edu.degree} onChange={this.updateEduDegree}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <FormLabel>Field of study</FormLabel>
-                            <FormControl type="text" name="field"
-                                         className="form-control border-top-0 border-right-0 border-left-0 mb-2"
-                                         placeholder="Field of study" value={edu.field} onChange={this.updateEduField}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <FormLabel className="d-block">Duration</FormLabel>
-                            <DatePicker placeholderText="From" name="start-date"
-                                        className="border-top-0 border-right-0 border-left-0 mb-2"
-                                        selected={new Date(edu.duration.start)} onChange={this.updateEduDurationStart}/>
-                            <div className="d-inline p-1">to</div>
-                            <DatePicker placeholderText="To" name="end-date"
-                                        className="border-top-0 border-right-0 border-left-0 mb-2"
-                                        selected={new Date(edu.duration.end)} onChange={this.updateEduDurationEnd}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <FormLabel>Grades</FormLabel>
-                            <FormControl type="text" name="grades"
-                                         className="form-control border-top-0 border-right-0 border-left-0 mb-2"
-                                         placeholder="Grades" value={edu.grade} onChange={this.updateEduGrade}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <FormLabel className="d-block">Description</FormLabel>
-                            <FormControl type="text" as="textarea" name="summary"
-                                         className="form-control border-top-0 border-right-0 border-left-0 mb-2"
-                                         placeholder="Description" onChange={this.updateEduSummary}/>
-                        </FormGroup>
-                    </Form>
+                    <div className="scrollable-modal-div">
+                        <Form>
+                            <FormGroup className="form-group">
+                                <FormLabel>School / College</FormLabel><br/>
+                                <FormControl type="text" name="school"
+                                             className="form-control border-top-0 border-right-0 border-left-0 mb-2"
+                                             placeholder="School / College" value={edu.school}
+                                             onChange={this.updateEduSchool}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <FormLabel>Degree</FormLabel>
+                                <FormControl type="text" name="degree"
+                                             className="form-control border-top-0 border-right-0 border-left-0 mb-2"
+                                             placeholder="Degree" value={edu.degree} onChange={this.updateEduDegree}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <FormLabel>Field of study</FormLabel>
+                                <FormControl type="text" name="field"
+                                             className="form-control border-top-0 border-right-0 border-left-0 mb-2"
+                                             placeholder="Field of study" value={edu.field}
+                                             onChange={this.updateEduField}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <FormLabel className="d-block">Duration</FormLabel>
+                                <DatePicker placeholderText="From" name="start-date"
+                                            className="border-top-0 border-right-0 border-left-0 mb-2"
+                                            selected={new Date(edu.duration.start)}
+                                            onChange={this.updateEduDurationStart}/>
+                                <div className="d-inline p-1">to</div>
+                                <DatePicker placeholderText="To" name="end-date"
+                                            className="border-top-0 border-right-0 border-left-0 mb-2"
+                                            selected={new Date(edu.duration.end)} onChange={this.updateEduDurationEnd}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <FormLabel>Grades</FormLabel>
+                                <FormControl type="text" name="grades"
+                                             className="form-control border-top-0 border-right-0 border-left-0 mb-2"
+                                             placeholder="Grades" value={edu.grade} onChange={this.updateEduGrade}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <FormLabel className="d-block">Description</FormLabel>
+                                <FormControl type="text" as="textarea" name="summary"
+                                             className="form-control border-top-0 border-right-0 border-left-0 mb-2"
+                                             placeholder="Description" onChange={this.updateEduSummary}/>
+                            </FormGroup>
+                        </Form>
+                    </div>
                 </ModalBody>
                 <ModalFooter>
                     {type === "Edit" ?
@@ -875,12 +968,13 @@ class StudentProfile extends Component {
     }
 
     deleteEducation = () => {
-        let {education, tempEducation} = this.state;
+        let {education,key, tempEducation} = this.state;
         ApiAction.deleteEducation(this.props.user, tempEducation)
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    console.log("success")
+                    education.splice(key, 1);
+                    this.setState({education:education, educationModalShow:false});
                 }
             })
             .catch((error) => {
@@ -894,7 +988,8 @@ class StudentProfile extends Component {
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    console.log("success")
+                    education[key] = response.data.education;
+                    this.setState({education:education, educationModalShow:false});
                 }
             })
             .catch((error) => {
@@ -908,7 +1003,8 @@ class StudentProfile extends Component {
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    console.log("success")
+                    education.push(response.data.education);
+                    this.setState({education:education, educationModalShow:false});
                 }
             })
             .catch((error) => {
@@ -926,46 +1022,49 @@ class StudentProfile extends Component {
                     <Modal.Title>{type} Certificate</Modal.Title>
                 </ModalHeader>
                 <ModalBody>
-                    <Form>
-                        <FormGroup className="form-group">
-                            <FormLabel>Name</FormLabel>
-                            <FormControl type="text" name="name"
-                                         className="border-top-0 border-right-0 border-left-0 mb-2"
-                                         placeholder="Title" value={cer.name} onChange={this.updateCerName}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <FormLabel>Issuing Organisation</FormLabel>
-                            <FormControl type="text" name="organization"
-                                         className="form-control border-top-0 border-right-0 border-left-0 mb-2"
-                                         placeholder="Organisation" value={cer.organization}
-                                         onChange={this.updateCerOrganization}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <FormLabel className="">Issue Date</FormLabel>
-                            <strong style={{float: "right", marginRight: "25%"}}>Expiry Date</strong>
-                            <div className="d-block"></div>
-                            <DatePicker type="date" name="start-date"
-                                        className="form-control d-inline border-top-0 border-right-0 border-left-0 mb-2"
-                                        placeholder="From" style={{width: "45%"}}
-                                        selected={new Date(cer.duration.start)} onChange={this.updateCerDurationStart}/>
-                            <DatePicker type="date" name="end-date"
-                                        className="form-control d-inline border-top-0 border-right-0 border-left-0 mb-2"
-                                        placeholder="To" style={{width: "45%", float: "right"}}
-                                        selected={new Date(cer.duration.end)} onChange={this.updateCerDurationEnd}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <FormLabel>Credential ID</FormLabel>
-                            <FormControl type="text" name="credential-id"
-                                         className="form-control border-top-0 border-right-0 border-left-0 mb-2"
-                                         placeholder="Credential ID/" value={cer.credential.id}
-                                         onChange={this.updateCerCredentialId}/>
-                            <FormLabel>Credential URL</FormLabel>
-                            <FormControl type="url" name="credential-url"
-                                         className="form-control border-top-0 border-right-0 border-left-0 mb-2"
-                                         placeholder="https:/" value={cer.credential.url}
-                                         onChange={this.updateCerCredentialUrl}/>
-                        </FormGroup>
-                    </Form>
+                    <div className="scrollable-modal-div">
+                        <Form>
+                            <FormGroup className="form-group">
+                                <FormLabel>Name</FormLabel>
+                                <FormControl type="text" name="name"
+                                             className="border-top-0 border-right-0 border-left-0 mb-2"
+                                             placeholder="Title" value={cer.name} onChange={this.updateCerName}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <FormLabel>Issuing Organisation</FormLabel>
+                                <FormControl type="text" name="organization"
+                                             className="form-control border-top-0 border-right-0 border-left-0 mb-2"
+                                             placeholder="Organisation" value={cer.organization}
+                                             onChange={this.updateCerOrganization}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <FormLabel className="">Issue Date</FormLabel>
+                                <strong style={{float: "right", marginRight: "25%"}}>Expiry Date</strong>
+                                <div className="d-block"></div>
+                                <DatePicker type="date" name="start-date"
+                                            className="form-control d-inline border-top-0 border-right-0 border-left-0 mb-2"
+                                            placeholder="From" style={{width: "45%"}}
+                                            selected={new Date(cer.duration.start)}
+                                            onChange={this.updateCerDurationStart}/>
+                                <DatePicker type="date" name="end-date"
+                                            className="form-control d-inline border-top-0 border-right-0 border-left-0 mb-2"
+                                            placeholder="To" style={{width: "45%", float: "right"}}
+                                            selected={new Date(cer.duration.end)} onChange={this.updateCerDurationEnd}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <FormLabel>Credential ID</FormLabel>
+                                <FormControl type="text" name="credential-id"
+                                             className="form-control border-top-0 border-right-0 border-left-0 mb-2"
+                                             placeholder="Credential ID/" value={cer.credential.id}
+                                             onChange={this.updateCerCredentialId}/>
+                                <FormLabel>Credential URL</FormLabel>
+                                <FormControl type="url" name="credential-url"
+                                             className="form-control border-top-0 border-right-0 border-left-0 mb-2"
+                                             placeholder="https:/" value={cer.credential.url}
+                                             onChange={this.updateCerCredentialUrl}/>
+                            </FormGroup>
+                        </Form>
+                    </div>
                 </ModalBody>
                 <ModalFooter>
                     {type == "Edit" ?
@@ -1029,7 +1128,8 @@ class StudentProfile extends Component {
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    console.log("success")
+                    certificates.splice(key, 1);
+                    this.setState({certificates: certificates, certificateModalShow: false});
                 }
             })
             .catch((error) => {
@@ -1043,7 +1143,8 @@ class StudentProfile extends Component {
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    console.log("success")
+                    certificates[key] = response.data.certificate;
+                    this.setState({certificates: certificates, certificateModalShow: false});
                 }
             })
             .catch((error) => {
@@ -1057,7 +1158,8 @@ class StudentProfile extends Component {
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    console.log("success")
+                    certificates.push(response.data.certificate);
+                    this.setState({certificates: certificates, certificateModalShow: false});
                 }
             })
             .catch((error) => {
@@ -1075,21 +1177,23 @@ class StudentProfile extends Component {
                     <Modal.Title>{type} Skill</Modal.Title>
                 </ModalHeader>
                 <ModalBody>
-                    <Form>
-                        <FormGroup className="form-group">
-                            <input type="hidden" id="skill-id" name="skill-id"/>
-                            <FormLabel> Skill</FormLabel>
-                            <FormControl type="text" name="skill"
-                                         className="form-control border-top-0 border-right-0 border-left-0 mb-2"
-                                         placeholder="Skill" value={skill.skill} onChange={this.updateSkill}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <FormLabel> Level</FormLabel>
-                            <FormControl type="text" name="level"
-                                         className="form-control border-top-0 border-right-0 border-left-0 mb-2"
-                                         placeholder="Level" value={skill.level} onChange={this.updateSkillLevel}/>
-                        </FormGroup>
-                    </Form>
+                    <div className="scrollable-modal-div">
+                        <Form>
+                            <FormGroup className="form-group">
+                                <input type="hidden" id="skill-id" name="skill-id"/>
+                                <FormLabel> Skill</FormLabel>
+                                <FormControl type="text" name="skill"
+                                             className="form-control border-top-0 border-right-0 border-left-0 mb-2"
+                                             placeholder="Skill" value={skill.skill} onChange={this.updateSkill}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <FormLabel> Level</FormLabel>
+                                <FormControl type="text" name="level"
+                                             className="form-control border-top-0 border-right-0 border-left-0 mb-2"
+                                             placeholder="Level" value={skill.level} onChange={this.updateSkillLevel}/>
+                            </FormGroup>
+                        </Form>
+                    </div>
                 </ModalBody>
                 <ModalFooter>
                     {type == "Edit" ?
@@ -1125,7 +1229,8 @@ class StudentProfile extends Component {
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    console.log("success")
+                    skills.splice(key, 1);
+                    this.setState({skills: skills, skillModalShow: false});
                 }
             })
             .catch((error) => {
@@ -1139,7 +1244,8 @@ class StudentProfile extends Component {
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    console.log("success")
+                    skills[key] = response.data.skill;
+                    this.setState({skills: skills, skillModalShow: false});
                 }
             })
             .catch((error) => {
@@ -1153,7 +1259,8 @@ class StudentProfile extends Component {
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    console.log("success")
+                    skills.push(response.data.skill);
+                    this.setState({skills: skills, skillModalShow: false});
                 }
             })
             .catch((error) => {

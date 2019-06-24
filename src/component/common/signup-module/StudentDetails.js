@@ -1,5 +1,4 @@
 import React from "react";
-import ModalBody from "react-bootstrap/ModalBody";
 import Form from "react-bootstrap/Form";
 import {FormControl, FormGroup} from "react-bootstrap";
 import FormLabel from "react-bootstrap/FormLabel";
@@ -10,8 +9,6 @@ import "../../../assets/stylesheet/UserDetails.css";
 import ApiAction from "../../../actions/ApiAction";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import ModalHeader from "react-bootstrap/ModalHeader";
-import ModalTitle from "react-bootstrap/ModalTitle";
 
 
 class StudentDetails extends React.Component {
@@ -257,6 +254,9 @@ class StudentDetails extends React.Component {
             ApiAction.studentRegistration(student)
                 .then((response) => {
                     console.log(response);
+                    if(response.data.success){
+                        window.location = '/';
+                    }
                 })
                 .catch((error) => {
                     console.log(error);

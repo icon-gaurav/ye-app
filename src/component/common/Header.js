@@ -215,7 +215,7 @@ class Header extends React.Component {
                     <NavLink className="ye-dark nav-link" to="/home"
                              activeStyle={activeStyle}>
                         <div className="icon-div text-align-center">
-                            <img src={require("../../assets/images/logo/work.svg")}/>
+                            {/*<img src={require("../../assets/images/logo/work.svg")}/>*/}
                             <div>Home</div>
                         </div>
                     </NavLink>
@@ -224,7 +224,7 @@ class Header extends React.Component {
                              activeStyle={activeStyle}>
                         <div className="icon-div text-align-center">
                             {/*<svg xmlnsXlink={require("../../assets/images/logo/work.svg")} fill="red"></svg>*/}
-                            <img src={require("../../assets/images/logo/work.svg")}/>
+                            {/*<img src={require("../../assets/images/logo/work.svg")}/>*/}
                             <div>Internships</div>
                         </div>
                     </NavLink>
@@ -234,7 +234,7 @@ class Header extends React.Component {
                             <NavLink className="ye-dark nav-link" to="/missions"
                                      activeStyle={activeStyle}>
                                 <div className="icon-div text-align-center">
-                                    <img src={require("../../assets/images/logo/work.svg")}/>
+                                    {/*<img src={require("../../assets/images/logo/work.svg")}/>*/}
                                     <div>Missions</div>
                                 </div>
                             </NavLink>
@@ -242,7 +242,7 @@ class Header extends React.Component {
                             <NavLink className="ye-dark nav-link" to="/offers"
                                      activeStyle={activeStyle}>
                                 <div className="icon-div text-align-center">
-                                    <img src={require("../../assets/images/logo/work.svg")}/>
+                                    {/*<img src={require("../../assets/images/logo/work.svg")}/>*/}
                                     <div>Offers</div>
                                 </div>
                             </NavLink>
@@ -254,7 +254,7 @@ class Header extends React.Component {
                             <NavLink className="ye-dark nav-link" to="/users"
                                      activeStyle={activeStyle}>
                                 <div className="icon-div text-align-center">
-                                    <img src={require("../../assets/images/logo/work.svg")}/>
+                                    {/*<img src={require("../../assets/images/logo/work.svg")}/>*/}
                                     <div>Users</div>
                                 </div>
                             </NavLink>
@@ -291,7 +291,7 @@ class Header extends React.Component {
                                     <Image className="rounded-circle border mr-1"
                                            src={Converter.bufferToBase64(user.logo ? user.logo : user.profilePic)}
                                            width="30px" height="30px"/>
-                                    {unSeenNotifications == 0 ?
+                                    {unSeenNotifications > 0 ?
                                         <>
                                             <span className="unseen-notification align-self-center scale-up-center"></span>
                                             <span className="unseen-notification inner-circle"></span>

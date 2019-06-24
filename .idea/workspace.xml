@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2f9b8daa-f1c3-42ca-90a9-840ddb7f294b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/stylesheet/LoadingAnimation.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/stylesheet/LoadingAnimation.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/common/login-module/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/common/login-module/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/library/LoadingAnimation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/library/LoadingAnimation.js" afterDir="false" />
-    </list>
+    <list default="true" id="2f9b8daa-f1c3-42ca-90a9-840ddb7f294b" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -21,7 +16,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/component/common/login-module/Login.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
+            <state relative-caret-position="59">
               <caret line="25" column="26" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
               <folding>
                 <element signature="e#35#78#0" expanded="true" />
@@ -397,7 +392,7 @@
       <workItem from="1559060908178" duration="265348000" />
       <workItem from="1560411239110" duration="4291000" />
       <workItem from="1560425483365" duration="96654000" />
-      <workItem from="1560839855131" duration="5973000" />
+      <workItem from="1560839855131" duration="7190000" />
     </task>
     <task id="LOCAL-00001" summary="front-end with login auth">
       <created>1558174456640</created>
@@ -483,11 +478,18 @@
       <option name="project" value="LOCAL" />
       <updated>1560976067417</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="added Navigation link to login">
+      <created>1560979088431</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1560979088431</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="822492000" />
+    <option name="totallyTimeSpent" value="823709000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -501,7 +503,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20953101" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20953101" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -517,7 +519,7 @@
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.19639935" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.90180033" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.63011456" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.63011456" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3289689" />
       <window_info anchor="bottom" x="25" y="92" width="1316" height="543" id="File Transfer" order="13" type="FLOATING" weight="0.60392797" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -1055,7 +1057,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/component/common/login-module/Login.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
+        <state relative-caret-position="59">
           <caret line="25" column="26" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
           <folding>
             <element signature="e#35#78#0" expanded="true" />
