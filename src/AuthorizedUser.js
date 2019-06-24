@@ -14,6 +14,7 @@ import Pusher from "pusher-js";
 import ApiAction from "./actions/ApiAction";
 import CompanyDashboard from "./component/common/business/CompanyDashboard";
 import LoginModal from "./component/common/login-module/LoginModal";
+import ListingContainer from './component/containers/ListingContainer';
 
 class AuthorizedUser extends PureComponent {
     constructor(props) {
@@ -61,22 +62,27 @@ class AuthorizedUser extends PureComponent {
             username: "admin",
             role: "ADMIN"
         };
-        ApiAction.refreshUser()
-            .then((response) => {
-                console.log(response);
-                if (response.data.success) {
-                    localStorage.setItem("loggedIn", JSON.stringify(true));
-                    localStorage.setItem("user", JSON.stringify(response.data.user));
-                    // this.setState({user: response.data.user, loggedIn: true})
-                } else {
-                    localStorage.removeItem("loggedIn");
-                    localStorage.removeItem("user");
-                    // this.setState({loggedIn: false, user: null});
-                }
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+        // let student1={
+        //             name:{first:'mridul', last:'khurana'},
+        //             role:'STUDENT'}
+                    localStorage.setItem("loggedIn", true);
+                    localStorage.setItem("user", student);
+        // ApiAction.refreshUser()
+        //     .then((response) => {
+        //         console.log(response);
+        //         if (response.data.success) {
+        //             localStorage.setItem("loggedIn", JSON.stringify(true));
+        //             localStorage.setItem("user", JSON.stringify(response.data.user));
+        //             // this.setState({user: response.data.user, loggedIn: true})
+        //         } else {
+        //             localStorage.removeItem("loggedIn");
+        //             localStorage.removeItem("user");
+        //             // this.setState({loggedIn: false, user: null});
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         console.log(error)
+        //     })
         // this.setState({ user: student, loggedIn: true })
     }
 
@@ -140,19 +146,24 @@ class AuthorizedUser extends PureComponent {
         return <Header/>
     }
 
-    render() {
-        return (
-            <YEProvider>
-                <BrowserRouter>
-                    <div className="topHeader sticky-top bg-white">
-                        {this.renderHeader(this.props)}
-                    </div>
-                    <div className="belowtop">
-                        {this.renderBody()}
-                    </div>
-                </BrowserRouter>
-            </YEProvider>
-        );
+    // render() {
+    //     return (
+    //         <YEProvider>
+    //             <BrowserRouter>
+    //                 <div className="topHeader sticky-top bg-white">
+    //                     {this.renderHeader(this.props)}
+    //                 </div>
+    //                 <div className="belowtop">
+    //                     {this.renderBody()}
+    //                 </div>
+    //             </BrowserRouter>
+    //         </YEProvider>
+    //     );
+    // }
+    render(){
+        return(
+            <ListingContainer/>
+        )
     }
 
     checkUserValidated() {
