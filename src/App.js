@@ -14,6 +14,7 @@ import Route from "react-router-dom/es/Route";
 import StudentRegistration from "./component/common/signup-module/StudentRegistration";
 import BusinessRegistration from "./component/common/signup-module/BusinessRegistration";
 import ListingContainer from './component/containers/ListingContainer';
+import IndivisualWork from './component/common/IndividualWork.js'
 class App extends PureComponent {
     constructor(props) {
         super(props);
@@ -66,7 +67,7 @@ class App extends PureComponent {
     // }
     render(){
         return(
-            <ListingContainer/>
+            <IndivisualWork/>
         )
     }
 }
