@@ -10,6 +10,7 @@ import Button from "react-bootstrap/Button";
 import ApiAction from "../../../actions/ApiAction";
 import "../../../assets/stylesheet/LoginModal.css"
 import ModalTitle from "react-bootstrap/ModalTitle";
+import {Link} from "react-router-dom";
 
 class Login extends PureComponent {
     constructor(props) {
@@ -56,16 +57,19 @@ class Login extends PureComponent {
                                           name="password" value={password} onChange={this.handlePasswordChange}/>
                             <Form.Control.Feedback type="invalid"> Password cannot be empty </Form.Control.Feedback>
                         </InputGroup>
-                        <button className="forgot-password-button transparent-btn"
-                                onClick={this.props.forgotPassword}>Forgot Password?
-                        </button>
+                        <Link to={"/forgot-password"} className="forgot-password-button transparent-btn"
+                              onClick={this.props.forgotPassword}>Forgot Password?
+                        </Link>
                     </Form.Group>
 
                     <Form.Group>
                         <br/>
                         {
                             loading ?
-                                <LoadingAnimation/> :
+                                (<div className="position-relative">
+                                    <LoadingAnimation/>
+                                </div>)
+                                :
                                 (
                                     <div className="login-button-wrapper">
                                         <div className="login-button-background"></div>
@@ -95,8 +99,8 @@ class Login extends PureComponent {
                     </div>
                 </div>
                 <br/>
-                <p className="text-align-center">If not registered - <span className="registration-flow"
-                                                                           onClick={this.props.signUp}>Register here</span>.
+                <p className="text-align-center">If not registered - <Link to={"/register"} className="registration-flow"
+                                                                           onClick={this.props.signUp}>Register here</Link>.
                 </p>
             </div>
         );

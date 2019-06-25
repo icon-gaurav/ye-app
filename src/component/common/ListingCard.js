@@ -25,7 +25,7 @@ class ListingCard extends React.Component {
         /*let {data} = this.props;*/
         let {work} = this.props;
         return (
-            <Link to={{pathname: "/internships/" + work._id, state:{work:work}}} target="_blank">
+           <a>
                 <div className="listing-card-wrapper">
                     {this.isFeatured(work) ? <div className="ribbon"><span>Featured</span></div> : null}
                     <div className="top-items container">
@@ -81,7 +81,7 @@ class ListingCard extends React.Component {
                     {/*    </div>*/}
                     {/*</div>*/}
                 </div>
-            </Link>
+                </a>
         );
     }
 
