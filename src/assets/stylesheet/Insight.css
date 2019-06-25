@@ -1,70 +1,81 @@
 /*
 * @author Gaurav Kumar
 */
-.summary-wrapper{
-    border-radius: 5px;
-    padding: 5% 15%;
+.summary-wrapper {
+  border-radius: 5px;
+  padding: 5% 15%;
 }
 
-.insights{
-    width: 100%;
-    background-color: white;
-    border-radius: 5px;
-
+.insights {
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
 }
 
-.insights.insight{
-    padding: 10px 10px 10px 10px;
-    margin : 10px 10px 10px 10px;
-    box-shadow: #acacac;
-    width:100%
+.insights.insight {
+  padding: 10px 10px 10px 10px;
+  margin: 10px 10px 10px 10px;
+  box-shadow: #acacac;
+  width: 100%;
 }
 
-.insight-item{
-    margin:15px 0px 15px 0px;
+.insight-item {
+  margin: 15px 0px 15px 0px;
 }
 
-
-.center-align{
-    align-items: center;
+.center-align {
+  align-items: center;
 }
 
-.insight-inline .quantity{
-    vertical-align: center;
+.insight-inline .quantity {
+  vertical-align: center;
 }
 
-.remarked{
-    position:absolute;
-    top:0%;
-    left:0%;
-    width:50px;
-    height:50px;
-    text-align: center;
-    vertical-align: middle;
-    background: rgba(0, 0, 0, 0.6);
+.remarked {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  vertical-align: middle;
+  background: rgba(0, 0, 0, 0.6);
 }
 
-.trending-section{
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    background-color: white;
+.trending-section {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background-color: white;
 }
 
-.trending-item{
-    color: black;
-    /*margin-top: 10px;*/
-    /*margin-left: 10px;*/
-    /*margin-right: 10px;*/
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    text-align: center;
-    /*height: fit-content;*/
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 10px;
-    padding: 10px 0px;
-    border-color: lightgrey;
-    background-color: gold;
+.trending-item {
+  color: black;
+  /*margin-top: 10px;*/
+  /*margin-left: 10px;*/
+  /*margin-right: 10px;*/
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  text-align: center;
+  /*height: fit-content;*/
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  padding: 10px 0px;
+  border-color: lightgrey;
+  background-color: gold;
+}
+
+/* 
+    author Shubham Singal
+*/
+
+.current-internship{
+    border: 1px solid whitesmoke;
+}
+
+.current-internship:hover {
+  box-shadow: 1px 1px 7px #ececec;
+  transition-duration: 300ms;
 }

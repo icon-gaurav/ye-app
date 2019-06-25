@@ -1,5 +1,5 @@
-import React, {PureComponent} from 'react';
-import {BrowserRouter} from "react-router-dom";
+import React, { PureComponent } from 'react';
+import { BrowserRouter } from "react-router-dom";
 
 import Header from './component/common/Header';
 import Footer from './component/common/Footer';
@@ -57,6 +57,13 @@ class AuthorizedUser extends PureComponent {
             skills: [],
 
         };
+        let company = {
+            name: {
+                first: "first name",
+                last: "last name"
+            },
+            role: "COMPANY"
+        }
         let admin = {
             username: "admin",
             role: "ADMIN"
@@ -77,7 +84,7 @@ class AuthorizedUser extends PureComponent {
             .catch((error) => {
                 console.log(error)
             })
-        this.setState({ user: student, loggedIn: true })
+        this.setState({ user: company, loggedIn: true })
     }
 
     componentDidMount() {
@@ -92,10 +99,10 @@ class AuthorizedUser extends PureComponent {
     }
 
     addNotifications = (data) => {
-        let {user} = this.state;
+        let { user } = this.state;
         if (data.user == user._id) {
             user.notification.push(data.notification);
-            this.setState({user: user});
+            this.setState({ user: user });
         } else {
             console.log(data);
         }
@@ -103,8 +110,8 @@ class AuthorizedUser extends PureComponent {
 
     renderHeader(props) {
         return this.checkUserValidated() ?
-            <Header toggleLeftMenu={() => this.setState({leftMenu: !this.state.leftMenu})} user={this.state.user}
-                    addNotification={this.addNotifications}/> :
+            <Header toggleLeftMenu={() => this.setState({ leftMenu: !this.state.leftMenu })} user={this.state.user}
+                addNotification={this.addNotifications} /> :
             "";
         // return <Header {...props}/>
     }
@@ -113,11 +120,11 @@ class AuthorizedUser extends PureComponent {
         if (this.state.loggedIn) {
             // return this.checkUserValidated() ? <StudentDashboard/> : <StudentDashboard/>;
             if (this.state.user.role == "ADMIN") {
-                return <AdminDashboard leftMenu={this.state.leftMenu} user={this.state.user}/>
+                return <AdminDashboard leftMenu={this.state.leftMenu} user={this.state.user} />
             } else if (this.state.user.role == "STUDENT") {
-                return <StudentDashboard leftMenu={this.state.leftMenu} user={this.state.user}/>
+                return <StudentDashboard leftMenu={this.state.leftMenu} user={this.state.user} />
             } else if (this.state.user.role == "COMPANY") {
-                return <CompanyDashboard leftMenu={this.state.leftMenu} user={this.state.user}/>
+                return <CompanyDashboard leftMenu={this.state.leftMenu} user={this.state.user} />
             } else {
                 return "";
             }
@@ -137,7 +144,7 @@ class AuthorizedUser extends PureComponent {
     }
 
     renderHome(props) {
-        return <Header/>
+        return <Header />
     }
 
     render() {
@@ -165,11 +172,11 @@ class AuthorizedUser extends PureComponent {
     }
 
     loggedIn = (user) => {
-        this.setState({loggedIn: true, user: user});
+        this.setState({ loggedIn: true, user: user });
     }
 
     loggedOut = () => {
-        this.setState({loggedIn: false});
+        this.setState({ loggedIn: false });
     }
 
 
