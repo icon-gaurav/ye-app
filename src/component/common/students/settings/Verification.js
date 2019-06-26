@@ -2,7 +2,7 @@
  * @author Gaurav Kumar    
 */
 
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import Modal from "react-bootstrap/Modal";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalBody from "react-bootstrap/ModalBody";
@@ -14,7 +14,7 @@ import ApiAction from "../../../../actions/ApiAction";
 import Converter from "../../../utilities/Converter";
 import Image from "react-bootstrap/Image";
 
-class Verification extends Component {
+class Verification extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,6 +22,7 @@ class Verification extends Component {
             document: null,
             selectedDocument: null,
             uploads: [],
+            uploaded: false,
 
         }
     }
@@ -41,27 +42,27 @@ class Verification extends Component {
     }
 
     render() {
-        let {document, fullImage, uploads} = this.state;
+        let {document, fullImage, uploads, uploaded} = this.state;
         return (
-            <div>
+            <div className="bg-white border p-2">
                 <div className="col-12"><h5>UPLOADED FILES</h5></div>
                 {uploads.map((doc, key) => {
                     console.log(doc)
                     return (
                         <div className="col-12" key={key}>
-                            <div className="row">
-                                <div className="col-3">
+                            <div className="d-flex">
+                                <div className="d-flex justify-content-center">
                                     <div className="verify-upload text-align-center">
                                         <input type="image" src={Converter.bufferToBase64(doc.document)}
                                                style={{width: "100px", height: "80px"}}
                                                onClick={(event) => this.openFullImage(event, doc)}/>
                                     </div>
                                 </div>
-                                <div className="col-9">
+                                <div className="d-flex align-items-center pl-4">
                                     <div>
                                         <h6>{doc.status}</h6>
                                     </div>
-                                    <div className="opacity-50">
+                                    <div className="p-2 opacity-50">
                                         <p>{doc.remark}</p>
                                     </div>
                                 </div>
@@ -70,9 +71,9 @@ class Verification extends Component {
                     );
                 })}
                 <div className="col-12">
-                    <div className="row">
-                        <div className="col-3">
-                            <div className="verify-upload text-align-center">
+                    <div className="d-flex">
+                        <div className="d-flex">
+                            <div className="verify-upload">
                                 {document ?
                                     <Image src={document.document}
                                            style={{width: "100px", height: "80px"}}/>
@@ -80,9 +81,14 @@ class Verification extends Component {
                                 <FormControl type="file" name="document" onChange={this.updateDocument}/>
                             </div>
                         </div>
-                        <div className="col-9">
-                            <Button className="btn-success" disabled={document ? false : true}
-                                    onClick={this.uploadDocument}>Upload document</Button>
+                        <div className="d-flex align-items-center pl-4">
+                            {uploaded ?
+                                <div className="text-success">Uploaded Successfully</div>
+                                :
+                                <Button className="btn-success" disabled={document ? false : true}
+                                        onClick={this.uploadDocument}>Upload document</Button>
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -109,7 +115,7 @@ class Verification extends Component {
             .then((response) => {
                 console.log(response);
                 if (response.data.success) {
-
+                    this.setState({uploaded:true});
                 }
             })
             .catch((error) => {

@@ -12,6 +12,7 @@ import "../../../assets/stylesheet/LoginModal.css"
 import ModalTitle from "react-bootstrap/ModalTitle";
 import {Link} from "react-router-dom";
 
+
 class Login extends PureComponent {
     constructor(props) {
         super(props);
@@ -25,6 +26,14 @@ class Login extends PureComponent {
             validated: false,
             loading: false,
         }
+    }
+
+    componentWillMount() {
+        window.addEventListener("keypress",(key)=>{
+            if(key.code == "Enter"){
+                this.logIn();
+            }
+        });
     }
 
     render() {
@@ -101,6 +110,7 @@ class Login extends PureComponent {
                 <br/>
                 <p className="text-align-center">If not registered - <Link to={"/register"} className="registration-flow"
                                                                            onClick={this.props.signUp}>Register here</Link>.
+
                 </p>
             </div>
         );
@@ -125,31 +135,37 @@ class Login extends PureComponent {
         );
     }
 
-    logIn = (event) => {
-        const {username, password} = this.state
-        console.log('in login action')
+    logIn = () => {
+        let {username, password} = this.state;
+
+        let cipherText = AES.encrypt(password,Config.secret);
 
         this.setState({
             error: false,
             message: '',
             loading: true,
             validated: true
-        })
-        ApiAction.logIn(username, password)
+        });
+        ApiAction.logIn(username, cipherText.toString())
             .then((response) => {
-                console.log(response.data)
+                console.log(response)
                 if (response.data.success) {
                     localStorage.setItem("loggedIn", JSON.stringify(true));
                     localStorage.setItem("user", JSON.stringify(response.data.user));
-                    this.props.logIn();
+
+                    this.setState({
+                        loading: false,
+                        username: '',
+                        password: ''
+                    });
+                    window.location = '/';
                 } else {
-                    console.log(response.data);
+                    this.setState({
+                        loading: false,
+                        error: true,
+                        message:"Incorrect Username or password!"
+                    });
                 }
-                this.setState({
-                    loading: false,
-                    username: '',
-                    password: ''
-                });
             })
             .catch((error) => {
                 console.log(error);

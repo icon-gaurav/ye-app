@@ -18,6 +18,7 @@ import IndivisualWork from './component/common/IndividualWork.js';
 import { Container } from "react-bootstrap";
 import MainContainer from './component/sliding-form/Container/Container';
 
+
 class App extends PureComponent {
     constructor(props) {
         super(props);
@@ -45,6 +46,7 @@ class App extends PureComponent {
         //     .catch((error) => {
         //         console.log(error)
         //     })
+       
     }
 
     render() {
