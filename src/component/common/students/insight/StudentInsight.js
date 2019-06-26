@@ -2,17 +2,17 @@
  * @author Gaurav Kumar    
 */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Modal from "react-bootstrap/Modal";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalBody from "react-bootstrap/ModalBody";
 import Converter from "../../../utilities/Converter";
 import ApiAction from "../../../../actions/ApiAction";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import image from './rock.png'
 import {Image} from "react-bootstrap";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import {CircularProgressbar, buildStyles} from "react-circular-progressbar";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
 import OwlCarousel from "react-owl-carousel2";
 import 'react-owl-carousel2/src/owl.carousel.css';
@@ -74,7 +74,7 @@ class StudentInsight extends Component {
                 console.log(response)
                 if (response.data.success) {
                     let completed = response.data.workList;
-                    let {completedInternships, completedMissions} = this.state;
+                    let { completedInternships, completedMissions } = this.state;
                     completed.map((work) => {
                         if (work.mode == "internship") {
                             completedInternships.push(work);
@@ -82,7 +82,7 @@ class StudentInsight extends Component {
                             completedMissions.push(work);
                         }
                     });
-                    this.setState({completedInternships: completedInternships, completedMissions: completedMissions});
+                    this.setState({ completedInternships: completedInternships, completedMissions: completedMissions });
                 }
             })
             .catch((error) => {
@@ -101,7 +101,7 @@ class StudentInsight extends Component {
                             onGoingMissions.push(activity);
                         }
                     });
-                    this.setState({onGoingInternships: onGoingInternships, onGoingMissions: onGoingMissions});
+                    this.setState({ onGoingInternships: onGoingInternships, onGoingMissions: onGoingMissions });
                 }
             })
             .catch((error) => {
@@ -112,7 +112,7 @@ class StudentInsight extends Component {
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    this.setState({wallet: response.data.wallet});
+                    this.setState({ wallet: response.data.wallet });
                 }
             })
             .catch((error) => {
@@ -403,7 +403,7 @@ class StudentInsight extends Component {
     }
 
     renderFeatured() {
-        let {topMissions, topInternships} = this.state;
+        let { topMissions, topInternships } = this.state;
         return (
             <div className="p-2 ">
                 <div className="row mb-2">
@@ -414,13 +414,13 @@ class StudentInsight extends Component {
                             </div>
                             {topInternships.map((work, key) => {
                                 return (
-                                    <Link to={{pathname: `/missions/${work._id}`}}
-                                          target="_blank">
+                                    <Link to={{ pathname: `/missions/${work._id}` }}
+                                        target="_blank">
                                         <div className="container bg-white mb-2" key={key}>
                                             <div className="row">
                                                 <div className="col-lg-4 col-md-4 col-sm-3 col-3 ">
                                                     <img src={Converter.bufferToBase64(work.company.logo)} width="100px"
-                                                         height="100px" className="img-fluid" alt="Responsive image"/>
+                                                        height="100px" className="img-fluid" alt="Responsive image" />
                                                 </div>
                                                 <div className="col-lg-7 col-md-7 col-sm-8 col-8 ">
                                                     <div className="row">
@@ -448,14 +448,14 @@ class StudentInsight extends Component {
                             </div>
                             {topMissions.map((work, key) => {
                                 return (
-                                    <Link to={{pathname: `/missions/${work._id}`}}
-                                          target="_blank">
+                                    <Link to={{ pathname: `/missions/${work._id}` }}
+                                        target="_blank">
                                         <div className="container bg-white mb-2">
                                             <div className="row">
                                                 <div className="col-lg-4 col-md-4 col-sm-3 col-3 ">
                                                     <img src={Converter.bufferToBase64(work.company.logo)}
-                                                         width="100px" height="100px" className="img-fluid"
-                                                         alt="Responsive image"/>
+                                                        width="100px" height="100px" className="img-fluid"
+                                                        alt="Responsive image" />
                                                 </div>
                                                 <div className="col-lg-7 col-md-7 col-sm-8 col-8 ">
                                                     <div className="row">
@@ -505,13 +505,13 @@ class StudentInsight extends Component {
                                         <div className="d-inline">{internship.work.profile}</div>
                                         <div className="dropdown d-inline float-right">
                                             <button className="btn btn-sm dropdown-toggle" type="button"
-                                                    id="dropdownMenuButton" data-toggle="dropdown"
-                                                    aria-haspopup="true"
-                                                    aria-expanded="false">
+                                                id="dropdownMenuButton" data-toggle="dropdown"
+                                                aria-haspopup="true"
+                                                aria-expanded="false">
                                                 <i className="fa fa-bars" aria-hidden="true"></i>
                                             </button>
                                             <div className="dropdown-menu"
-                                                 aria-labelledby="dropdownMenuButton">
+                                                aria-labelledby="dropdownMenuButton">
                                                 <a className="dropdown-item" href="#">a</a>
                                                 <a className="dropdown-item" href="#">b</a>
                                                 <a className="dropdown-item" href="#">c</a>
@@ -590,7 +590,7 @@ class StudentInsight extends Component {
     }
 
     renderOnGoingMissions() {
-        let {onGoingMissions} = this.state;
+        let { onGoingMissions } = this.state;
         return (
             <div className="">
                 <div className="insights border col-12 mt-4 mb-4">
@@ -610,20 +610,20 @@ class StudentInsight extends Component {
                                         <div className="">
                                             <div>
                                                 <a href="#"><img src="logo.jpg"
-                                                                 className="image-cover-rect"/></a>
+                                                    className="image-cover-rect" /></a>
                                             </div>
                                         </div>
                                         <div className="col-11">
                                             <div className="d-inline">Work-Title/Profile</div>
                                             <div className="dropdown d-inline float-right">
                                                 <button className="btn btn-sm dropdown-toggle" type="button"
-                                                        id="dropdownMenuButton" data-toggle="dropdown"
-                                                        aria-haspopup="true"
-                                                        aria-expanded="false">
+                                                    id="dropdownMenuButton" data-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false">
                                                     <i className="fa fa-bars" aria-hidden="true"></i>
                                                 </button>
                                                 <div className="dropdown-menu"
-                                                     aria-labelledby="dropdownMenuButton">
+                                                    aria-labelledby="dropdownMenuButton">
                                                     <a className="dropdown-item" href="#">a</a>
                                                     <a className="dropdown-item" href="#">b</a>
                                                     <a className="dropdown-item" href="#">c</a>
@@ -652,9 +652,9 @@ class StudentInsight extends Component {
                                             </div>
                                             <div className="task-title d-inline-block">
                                                 <span>Task Title</span>
-                                                <br/>
+                                                <br />
                                                 <span className="task-start-date opacity-50">
-                                            xx/yy/zzzz
+                                                    xx/yy/zzzz
                             </span>
                                             </div>
                                         </div>
@@ -673,10 +673,10 @@ class StudentInsight extends Component {
                                                                 <div className="position-relative"
                                                                 >
                                                                     <input type="image" className=""
-                                                                           width="50px"
-                                                                           height="50px"
-                                                                           onClick={this.openFullImage}
-                                                                           src={require("../../../../assets/images/fitness.jpg")}
+                                                                        width="50px"
+                                                                        height="50px"
+                                                                        onClick={this.openFullImage}
+                                                                        src={require("../../../../assets/images/fitness.jpg")}
                                                                     />
                                                                     {/* <div className="remarked">
                                                                         <i className="fa fa-check text-success fa-2x mt-2"
@@ -709,19 +709,19 @@ class StudentInsight extends Component {
 
     openFullImage = (props) => {
         console.log(props.target);
-        this.setState({fullImage: true, image: props.target.src});
+        this.setState({ fullImage: true, image: props.target.src });
     }
 
     renderFullImage() {
         return (
-            <Modal show={this.state.fullImage} onHide={() => this.setState({fullImage: false})}>
+            <Modal show={this.state.fullImage} onHide={() => this.setState({ fullImage: false })}>
                 <ModalHeader closeButton>
                     <Modal.Title>Verify Uploaded Document</Modal.Title>
                 </ModalHeader>
                 <ModalBody>
                     <div className="container-fluid">
                         <div>
-                            <img src={this.state.image} width="100%"/>
+                            <img src={this.state.image} width="100%" />
                         </div>
                         <div>
                             {/*<FormGroup>*/}
@@ -740,7 +740,7 @@ class StudentInsight extends Component {
     }
 
     renderProfileSummary() {
-        let {user} = this.props;
+        let { user } = this.props;
         let percentage = 10;
         return (
             <div className=" bg-white border h-100">
@@ -809,13 +809,14 @@ class StudentInsight extends Component {
                         <div className="d-flex justify-content-center opacity-50">({user.rating.length} reviews)</div>
                     </div>
                 </div>
+
             </div>
 
         );
     }
 
     renderRating = () => {
-        let {rating} = this.props.user;
+        let { rating } = this.props.user;
         let cumulativeRating = 0;
         rating.map((rate) => {
             cumulativeRating += rate;
@@ -826,7 +827,7 @@ class StudentInsight extends Component {
         items.push(<strong className="mr-2">{cumulativeRating}</strong>);
         while (i < 5) {
             if (i <= cumulativeRating) {
-                items.push(<span><i className="fa fa-star" style={{color: "orange"}} id="star1" aria-hidden="true"></i></span>);
+                items.push(<span><i className="fa fa-star" style={{ color: "orange" }} id="star1" aria-hidden="true"></i></span>);
             } else {
                 items.push(<span><i className="fa fa-star-o" id="star1" aria-hidden="true"></i></span>);
             }

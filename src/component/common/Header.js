@@ -5,10 +5,10 @@ import NavbarBrand from "react-bootstrap/NavbarBrand";
 import "../../assets/stylesheet/Header.css";
 import ToggleBtnAnimation from '../library/ToggleBtnAnimation'
 import Converter from "../utilities/Converter";
-import {Nav, Dropdown, Image} from "react-bootstrap";
+import { Nav, Dropdown, Image } from "react-bootstrap";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
 import NavbarCollapse from "react-bootstrap/NavbarCollapse";
-import {NavLink, Link} from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import ApiAction from '../../actions/ApiAction';
 import DropdownToggle from "react-bootstrap/DropdownToggle";
 
@@ -27,7 +27,7 @@ class Header extends React.Component {
     }
 
     render() {
-        let {user} = this.props;
+        let { user } = this.props;
         let unSeenNotifications = 0;
         if (user.notification) {
             user.notification.map((not) => {
@@ -37,14 +37,14 @@ class Header extends React.Component {
             });
         }
         let activeStyle = {
-            backgroundColor: "lightgrey",
-            color: "#FF5A29",
-            borderBottom: "2px solid #FF5A29"
+            // backgroundColor: "lightgrey",
+            // color: "#FF5A29",
+            // borderBottom: "2px solid #FF5A29"
         };
         let name = user.name.first ? user.name.first + " " + user.name.last : user.name;
 
         return (
-            <Navbar className="global-header ml-1 mr-1" expand="lg" sticky="top">
+            <Navbar className="global-header ml-1 mr-1 border-bottom" expand="lg" sticky="top">
                 {/* <NavItem className="float-left">
                     <button className="btn rounded-circle" onClick={this.props.toggleLeftMenu}>
                         <i className="fas fa-align-justify"></i></button>
@@ -52,11 +52,11 @@ class Header extends React.Component {
 
                 <NavbarBrand className="float-left pl-0 pr-0 mr-auto border-right">
                     <img className="img-fluid mr-3 " src={require("../../assets/images/logo/YE-Merge-Black.png")}
-                         alt="Young Engine" width="100"
-                         height="46"/>
+                        alt="Young Engine" width="100"
+                        height="46" />
                 </NavbarBrand>
-                <NavbarToggle id="navbar-toggler" aria-controls="responsive-navbar-nav" style={{padding: "0"}}>
-                    <ToggleBtnAnimation/>
+                <NavbarToggle id="navbar-toggler" aria-controls="responsive-navbar-nav" style={{ padding: "0" }}>
+                    <ToggleBtnAnimation />
                 </NavbarToggle>
 
 
@@ -72,12 +72,12 @@ class Header extends React.Component {
                             <li>
                                 <div className="text-dark position-relative  pl-0">
                                     <NavLink className="text-dark nav-link pl-0" to="/profile"
-                                             activeStyle={activeStyle}>
+                                        activeStyle={activeStyle}>
                                         <div>
                                             <img className="rounded-circle"
-                                                 src={Converter.bufferToBase64(user.logo ? user.logo : user.profilePic)}
-                                                 alt='profile_image'
-                                                 width="16px" height="20px"/>
+                                                src={Converter.bufferToBase64(user.logo ? user.logo : user.profilePic)}
+                                                alt='profile_image'
+                                                width="16px" height="20px" />
                                             <span className="ml-3">Profile</span>
                                         </div>
                                     </NavLink>
@@ -87,9 +87,9 @@ class Header extends React.Component {
                             <li>
                                 <div className="text-dark position-relative pl-0">
                                     <NavLink className="text-dark nav-link pl-0" to="/home"
-                                             activeStyle={activeStyle}>
+                                        activeStyle={activeStyle}>
                                         <div>
-                                            <i className="fa fa-home"/>
+                                            <i className="fa fa-home" style={{ height: "16px", width: "16px" }} />
                                             <span className="ml-3">Home</span>
                                         </div>
                                     </NavLink>
@@ -99,9 +99,9 @@ class Header extends React.Component {
                             <li>
                                 <div className="text-dark position-relative pl-0">
                                     <NavLink className="text-dark nav-link pl-0" to="/internships"
-                                             activeStyle={activeStyle}>
+                                        activeStyle={activeStyle}>
                                         <div>
-                                            <i className=" fa fa-briefcase"/>
+                                            <i className=" fa fa-briefcase" style={{ height: "16px", width: "16px" }} />
                                             <span className="ml-3">Internships</span>
                                         </div>
                                     </NavLink>
@@ -113,18 +113,18 @@ class Header extends React.Component {
                                     <>
                                         <div className="text-dark position-relative pl-0">
                                             <NavLink className="text-dark nav-link pl-0" to="/missions"
-                                                     activeStyle={activeStyle}>
+                                                activeStyle={activeStyle}>
                                                 <div>
-                                                    <i className="fa fa-fire"/>
+                                                    <i className="fa fa-fire" style={{ height: "16px", width: "16px" }} />
                                                     <span className="ml-3">Missions</span>
                                                 </div>
                                             </NavLink>
                                         </div>
                                         <div className="text-dark position-relative pl-0">
                                             <NavLink className="text-dark nav-link pl-0" to="/offers"
-                                                     activeStyle={activeStyle}>
+                                                activeStyle={activeStyle}>
                                                 <div>
-                                                    <i className="fa fa-tag"/>
+                                                    <i className="fa fa-tag" style={{ height: "16px", width: "16px" }} />
                                                     <span className="ml-3">Offers</span>
                                                 </div>
                                             </NavLink>
@@ -138,9 +138,9 @@ class Header extends React.Component {
                                     <>
                                         <div className="text-dark position-relative pl-0">
                                             <NavLink className="text-dark nav-link pl-0" to="/users"
-                                                     activeStyle={activeStyle}>
+                                                activeStyle={activeStyle}>
                                                 <div>
-                                                    <i className="fa fa-fire"/>
+                                                    <i className="fa fa-fire" style={{ height: "16px", width: "16px" }} />
                                                     <span className="ml-3">Users</span>
                                                 </div>
                                             </NavLink>
@@ -152,9 +152,9 @@ class Header extends React.Component {
                             <li>
                                 <div className="text-dark position-relative pl-0">
                                     <NavLink className="text-dark nav-link pl-0" to="/help-center"
-                                             activeStyle={activeStyle}>
+                                        activeStyle={activeStyle}>
                                         <div>
-                                            <i className="fa fa-question"/>
+                                            <i className="fa fa-question" style={{ height: "16px", width: "16px" }} />
                                             <span className="ml-3">Help</span>
                                         </div>
                                     </NavLink>
@@ -164,9 +164,9 @@ class Header extends React.Component {
                             <li>
                                 <div className="text-dark position-relative pl-0">
                                     <NavLink className="text-dark nav-link pl-0" to="/notifications"
-                                             activeStyle={activeStyle}>
+                                        activeStyle={activeStyle}>
                                         <div>
-                                            <i className="fa fa-bell"/>
+                                            <i className="fa fa-bell" style={{ height: "16px", width: "16px" }} />
                                             <span className="ml-3">Notification</span>
                                         </div>
                                         <span
@@ -178,9 +178,9 @@ class Header extends React.Component {
                             <li>
                                 <div className="text-dark position-relative pl-0">
                                     <NavLink className="text-dark nav-link pl-0" to="/settings"
-                                             activeStyle={activeStyle}>
+                                        activeStyle={activeStyle}>
                                         <div>
-                                            <i className="fa fa-cogs"/>
+                                            <i className="fa fa-cogs" style={{ height: "16px", width: "16px" }} />
                                             <span className="ml-3">Settings</span>
                                         </div>
                                     </NavLink>
@@ -190,9 +190,9 @@ class Header extends React.Component {
                             <li>
                                 <div className="text-dark position-relative pl-0" to="/notifications">
                                     <button className="transparent-button nav-link pl-0 d-flex justify-content-start"
-                                            style={{width: "100%"}} id="logout-btn">
+                                        style={{ width: "100%" }} id="logout-btn">
                                         <div>
-                                            <i className="fa fa-power-off "/>
+                                            <i className="fa fa-power-off " style={{ height: "16px", width: "16px" }} />
                                             <span className="ml-3" onClick={this.logout}>Logout</span>
                                         </div>
                                     </button>
@@ -212,16 +212,16 @@ class Header extends React.Component {
 
                 <Nav className="ml-auto pr-3" id="header">
 
-                    <NavLink className="ye-dark nav-link" to="/home"
-                             activeStyle={activeStyle}>
+                    <NavLink className="ye-dark nav-link my-auto" to="/home"
+                        activeStyle={activeStyle}>
                         <div className="icon-div text-align-center">
                             {/*<img src={require("../../assets/images/logo/work.svg")}/>*/}
                             <div>Home</div>
                         </div>
                     </NavLink>
 
-                    <NavLink className="ye-dark nav-link" to="/internships"
-                             activeStyle={activeStyle}>
+                    <NavLink className="ye-dark nav-link my-auto" to="/internships"
+                        activeStyle={activeStyle}>
                         <div className="icon-div text-align-center">
                             {/*<svg xmlnsXlink={require("../../assets/images/logo/work.svg")} fill="red"></svg>*/}
                             {/*<img src={require("../../assets/images/logo/work.svg")}/>*/}
@@ -231,16 +231,16 @@ class Header extends React.Component {
 
                     {user.role == "COMPANY" ? "" :
                         <>
-                            <NavLink className="ye-dark nav-link" to="/missions"
-                                     activeStyle={activeStyle}>
+                            <NavLink className="ye-dark nav-link my-auto" to="/missions"
+                                activeStyle={activeStyle}>
                                 <div className="icon-div text-align-center">
                                     {/*<img src={require("../../assets/images/logo/work.svg")}/>*/}
                                     <div>Missions</div>
                                 </div>
                             </NavLink>
 
-                            <NavLink className="ye-dark nav-link" to="/offers"
-                                     activeStyle={activeStyle}>
+                            <NavLink className="ye-dark nav-link my-auto" to="/offers"
+                                activeStyle={activeStyle}>
                                 <div className="icon-div text-align-center">
                                     {/*<img src={require("../../assets/images/logo/work.svg")}/>*/}
                                     <div>Offers</div>
@@ -251,8 +251,8 @@ class Header extends React.Component {
                     }
                     {user.role == "ADMIN" ?
                         <>
-                            <NavLink className="ye-dark nav-link" to="/users"
-                                     activeStyle={activeStyle}>
+                            <NavLink className="ye-dark nav-link my-auto" to="/users"
+                                activeStyle={activeStyle}>
                                 <div className="icon-div text-align-center">
                                     {/*<img src={require("../../assets/images/logo/work.svg")}/>*/}
                                     <div>Users</div>
@@ -289,8 +289,8 @@ class Header extends React.Component {
                             <Dropdown.Toggle className="d-flex justify-content-center" id="dropdown">
                                 <div className="position-relative">
                                     <Image className="rounded-circle border mr-1"
-                                           src={Converter.bufferToBase64(user.logo ? user.logo : user.profilePic)}
-                                           width="30px" height="30px"/>
+                                        src={Converter.bufferToBase64(user.logo ? user.logo : user.profilePic)}
+                                        width="30px" height="30px" />
                                     {unSeenNotifications > 0 ?
                                         <>
                                             <span className="unseen-notification align-self-center scale-up-center"></span>
@@ -298,8 +298,8 @@ class Header extends React.Component {
                                         </> : ""}
                                 </div>
                                 <div className="ml-2 mr-3 text-left">
-                                    <div style={{fontSize: "10px"}} className="opacity-60">Welcome Back</div>
-                                    <div style={{fontSize: "14px"}}>{name}</div>
+                                    <div style={{ fontSize: "10px" }} className="opacity-60">Welcome Back</div>
+                                    <div style={{ fontSize: "14px" }}>{name}</div>
                                 </div>
                                 <div>
                                     <i className="fa fa-caret-down"></i>
@@ -307,11 +307,11 @@ class Header extends React.Component {
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 <Dropdown.Item className="ye-dark w-100"><NavLink className="ye-dark w-100"
-                                                                                  to="/profile">Profile</NavLink></Dropdown.Item>
+                                    to="/profile">Profile</NavLink></Dropdown.Item>
                                 <Dropdown.Item className="ye-dark"><NavLink className="ye-dark"
-                                                                            to="/settings">Settings</NavLink></Dropdown.Item>
+                                    to="/settings">Settings</NavLink></Dropdown.Item>
                                 <Dropdown.Item className="ye-dark"><NavLink className="ye-dark"
-                                                                            to="/notifications">Notification</NavLink></Dropdown.Item>
+                                    to="/notifications">Notification</NavLink></Dropdown.Item>
                                 <Dropdown.Item className="ye-dark"><NavLink className="ye-dark" to="/help-center">Help &
                                     Support</NavLink></Dropdown.Item>
                                 <Dropdown.Item className="ye-dark" onClick={this.logout}>Logout</Dropdown.Item>
@@ -332,8 +332,8 @@ class Header extends React.Component {
                     window.location = '/'
                 }
             }).catch((error) => {
-            console.log(error)
-        });
+                console.log(error)
+            });
     }
 }
 
