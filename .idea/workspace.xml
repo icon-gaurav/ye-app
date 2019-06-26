@@ -16,6 +16,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/component/common/login-module/Login.js">
           <provider selected="true" editor-type-id="text-editor">
+
             <state relative-caret-position="59">
               <caret line="25" column="26" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
               <folding>
@@ -393,6 +394,7 @@
       <workItem from="1560411239110" duration="4291000" />
       <workItem from="1560425483365" duration="96654000" />
       <workItem from="1560839855131" duration="7190000" />
+
     </task>
     <task id="LOCAL-00001" summary="front-end with login auth">
       <created>1558174456640</created>
@@ -478,6 +480,7 @@
       <option name="project" value="LOCAL" />
       <updated>1560976067417</updated>
     </task>
+
     <task id="LOCAL-00013" summary="added Navigation link to login">
       <created>1560979088431</created>
       <option name="number" value="00013" />
@@ -520,6 +523,7 @@
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.19639935" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.90180033" />
       <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.63011456" />
+
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3289689" />
       <window_info anchor="bottom" x="25" y="92" width="1316" height="543" id="File Transfer" order="13" type="FLOATING" weight="0.60392797" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />

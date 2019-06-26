@@ -1,0 +1,28 @@
+.register{
+    background: white;
+    text-align: center;
+    height: 100%;
+}
+
+.heading{
+    padding: 10px;
+    margin-top:20px;
+}
+.input-hidden {
+    position: absolute;
+    display: none;
+}
+
+input[type=radio]:checked + label>img {
+    border: 5px solid green;
+}
+  
+input[type=radio] + label>img {
+    border: 1px solid #444;
+    border-radius: 100px;
+    transition: 500ms all;
+    cursor: pointer;
+}
+
+
+  
