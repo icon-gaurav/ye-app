@@ -23,12 +23,12 @@ class AdminDashboard extends React.Component {
     }
 
     componentWillMount() {
-        if (window.innerWidth < 576) {
-            this.setState({leftMenuStyle: {marginLeft: "0px"}, opacity: {opacity: 0.5}});
-        } else {
-            this.setState({leftMenuStyle: {marginLeft: "113px"}});
-        }
-        window.addEventListener("resize", this.resizeWindowHandler);
+        // if (window.innerWidth < 576) {
+        //     this.setState({leftMenuStyle: {marginLeft: "0px"}, opacity: {opacity: 0.5}});
+        // } else {
+        //     this.setState({leftMenuStyle: {marginLeft: "113px"}});
+        // }
+        // window.addEventListener("resize", this.resizeWindowHandler);
     }
 
     resizeWindowHandler = () => {

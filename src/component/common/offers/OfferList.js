@@ -180,8 +180,7 @@ class OfferList extends Component {
                     <OwlCarousel
                         className="owl-theme owl-carousel"
                         options={options}
-                        ref="car"
-                        lazyContent={true}>
+                        ref="car">
                         {topOffers.map((offer, key) => {
                                 return (
                                     <div className="">

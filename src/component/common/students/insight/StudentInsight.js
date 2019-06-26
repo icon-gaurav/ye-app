@@ -10,11 +10,22 @@ import Converter from "../../../utilities/Converter";
 import ApiAction from "../../../../actions/ApiAction";
 import { Link } from "react-router-dom";
 import image from './rock.png'
-import { Image } from "react-bootstrap";
-import { Bar, Doughnut } from "react-chartjs-2";
+import {Image} from "react-bootstrap";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
+import OwlCarousel from "react-owl-carousel2";
+import 'react-owl-carousel2/src/owl.carousel.css';
+import 'react-owl-carousel2/src/owl.theme.default.css';
+import 'react-owl-carousel2/lib/styles.css';
+
+// import 'owl.carousel/dist/assets/owl.carousel.css';
+// import 'owl.carousel/dist/assets/owl.theme.default.css';
+// import $ from 'jquery';
+// import jQuery from 'jquery';
+//
+// window.jQuery = jQuery;
+// require('owl.carousel');
 
 class StudentInsight extends Component {
     constructor(props) {
@@ -30,21 +41,27 @@ class StudentInsight extends Component {
             topMissions: [],
             onGoingInternships: [],
             onGoingMissions: [],
+            trending: [],
             wallet: undefined,
         }
     }
 
     componentWillMount() {
-        let { user } = this.props;
-        let { topInternships, topMissions } = this.state;
+        let {user} = this.props;
+        let {topInternships, topMissions, trending, onGoingInternships, onGoingMissions} = this.state;
         console.log(user)
         ApiAction.getTypeWorks("top")
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
+                    topInternships = response.data.topInternships;
+                    topMissions = response.data.topMissions;
+                    trending = topInternships;
+                    trending.concat(topMissions);
                     this.setState({
-                        topInternships: response.data.topInternships,
-                        topMissions: response.data.topMissions
+                        trending: trending,
+                        topInternships: topInternships,
+                        topMissions: topMissions
                     });
                 }
             })
@@ -77,12 +94,11 @@ class StudentInsight extends Component {
                 console.log(response)
                 if (response.data.success) {
                     let onGoing = response.data.workList;
-                    let { onGoingInternships, onGoingMissions } = this.state;
-                    onGoing.map((work) => {
-                        if (work.mode == "internship") {
-                            onGoingInternships.push(work);
-                        } else if (work.mode == "missions") {
-                            onGoingMissions.push(work);
+                    onGoing.map((activity) => {
+                        if (activity.work.mode == "internship") {
+                            onGoingInternships.push(activity);
+                        } else if (activity.work.mode == "missions") {
+                            onGoingMissions.push(activity);
                         }
                     });
                     this.setState({ onGoingInternships: onGoingInternships, onGoingMissions: onGoingMissions });
@@ -106,7 +122,7 @@ class StudentInsight extends Component {
 
     componentDidMount() {
         document.title = "Insights";
-        console.log(document.title)
+        console.log(document.title);
     }
 
     render() {
@@ -123,13 +139,13 @@ class StudentInsight extends Component {
                     <div className="col-12">
                         {this.renderTrending()}
                     </div>
-                    <div className="col-md-8 col-lg-8 col-12">
+                    <div className="col-md-12 col-lg-12 col-12">
                         {this.renderOnGoingInternships()}
                         {this.renderOnGoingMissions()}
                     </div>
-                    <div className="col-lg-4 col-12">
-                        {this.renderFeatured()}
-                    </div>
+                    {/*<div className="col-lg-4 col-12">*/}
+                    {/*    {this.renderFeatured()}*/}
+                    {/*</div>*/}
                     {this.state.fullImage ? this.renderFullImage() : ""}
                 </div>
             </React.Fragment>
@@ -137,23 +153,24 @@ class StudentInsight extends Component {
     }
 
     renderCompletedActivity() {
-        let { completedInternships, completedMissions, wallet } = this.state;
+
+        let {completedInternships, completedMissions, wallet} = this.state;
         let percentage = 10;
         return (
-            <div className="insights border h-100">
-                <div className="d-flex mt-4">
+            <div className="insights border h-100 p-4">
+                <div className="d-flex">
                     <div className="d-flex align-items-center mr-3">
-                        <div style={{ maxWidth: "70px" }}>
+                        <div style={{maxWidth: "70px"}}>
                             <CircularProgressbar value={percentage} text={`${percentage}%`}
-                                styles={buildStyles({
-                                    strokeLinecap: 'butt',
-                                    textSize: '25px',
-                                    pathTransitionDuration: 1,
-                                    pathColor: "#4CAF50",
-                                    textColor: '#f88',
-                                    trailColor: '#d6d6d6',
-                                    backgroundColor: '#3e98c7',
-                                })} />
+                                                 styles={buildStyles({
+                                                     strokeLinecap: 'butt',
+                                                     textSize: '25px',
+                                                     pathTransitionDuration: 1,
+                                                     pathColor: "#4CAF50",
+                                                     textColor: '#f88',
+                                                     trailColor: '#d6d6d6',
+                                                     backgroundColor: '#3e98c7',
+                                                 })}/>
                         </div>
                     </div>
                     <div className="">
@@ -161,7 +178,7 @@ class StudentInsight extends Component {
                             <h6 className="font-weight-bold">Complete My Profile</h6>
                         </div>
                         <div>
-                            <span style={{ fontSize: "12px" }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
+                            <span style={{fontSize: "12px"}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
                         </div>
                     </div>
                 </div>
@@ -170,16 +187,17 @@ class StudentInsight extends Component {
                         <Link to="completed-Internship">
                             <div className="card text-dark insight-item">
                                 <div className="card-body row ">
-                                    <div className="m-auto card-image col-4 d-flex align-items-center justify-content-center">
+                                    <div
+                                        className="m-auto card-image col-4 d-flex align-items-center justify-content-center">
                                         <img src={require("../../../../assets/images/insights/intern.png")} width="50px"
-                                            height="50px" />
+                                             height="50px"/>
                                     </div>
                                     <div className="col-12">
                                         <div className="card-title text-align-center font-weight-bold">
                                             <h6 className="font-weight-bold">INTERNSHIPS COMPLETED</h6>
                                         </div>
                                         <div className="quantity text-align-center">
-                                            <h2 style={{fontSize:"40px"}}>{completedInternships.length}</h2>
+                                            <h2 style={{fontSize: "40px"}}>{completedInternships.length}</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -190,17 +208,18 @@ class StudentInsight extends Component {
                         <Link to="missions-completed">
                             <div className="card text-dark insight-item">
                                 <div className="card-body row">
-                                    <div className="m-auto card-image col-4 d-flex align-items-center justify-content-center">
+                                    <div
+                                        className="m-auto card-image col-4 d-flex align-items-center justify-content-center">
                                         <img src={require("../../../../assets/images/insights/mission.png")}
-                                            width="50px"
-                                            height="50px" />
+                                             width="50px"
+                                             height="50px"/>
                                     </div>
                                     <div className="col-12 flex-row">
                                         <div className="card-title text-align-center font-weight-bold">
                                             <h6 className="font-weight-bold">MISSIONS COMPLETED</h6>
                                         </div>
                                         <div className="quantity text-align-center">
-                                            <h2 style={{fontSize:"40px"}}>{completedMissions.length}</h2>
+                                            <h2 style={{fontSize: "40px"}}>{completedMissions.length}</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -211,16 +230,18 @@ class StudentInsight extends Component {
                         <Link to="total-earnings">
                             <div className="card text-dark insight-item">
                                 <div className="card-body row">
-                                    <div className="m-auto card-image col-4 d-flex align-items-center justify-content-center">
+                                    <div
+                                        className="m-auto card-image col-4 d-flex align-items-center justify-content-center">
                                         <img src={require("../../../../assets/images/insights/money.png")} width="50px"
-                                            height="50px" />
+                                             height="50px"/>
                                     </div>
                                     <div className="col-12">
                                         <div className="card-title text-align-center">
                                             <h6 className="font-weight-bold">TOTAL EARNINGS</h6>
                                         </div>
                                         <div className="quantity text-align-center">
-                                            <h2 style={{fontSize:"40px"}}><i className="fas fa-rupee-sign"></i> {wallet ? wallet.amount : 0}</h2>
+                                            <h2 style={{fontSize: "40px"}}><i
+                                                className="fas fa-rupee-sign"></i> {wallet ? wallet.amount : 0}</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -231,107 +252,154 @@ class StudentInsight extends Component {
                         <Link to="total-earnings">
                             <div className="card text-dark insight-item">
                                 <div className="card-body row">
-                                    <div className="m-auto card-image col-4 d-flex align-items-center justify-content-center">
+                                    <div
+                                        className="m-auto card-image col-4 d-flex align-items-center justify-content-center">
                                         <img src={require("../../../../assets/images/insights/money.png")} width="50px"
-                                            height="50px" />
+                                             height="50px"/>
                                     </div>
                                     <div className="col-12">
                                         <div className="card-title text-align-center">
                                             <h6 className="font-weight-bold">TOTAL EARNINGS</h6>
                                         </div>
                                         <div className="quantity text-align-center">
-                                            <h2 style={{fontSize:"40px"}}><i className="fas fa-rupee-sign"></i> {wallet ? wallet.amount : 0}</h2>
+                                            <h2 style={{fontSize: "40px"}}><i
+                                                className="fas fa-rupee-sign"></i> {wallet ? wallet.amount : 0}</h2>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </Link>
                     </div>
-                    {/* <div className="col-md-6 col-lg-6">
-                        <Link to="completed-Internship">
-                            <div className="card text-dark insight-item">
-                                <div className="card-body row">
-                                    <div className="card-image col-4 d-flex align-items-center justify-content-center">
-                                        <img src={require("../../../../assets/images/insights/intern.png")} width="50px"
-                                            height="50px" />
-                                    </div>
-                                    <div className="col-12">
-                                        <div className="card-title text-align-center">
-                                            <h6>Internships Completed</h6>
-                                        </div>
-                                        <div className="quantity text-align-center">
-                                            <h2>{completedInternships.length}</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </Link>
-                    </div> */}
-                    {/* <div className="col-md-6 col-lg-6">
-                        <Link to="completed-Internship">
-                            <div className="card text-dark insight-item">
-                                <div className="card-body row">
-                                    <div className="card-image col-4 d-flex align-items-center justify-content-center">
-                                       <img src={require("../../../../assets/images/insights/intern.png")} width="50px"
-                                            height="50px"/>
-                                     </div>
-                                    <div className="col-12">
-                                        <div className="card-title text-align-center">
-                                            <h6>Internships Completed</h6>
-                                        </div>
-                                        <div className="quantity text-align-center">
-                                            <h2>{completedInternships.length}</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </Link>
-                    </div> */}
+
                 </div>
+            </div>
+        );
+
+    }
+
+    renderTrending() {
+        const tasks = [
+            {
+                task: 'GET SALES AND EARN COMMISION',
+                company: 'YOUNG ENGINE',
+                mode: 'Mission 1',
+                taskno: 'TASK1',
+                noofdays: '13 DAYS TO APPLY',
+                amount: ' INR 500'
+            },
+            {
+                task: 'DO DIGITAL MARKETING AND EARN',
+                company: 'YOUNG ENGINE',
+                mode: 'Mission 2',
+                taskno: 'TASK2',
+                noofdays: '14 DAYS TO APPLY',
+                amount: ' INR 550'
+            },
+            {
+                task: 'MAKE PROJECT ON CLEAN INDIA',
+                company: 'YOUNG ENGINE',
+                mode: 'Mission 3',
+                taskno: 'TASK3',
+                noofdays: '13 DAYS TO APPLY',
+                amount: ' INR 900'
+            },
+            {
+                task: 'SELL PRODUCTS AND EARN COMMISION',
+                company: 'YOUNG ENGINE',
+                mode: "mission",
+                taskno: 'TASK4',
+                noofdays: '13 DAYS TO APPLY',
+                amount: ' INR 300'
+            }
+        ];
+        let options = {
+            items: 4,
+            nav: true,
+            rewind: true,
+            margin: 22,
+            loop: true,
+            autoPlay: true,
+        };
+
+        let {trending} = this.state;
+        console.log(trending)
+        return (
+            <div className="trending-section border mt-4 p-4">
+                <div className="pt-1 pb-3 pl-2">TRENDING</div>
+                {trending.length > 0 ?
+                    <OwlCarousel
+                        className="owl-theme owl-carousel"
+                        options={options}
+                        ref="car"
+                        lazyContent={true}>
+                        {trending.map(ar =>
+                            <div className="trending-item">
+                                <div className="upper-item d-flex justify-content-center m-4">
+                                    <img src={Converter.bufferToBase64(ar.company.logo)}
+                                         className=" rounded-circle"
+                                         width="70px" height="70px"
+                                         style={{width: "70px"}}/>
+                                </div>
+                                {/*<img src={require("./rock.png")} width="100px" height="100px" className="rounded-circle "/>*/}
+                                <h4 className="overflow-hidden">{ar.profile}</h4>
+                                <p>{ar.company.name}</p>
+                                <p>{ar.mode.charAt(0).toUpperCase() + ar.mode.slice(1)}</p>
+                                <p>{ar.taskno}</p>
+                                <p>{this.calculateDaysLeft(ar.duration.last)}</p>
+                                <h5><strong>{ar.stipend}</strong></h5>
+                            </div>
+                        )}
+                    </OwlCarousel>
+                    :
+                    <div>
+                        No Items
+                    </div>
+                }
+                {/*<div className="trending-section border mt-4">*/}
+                {/*    <div className="row m-1">*/}
+                {/*        <div className="trending-item m-3 p-3 col-lg-2 col-sm-12">*/}
+                {/*            <div className="upper-item d-flex justify-content-center m-4">*/}
+                {/*                <img src={require("../../../../assets/images/response/suitcase.png")}*/}
+                {/*                     className=" rounded-circle"*/}
+                {/*                     width="70px" height="70px"/>*/}
+                {/*            </div>*/}
+                {/*            <div className="lower-item flex-column justify-content-center mt-5">*/}
+                {/*                <div className="text-align-center ">Burger</div>*/}
+                {/*                <div className="text-align-center">20</div>*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*        <div className="trending-item m-3 p-3 col-lg-2 col-sm-12">*/}
+                {/*            <div className="upper-item d-flex justify-content-center m-4">*/}
+                {/*                <img src={require("../../../../assets/images/response/suitcase.png")}*/}
+                {/*                     className=" rounded-circle"*/}
+                {/*                     width="70px" height="70px"/>*/}
+                {/*            </div>*/}
+                {/*            <div className="lower-item flex-column justify-content-center mt-5">*/}
+                {/*                <div className="text-align-center ">Burger</div>*/}
+                {/*                <div className="text-align-center">20</div>*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*        <div className="trending-item m-3 p-3 col-lg-2 col-sm-12">*/}
+                {/*            <div className="upper-item d-flex justify-content-center m-4">*/}
+                {/*                <img src={require("../../../../assets/images/response/suitcase.png")}*/}
+                {/*                     className=" rounded-circle"*/}
+                {/*                     width="70px" height="70px"/>*/}
+                {/*            </div>*/}
+                {/*            <div className="lower-item flex-column justify-content-center mt-5">*/}
+                {/*                <div className="text-align-center ">Burger</div>*/}
+                {/*                <div className="text-align-center">20</div>*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </div>
         );
     }
 
-    renderTrending() {
-        return (
-            <div className="trending-section border mt-4">
-                <div className="row m-1">
-                    <div className="trending-item m-3 p-3 col-lg-2 col-sm-12">
-                        <div className="upper-item d-flex justify-content-center m-4">
-                            <img src={require("../../../../assets/images/response/suitcase.png")}
-                                className=" rounded-circle"
-                                width="70px" height="70px" />
-                        </div>
-                        <div className="lower-item flex-column justify-content-center mt-5">
-                            <div className="text-align-center ">Burger</div>
-                            <div className="text-align-center">20</div>
-                        </div>
-                    </div>
-                    <div className="trending-item m-3 p-3 col-lg-2 col-sm-12">
-                        <div className="upper-item d-flex justify-content-center m-4">
-                            <img src={require("../../../../assets/images/response/suitcase.png")}
-                                className=" rounded-circle"
-                                width="70px" height="70px" />
-                        </div>
-                        <div className="lower-item flex-column justify-content-center mt-5">
-                            <div className="text-align-center ">Burger</div>
-                            <div className="text-align-center">20</div>
-                        </div>
-                    </div>
-                    <div className="trending-item m-3 p-3 col-lg-2 col-sm-12">
-                        <div className="upper-item d-flex justify-content-center m-4">
-                            <img src={require("../../../../assets/images/response/suitcase.png")}
-                                className=" rounded-circle"
-                                width="70px" height="70px" />
-                        </div>
-                        <div className="lower-item flex-column justify-content-center mt-5">
-                            <div className="text-align-center ">Burger</div>
-                            <div className="text-align-center">20</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
+    calculateDaysLeft = (last) => {
+        let ms = new Date(last).getTime() - new Date().getTime();
+        let days = Math.ceil((((ms / 1000) / 60) / 60) / 24);
+        return `${days} DAYS TO APPLY`;
     }
 
     renderFeatured() {
@@ -411,25 +479,30 @@ class StudentInsight extends Component {
     }
 
     renderOnGoingInternships() {
-        let { onGoingInternships } = this.state;
+        let {onGoingInternships} = this.state;
+        console.log(onGoingInternships)
         return (
-            <div className="insights">
+            <div className="insights col-12 mt-4 border">
                 <div className="ongoing-activity-wrapper">
                     <div className="header">
                         <b>Internships</b>
                     </div>
                     {onGoingInternships.map((internship, key) => {
+                        let ms = new Date().getTime() - new Date(internship.work.duration.start).getTime();
+                        let days = ((((ms / 1000) / 60) / 60) / 24);
+                        let expectedDays = internship.work.duration.weeks * 7;
+                        let progress = Math.ceil((days * 100) / expectedDays);
                         return (
                             <div className="" key={key}>
-                                <div className="row">
-                                    <div className="col-2">
+                                <div className="d-flex">
+                                    <div className="">
                                         <div>
-                                            <a href="#"><img src="logo.jpg"
-                                                className="image-cover-rect" /></a>
+                                            <img src={Converter.bufferToBase64(internship.company.logo)}
+                                                 className="image-cover-rect" width="50px" height="50px"/>
                                         </div>
                                     </div>
-                                    <div className="col-10">
-                                        <div className="d-inline">{internship.profile}</div>
+                                    <div className="col-11">
+                                        <div className="d-inline">{internship.work.profile}</div>
                                         <div className="dropdown d-inline float-right">
                                             <button className="btn btn-sm dropdown-toggle" type="button"
                                                 id="dropdownMenuButton" data-toggle="dropdown"
@@ -444,16 +517,16 @@ class StudentInsight extends Component {
                                                 <a className="dropdown-item" href="#">c</a>
                                             </div>
                                         </div>
-                                        <br />
-                                        Company-Name
+                                        <br/>
+                                        {internship.company.name}
                                     </div>
                                 </div>
                                 <div className="progress m-2">
                                     <div className="progress-bar progress-bar-success progress-bar-striped"
-                                        role="progressbar"
-                                        aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                        style={{ width: "60%" }}>
-                                        40% Complete
+                                         role="progressbar"
+                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                         style={{width: progress}}>
+                                        {`${progress} % Complete`}
                                     </div>
                                 </div>
                                 {/*<div className="m-2" style={{fontSize: "10px"}}>*/}
@@ -520,23 +593,27 @@ class StudentInsight extends Component {
         let { onGoingMissions } = this.state;
         return (
             <div className="">
-                <div className="insights">
+                <div className="insights border col-12 mt-4 mb-4">
                     <div className="ongoing-activity-wrapper">
                         <div className="header">
                             <b>Missions</b>
                         </div>
                         {onGoingMissions.length == 0 ? "" : ""}
                         {onGoingMissions.map((mission, key) => {
+                            let ms = new Date().getTime() - new Date(mission.work.duration.start).getTime();
+                            let days = ((((ms / 1000) / 60) / 60) / 24);
+                            let expectedDays = mission.work.duration.weeks * 7;
+                            let progress = Math.ceil((days * 100) / expectedDays);
                             return (
-                                <div>
-                                    <div className="row">
-                                        <div className="col-2">
+                                <div key={key}>
+                                    <div className="d-flex">
+                                        <div className="">
                                             <div>
                                                 <a href="#"><img src="logo.jpg"
                                                     className="image-cover-rect" /></a>
                                             </div>
                                         </div>
-                                        <div className="col-10">
+                                        <div className="col-11">
                                             <div className="d-inline">Work-Title/Profile</div>
                                             <div className="dropdown d-inline float-right">
                                                 <button className="btn btn-sm dropdown-toggle" type="button"
@@ -552,20 +629,21 @@ class StudentInsight extends Component {
                                                     <a className="dropdown-item" href="#">c</a>
                                                 </div>
                                             </div>
-                                            <br />
-                                            Company-Name
+                                            <br/>
+                                            {mission.company.name}
                                         </div>
                                     </div>
                                     <div className="progress m-2">
                                         <div className="progress-bar progress-bar-success progress-bar-striped"
-                                            role="progressbar"
-                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                            style={{ width: "60%" }}>
-                                            40% Complete
+                                             role="progressbar"
+                                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                             style={{width: progress}}>
+                                            {`${progress}% Complete`}
                                         </div>
                                     </div>
-                                    <div className="m-2" style={{ fontSize: "10px" }}>
-                                        <span>xx/xx/xxxx</span><span className="float-right">yy/yy/yyyy</span>
+                                    <div className="m-2" style={{fontSize: "10px"}}>
+                                        <span>{mission.work.duration.start.split("T")[0]}</span><span
+                                        className="float-right">{mission.work.duration.end.split("T")[0]}</span>
                                     </div>
                                     <div className="m-2">
                                         <div className="task-header row">
@@ -667,55 +745,61 @@ class StudentInsight extends Component {
         return (
             <div className=" bg-white border h-100">
                 <div className="d-flex justify-content-center">
-                    {/* <Image className="rounded-circle"
-                        //    src={Converter.bufferToBase64(user.logo ? user.logo : user.profilePic)}
-                        src="src\component\common\students\insight\rock.png"
-                        width="100" height="100" /> */}
-                    <div className="rounded w-100 position-relative" style={{ backgroundImage: "url(" + require('./Mobile4.jpg') + ")" }}>
-                        <img className="rounded-circle position-relative m-auto" src={require("./rock.png")} height="100px" width="100px" style={{ display: "block", top: "50%", border: "5px solid orange" }}></img>
-                    </div>
+                    <div className="rounded w-100 position-relative"
+                         style={{backgroundImage: "url(" + require('./Mobile4.jpg') + ")"}}>
+                        {user.logo || user.profilePic ?
+                            <Image className="rounded-circle position-relative m-auto"
+                                   src={Converter.bufferToBase64(user.logo ? user.logo : user.profilePic)}
+                                   height="100px" width="100px"
+                                   style={{display: "block", top: "50%", border: "5px solid orange"}}></Image>
+                            : <Image className="rounded-circle position-relative m-auto"
+                                     src={require("./rock.png")}
+                                     height="100px" width="100px"
+                                     style={{display: "block", top: "50%", border: "5px solid orange"}}></Image>}
 
+                    </div>
+                    {/*<Image className="rounded-circle"*/}
+                    {/*       src={Converter.bufferToBase64(user.logo ? user.logo : user.profilePic)}*/}
+                    {/*       width="100" height="100"/>*/}
                 </div>
                 <div className="summary-wrapper mt-4">
-
                     <div className="d-flex justify-content-center">
-                        <span
-                            style={{ fontSize: "25px", padding: "3% 0%" }}>
-                            <strong>{user.name.first ? user.name.first + " " + user.name.last : user.name}</strong>
-                        </span>
+                    <span
+                        style={{padding: "3% 0%"}}>
+                        <strong>{user.name.first ? user.name.first + " " + user.name.last : user.name}</strong>
+                    </span>
                     </div>
-                    <div className="d-flex align-items-center flex-column justify-content-center mb-4">
-                        <div><span className="font-weight-bold" style={{ fontSize: "18px" }}>Bio</span></div>
-                        {/* <div>{user.summary.description}</div> */}
-                        <div style={{ fontSize: "14px" }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
+                    <div className="d-flex justify-content-center mb-4">
+                        <div><span>Bio</span></div>
+                        <div>{user.summary.description}</div>
                     </div>
-                    {/* <div className="d-flex">
-                        <div className="d-flex align-items-center mr-3">
-                            <div style={{ maxWidth: "90px" }}>
-                                <CircularProgressbar value={percentage} text={`${percentage}%`}
-                                    styles={buildStyles({
-                                        strokeLinecap: 'butt',
-                                        textSize: '16px',
-                                        pathTransitionDuration: 1,
-                                        pathColor: "rgba(62, 152, 199, 1)",
-                                        textColor: '#f88',
-                                        trailColor: '#d6d6d6',
-                                        backgroundColor: '#3e98c7',
-                                    })} />
-                            </div>
-                        </div>
-                        <div className="">
-                            <div>
-                                <h6>Complete My Profile</h6>
-                            </div>
-                            <div>
-                                <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
-                            </div>
-                        </div>
-                    </div> */}
+                    {/*<div className="d-flex">*/}
+                    {/*    <div className="d-flex align-items-center mr-3">*/}
+                    {/*        <div style={{maxWidth: "90px"}}>*/}
+                    {/*            <CircularProgressbar value={percentage} text={`${percentage}%`}*/}
+                    {/*                                 styles={buildStyles({*/}
+                    {/*                                     strokeLinecap: 'butt',*/}
+                    {/*                                     textSize: '16px',*/}
+                    {/*                                     pathTransitionDuration: 1,*/}
+                    {/*                                     pathColor: "rgba(62, 152, 199, 1)",*/}
+                    {/*                                     textColor: '#f88',*/}
+                    {/*                                     trailColor: '#d6d6d6',*/}
+                    {/*                                     backgroundColor: '#3e98c7',*/}
+                    {/*                                 })}/>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*    <div className="">*/}
+                    {/*        <div>*/}
+                    {/*            <h6>Complete My Profile</h6>*/}
+                    {/*        </div>*/}
+                    {/*        <div>*/}
+                    {/*            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                     <div className="mt-2 mb-2">
                         <div>
-                            <ProgressBar variant="success" now={percentage} label={`${percentage}%`} />
+                            <ProgressBar variant="success" now={percentage} label={`${percentage}%`}/>
                         </div>
                     </div>
                     <div className="flex-row justify-content-center">
