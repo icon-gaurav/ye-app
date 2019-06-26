@@ -55,7 +55,7 @@ class AuthorizedUser extends PureComponent {
             education: [],
             certificates: [],
             skills: [],
-
+            social:{}
         };
         let company = {
             name: {
