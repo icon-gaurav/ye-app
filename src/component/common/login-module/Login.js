@@ -11,8 +11,7 @@ import ApiAction from "../../../actions/ApiAction";
 import "../../../assets/stylesheet/LoginModal.css"
 import ModalTitle from "react-bootstrap/ModalTitle";
 import {Link} from "react-router-dom";
-import AES from "crypto-js/aes";
-import Config from "../../../config";
+
 
 class Login extends PureComponent {
     constructor(props) {
@@ -109,10 +108,9 @@ class Login extends PureComponent {
                     </div>
                 </div>
                 <br/>
-                <p className="text-align-center">If not registered - <Link to={"/register"}
-                                                                           className="registration-flow"
-                                                                           onClick={this.props.signUp}>Register
-                    here</Link>.
+                <p className="text-align-center">If not registered - <Link to={"/register"} className="registration-flow"
+                                                                           onClick={this.props.signUp}>Register here</Link>.
+
                 </p>
             </div>
         );
