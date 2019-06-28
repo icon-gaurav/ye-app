@@ -2,7 +2,7 @@
  * @author Gaurav Kumar    
 */
 
-import React, {PureComponent} from "react";
+import React, { PureComponent } from "react";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import LoadingAnimation from "../../library/LoadingAnimation";
@@ -10,7 +10,7 @@ import Button from "react-bootstrap/Button";
 import ApiAction from "../../../actions/ApiAction";
 import "../../../assets/stylesheet/LoginModal.css"
 import ModalTitle from "react-bootstrap/ModalTitle";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 class Login extends PureComponent {
@@ -29,15 +29,15 @@ class Login extends PureComponent {
     }
 
     componentWillMount() {
-        window.addEventListener("keypress",(key)=>{
-            if(key.code == "Enter"){
+        window.addEventListener("keypress", (key) => {
+            if (key.code == "Enter") {
                 this.logIn();
             }
         });
     }
 
     render() {
-        const {username, password, loading, validated} = this.state
+        const { username, password, loading, validated } = this.state
         return (
 
             <div className="login-form w-25 d-block bg-white">
@@ -51,7 +51,7 @@ class Login extends PureComponent {
                         <InputGroup>
                             <i className="fa fa-user" aria-hidden="true"></i>
                             <Form.Control required type="text" placeholder="username" aria-describedby="userPrepend"
-                                          name="username" value={username} onChange={this.handleUsernameChange}/>
+                                name="username" value={username} onChange={this.handleUsernameChange} />
                             <Form.Control.Feedback type="invalid"> Please provide a valid
                                 username </Form.Control.Feedback>
                         </InputGroup>
@@ -62,21 +62,21 @@ class Login extends PureComponent {
                         <InputGroup>
                             <i className="fas fa-lock"></i>
                             <Form.Control required type="password" placeholder="password"
-                                          aria-describedby="passwordPrepend"
-                                          name="password" value={password} onChange={this.handlePasswordChange}/>
+                                aria-describedby="passwordPrepend"
+                                name="password" value={password} onChange={this.handlePasswordChange} />
                             <Form.Control.Feedback type="invalid"> Password cannot be empty </Form.Control.Feedback>
                         </InputGroup>
                         <Link to={"/forgot-password"} className="forgot-password-button transparent-btn"
-                              onClick={this.props.forgotPassword}>Forgot Password?
+                            onClick={this.props.forgotPassword}>Forgot Password?
                         </Link>
                     </Form.Group>
 
                     <Form.Group>
-                        <br/>
+                        <br />
                         {
                             loading ?
                                 (<div className="position-relative">
-                                    <LoadingAnimation/>
+                                    <LoadingAnimation />
                                 </div>)
                                 :
                                 (
@@ -90,26 +90,26 @@ class Login extends PureComponent {
 
                 </Form>
                 <div className="oauth-wrapper">
-                    <br/>
+                    <br />
                     <div className="d-flex justify-content-center">
                         <h6 className="text-align-center">Or SignUp using</h6>
                     </div>
-                    <br/>
+                    <br />
                     <div className="d-flex justify-content-between pl-5 pr-5">
                         <div className="oauth-item">
-                            <img src={require("../../../assets/images/icons/facebook.svg")} alt="Facebook"/>
+                            <img src={require("../../../assets/images/icons/facebook.svg")} alt="Facebook" />
                         </div>
                         <div className="oauth-item">
-                            <img src={require("../../../assets/images/icons/google-plus.svg")} alt="Google Plus"/>
+                            <img src={require("../../../assets/images/icons/google-plus.svg")} alt="Google Plus" />
                         </div>
                         <div className="oauth-item">
-                            <img src={require("../../../assets/images/icons/linkedin.svg")} alt="LinkedIn"/>
+                            <img src={require("../../../assets/images/icons/linkedin.svg")} alt="LinkedIn" />
                         </div>
                     </div>
                 </div>
-                <br/>
+                <br />
                 <p className="text-align-center">If not registered - <Link to={"/register"} className="registration-flow"
-                                                                           onClick={this.props.signUp}>Register here</Link>.
+                    onClick={this.props.signUp}>Register here</Link>.
 
                 </p>
             </div>
@@ -117,11 +117,11 @@ class Login extends PureComponent {
     }
 
     handleUsernameChange = (event) => {
-        this.setState({username: event.target.value});
+        this.setState({ username: event.target.value });
     }
 
     handlePasswordChange = (event) => {
-        this.setState({password: event.target.value});
+        this.setState({ password: event.target.value });
     }
 
     renderInvalidUserDetails() {
@@ -130,56 +130,56 @@ class Login extends PureComponent {
                 <div className="error-detail">
                     <p>{this.state.message}</p>
                 </div>
-                <hr/>
+                <hr />
             </div>
         );
     }
 
-    logIn = () => {
-        let {username, password} = this.state;
+    // logIn = () => {
+    // let {username, password} = this.state;
 
-        let cipherText = AES.encrypt(password,Config.secret);
+    // let cipherText = AES.encrypt(password,Config.secret);
 
-        this.setState({
-            error: false,
-            message: '',
-            loading: true,
-            validated: true
-        });
-        ApiAction.logIn(username, cipherText.toString())
-            .then((response) => {
-                console.log(response)
-                if (response.data.success) {
-                    localStorage.setItem("loggedIn", JSON.stringify(true));
-                    localStorage.setItem("user", JSON.stringify(response.data.user));
+    // this.setState({
+    //     error: false,
+    //     message: '',
+    //     loading: true,
+    //     validated: true
+    // });
+    // ApiAction.logIn(username, cipherText.toString())
+    //     .then((response) => {
+    //         console.log(response)
+    //         if (response.data.success) {
+    //             localStorage.setItem("loggedIn", JSON.stringify(true));
+    //             localStorage.setItem("user", JSON.stringify(response.data.user));
 
-                    this.setState({
-                        loading: false,
-                        username: '',
-                        password: ''
-                    });
-                    window.location = '/';
-                } else {
-                    this.setState({
-                        loading: false,
-                        error: true,
-                        message:"Incorrect Username or password!"
-                    });
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-                this.setState({
-                    loading: false,
-                    username: '',
-                    password: '',
-                    message: 'Could not connect to Server. Please try again later.',
-                    error: true,
-                    validated: false
-                });
-            });
+    //             this.setState({
+    //                 loading: false,
+    //                 username: '',
+    //                 password: ''
+    //             });
+    //             window.location = '/';
+    //         } else {
+    //             this.setState({
+    //                 loading: false,
+    //                 error: true,
+    //             message:"Incorrect Username or password!"
+    //         });
+    //     }
+    // })
+    // .catch((error) => {
+    //     console.log(error);
+    //     this.setState({
+    //         loading: false,
+    //         username: '',
+    //         password: '',
+    //         message: 'Could not connect to Server. Please try again later.',
+    //         error: true,
+    //         validated: false
+    //     });
+    // });
 
-    }
+    // }
 }
 
 export default Login;

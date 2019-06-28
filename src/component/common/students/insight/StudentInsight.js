@@ -10,7 +10,7 @@ import Converter from "../../../utilities/Converter";
 import ApiAction from "../../../../actions/ApiAction";
 import { Link } from "react-router-dom";
 import image from './rock.png'
-import {Image} from "react-bootstrap";
+import { Image } from "react-bootstrap";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
@@ -47,8 +47,8 @@ class StudentInsight extends Component {
     }
 
     componentWillMount() {
-        let {user} = this.props;
-        let {topInternships, topMissions, trending, onGoingInternships, onGoingMissions} = this.state;
+        let { user } = this.props;
+        let { topInternships, topMissions, trending, onGoingInternships, onGoingMissions } = this.state;
         console.log(user)
         ApiAction.getTypeWorks("top")
             .then((response) => {
@@ -154,23 +154,23 @@ class StudentInsight extends Component {
 
     renderCompletedActivity() {
 
-        let {completedInternships, completedMissions, wallet} = this.state;
+        let { completedInternships, completedMissions, wallet } = this.state;
         let percentage = 10;
         return (
             <div className="insights border h-100 p-4">
                 <div className="d-flex">
                     <div className="d-flex align-items-center mr-3">
-                        <div style={{maxWidth: "70px"}}>
+                        <div style={{ maxWidth: "70px" }}>
                             <CircularProgressbar value={percentage} text={`${percentage}%`}
-                                                 styles={buildStyles({
-                                                     strokeLinecap: 'butt',
-                                                     textSize: '25px',
-                                                     pathTransitionDuration: 1,
-                                                     pathColor: "#4CAF50",
-                                                     textColor: '#f88',
-                                                     trailColor: '#d6d6d6',
-                                                     backgroundColor: '#3e98c7',
-                                                 })}/>
+                                styles={buildStyles({
+                                    strokeLinecap: 'butt',
+                                    textSize: '25px',
+                                    pathTransitionDuration: 1,
+                                    pathColor: "#4CAF50",
+                                    textColor: '#f88',
+                                    trailColor: '#d6d6d6',
+                                    backgroundColor: '#3e98c7',
+                                })} />
                         </div>
                     </div>
                     <div className="">
@@ -178,7 +178,7 @@ class StudentInsight extends Component {
                             <h6 className="font-weight-bold">Complete My Profile</h6>
                         </div>
                         <div>
-                            <span style={{fontSize: "12px"}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
+                            <span style={{ fontSize: "12px" }}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</span>
                         </div>
                     </div>
                 </div>
@@ -190,14 +190,14 @@ class StudentInsight extends Component {
                                     <div
                                         className="m-auto card-image col-4 d-flex align-items-center justify-content-center">
                                         <img src={require("../../../../assets/images/insights/intern.png")} width="50px"
-                                             height="50px"/>
+                                            height="50px" />
                                     </div>
                                     <div className="col-12">
                                         <div className="card-title text-align-center font-weight-bold">
                                             <h6 className="font-weight-bold">INTERNSHIPS COMPLETED</h6>
                                         </div>
                                         <div className="quantity text-align-center">
-                                            <h2 style={{fontSize: "40px"}}>{completedInternships.length}</h2>
+                                            <h2 style={{ fontSize: "40px" }}>{completedInternships.length}</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -211,15 +211,15 @@ class StudentInsight extends Component {
                                     <div
                                         className="m-auto card-image col-4 d-flex align-items-center justify-content-center">
                                         <img src={require("../../../../assets/images/insights/mission.png")}
-                                             width="50px"
-                                             height="50px"/>
+                                            width="50px"
+                                            height="50px" />
                                     </div>
                                     <div className="col-12 flex-row">
                                         <div className="card-title text-align-center font-weight-bold">
                                             <h6 className="font-weight-bold">MISSIONS COMPLETED</h6>
                                         </div>
                                         <div className="quantity text-align-center">
-                                            <h2 style={{fontSize: "40px"}}>{completedMissions.length}</h2>
+                                            <h2 style={{ fontSize: "40px" }}>{completedMissions.length}</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -233,14 +233,14 @@ class StudentInsight extends Component {
                                     <div
                                         className="m-auto card-image col-4 d-flex align-items-center justify-content-center">
                                         <img src={require("../../../../assets/images/insights/money.png")} width="50px"
-                                             height="50px"/>
+                                            height="50px" />
                                     </div>
                                     <div className="col-12">
                                         <div className="card-title text-align-center">
                                             <h6 className="font-weight-bold">TOTAL EARNINGS</h6>
                                         </div>
                                         <div className="quantity text-align-center">
-                                            <h2 style={{fontSize: "40px"}}><i
+                                            <h2 style={{ fontSize: "40px" }}><i
                                                 className="fas fa-rupee-sign"></i> {wallet ? wallet.amount : 0}</h2>
                                         </div>
                                     </div>
@@ -255,14 +255,14 @@ class StudentInsight extends Component {
                                     <div
                                         className="m-auto card-image col-4 d-flex align-items-center justify-content-center">
                                         <img src={require("../../../../assets/images/insights/money.png")} width="50px"
-                                             height="50px"/>
+                                            height="50px" />
                                     </div>
                                     <div className="col-12">
                                         <div className="card-title text-align-center">
                                             <h6 className="font-weight-bold">TOTAL EARNINGS</h6>
                                         </div>
                                         <div className="quantity text-align-center">
-                                            <h2 style={{fontSize: "40px"}}><i
+                                            <h2 style={{ fontSize: "40px" }}><i
                                                 className="fas fa-rupee-sign"></i> {wallet ? wallet.amount : 0}</h2>
                                         </div>
                                     </div>
@@ -321,7 +321,7 @@ class StudentInsight extends Component {
             autoPlay: true,
         };
 
-        let {trending} = this.state;
+        let { trending } = this.state;
         console.log(trending)
         return (
             <div className="trending-section border mt-4 p-4">
@@ -336,9 +336,9 @@ class StudentInsight extends Component {
                             <div className="trending-item">
                                 <div className="upper-item d-flex justify-content-center m-4">
                                     <img src={Converter.bufferToBase64(ar.company.logo)}
-                                         className=" rounded-circle"
-                                         width="70px" height="70px"
-                                         style={{width: "70px"}}/>
+                                        className=" rounded-circle"
+                                        width="70px" height="70px"
+                                        style={{ width: "70px" }} />
                                 </div>
                                 {/*<img src={require("./rock.png")} width="100px" height="100px" className="rounded-circle "/>*/}
                                 <h4 className="overflow-hidden">{ar.profile}</h4>
@@ -479,7 +479,7 @@ class StudentInsight extends Component {
     }
 
     renderOnGoingInternships() {
-        let {onGoingInternships} = this.state;
+        let { onGoingInternships } = this.state;
         console.log(onGoingInternships)
         return (
             <div className="insights col-12 mt-4 border">
@@ -498,7 +498,7 @@ class StudentInsight extends Component {
                                     <div className="">
                                         <div>
                                             <img src={Converter.bufferToBase64(internship.company.logo)}
-                                                 className="image-cover-rect" width="50px" height="50px"/>
+                                                className="image-cover-rect" width="50px" height="50px" />
                                         </div>
                                     </div>
                                     <div className="col-11">
@@ -517,15 +517,15 @@ class StudentInsight extends Component {
                                                 <a className="dropdown-item" href="#">c</a>
                                             </div>
                                         </div>
-                                        <br/>
+                                        <br />
                                         {internship.company.name}
                                     </div>
                                 </div>
                                 <div className="progress m-2">
                                     <div className="progress-bar progress-bar-success progress-bar-striped"
-                                         role="progressbar"
-                                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                         style={{width: progress}}>
+                                        role="progressbar"
+                                        aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                        style={{ width: progress }}>
                                         {`${progress} % Complete`}
                                     </div>
                                 </div>
@@ -629,21 +629,21 @@ class StudentInsight extends Component {
                                                     <a className="dropdown-item" href="#">c</a>
                                                 </div>
                                             </div>
-                                            <br/>
+                                            <br />
                                             {mission.company.name}
                                         </div>
                                     </div>
                                     <div className="progress m-2">
                                         <div className="progress-bar progress-bar-success progress-bar-striped"
-                                             role="progressbar"
-                                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                             style={{width: progress}}>
+                                            role="progressbar"
+                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                            style={{ width: progress }}>
                                             {`${progress}% Complete`}
                                         </div>
                                     </div>
-                                    <div className="m-2" style={{fontSize: "10px"}}>
+                                    <div className="m-2" style={{ fontSize: "10px" }}>
                                         <span>{mission.work.duration.start.split("T")[0]}</span><span
-                                        className="float-right">{mission.work.duration.end.split("T")[0]}</span>
+                                            className="float-right">{mission.work.duration.end.split("T")[0]}</span>
                                     </div>
                                     <div className="m-2">
                                         <div className="task-header row">
@@ -746,16 +746,16 @@ class StudentInsight extends Component {
             <div className=" bg-white border h-100">
                 <div className="d-flex justify-content-center">
                     <div className="rounded w-100 position-relative"
-                         style={{backgroundImage: "url(" + require('./Mobile4.jpg') + ")"}}>
+                        style={{ backgroundImage: "url(" + require('./Mobile4.jpg') + ")" }}>
                         {user.logo || user.profilePic ?
                             <Image className="rounded-circle position-relative m-auto"
-                                   src={Converter.bufferToBase64(user.logo ? user.logo : user.profilePic)}
-                                   height="100px" width="100px"
-                                   style={{display: "block", top: "50%", border: "5px solid orange"}}></Image>
+                                src={Converter.bufferToBase64(user.logo ? user.logo : user.profilePic)}
+                                height="100px" width="100px"
+                                style={{ display: "block", top: "50%", border: "5px solid orange" }}></Image>
                             : <Image className="rounded-circle position-relative m-auto"
-                                     src={require("./rock.png")}
-                                     height="100px" width="100px"
-                                     style={{display: "block", top: "50%", border: "5px solid orange"}}></Image>}
+                                src={require("./rock.png")}
+                                height="100px" width="100px"
+                                style={{ display: "block", top: "50%", border: "5px solid orange" }}></Image>}
 
                     </div>
                     {/*<Image className="rounded-circle"*/}
@@ -764,10 +764,10 @@ class StudentInsight extends Component {
                 </div>
                 <div className="summary-wrapper mt-4">
                     <div className="d-flex justify-content-center">
-                    <span
-                        style={{padding: "3% 0%"}}>
-                        <strong>{user.name.first ? user.name.first + " " + user.name.last : user.name}</strong>
-                    </span>
+                        <span
+                            style={{ padding: "3% 0%" }}>
+                            <strong>{user.name.first ? user.name.first + " " + user.name.last : user.name}</strong>
+                        </span>
                     </div>
                     <div className="d-flex justify-content-center mb-4">
                         <div><span>Bio</span></div>
@@ -799,7 +799,7 @@ class StudentInsight extends Component {
                     {/*</div>*/}
                     <div className="mt-2 mb-2">
                         <div>
-                            <ProgressBar variant="success" now={percentage} label={`${percentage}%`}/>
+                            <ProgressBar variant="success" now={percentage} label={`${percentage}%`} />
                         </div>
                     </div>
                     <div className="flex-row justify-content-center">

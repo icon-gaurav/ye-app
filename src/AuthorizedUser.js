@@ -15,6 +15,7 @@ import ApiAction from "./actions/ApiAction";
 import CompanyDashboard from "./component/common/business/CompanyDashboard";
 import LoginModal from "./component/common/login-module/LoginModal";
 import ListingContainer from './component/containers/ListingContainer';
+import CompanyInsights from './component/common/business/insights/CompanyInsights'
 
 class AuthorizedUser extends PureComponent {
     constructor(props) {
@@ -56,7 +57,7 @@ class AuthorizedUser extends PureComponent {
             education: [],
             certificates: [],
             skills: [],
-
+            social: {}
         };
         let company = {
             name: {
@@ -72,25 +73,25 @@ class AuthorizedUser extends PureComponent {
         // let student1={
         //             name:{first:'mridul', last:'khurana'},
         //             role:'STUDENT'}
-                    localStorage.setItem("loggedIn", true);
-                    localStorage.setItem("user", student);
-        // ApiAction.refreshUser()
-        //     .then((response) => {
-        //         console.log(response);
-        //         if (response.data.success) {
-        //             localStorage.setItem("loggedIn", JSON.stringify(true));
-        //             localStorage.setItem("user", JSON.stringify(response.data.user));
-        //             // this.setState({user: response.data.user, loggedIn: true})
-        //         } else {
-        //             localStorage.removeItem("loggedIn");
-        //             localStorage.removeItem("user");
-        //             // this.setState({loggedIn: false, user: null});
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.log(error)
-        //     })
-        // this.setState({ user: student, loggedIn: true })
+        // localStorage.setItem("loggedIn", true);
+        // localStorage.setItem("user", company);
+        ApiAction.refreshUser()
+            .then((response) => {
+                console.log(response);
+                if (response.data.success) {
+                    localStorage.setItem("loggedIn", JSON.stringify(true));
+                    localStorage.setItem("user", JSON.stringify(response.data.user));
+                    // this.setState({user: response.data.user, loggedIn: true})
+                } else {
+                    localStorage.removeItem("loggedIn");
+                    localStorage.removeItem("user");
+                    // this.setState({loggedIn: false, user: null});
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        this.setState({ user: company, loggedIn: true })
     }
 
     componentDidMount() {
@@ -130,7 +131,8 @@ class AuthorizedUser extends PureComponent {
             } else if (this.state.user.role == "STUDENT") {
                 return <StudentDashboard leftMenu={this.state.leftMenu} user={this.state.user} />
             } else if (this.state.user.role == "COMPANY") {
-                return <CompanyDashboard leftMenu={this.state.leftMenu} user={this.state.user} />
+                // return <CompanyDashboard leftMenu={this.state.leftMenu} user={this.state.user} />
+                return <CompanyInsights />
             } else {
                 return "";
             }
@@ -167,9 +169,9 @@ class AuthorizedUser extends PureComponent {
     //         </YEProvider>
     //     );
     // }
-    render(){
-        return(
-            <ListingContainer/>
+    render() {
+        return (
+            <ListingContainer />
         )
     }
 

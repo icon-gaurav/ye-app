@@ -2,12 +2,12 @@
  * @author Gaurav Kumar    
 */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ModalHeader from "react-bootstrap/ModalHeader";
 import Modal from "react-bootstrap/Modal";
 import ModalBody from "react-bootstrap/ModalBody";
 import Form from "react-bootstrap/Form";
-import {FormControl, FormGroup, Image} from "react-bootstrap";
+import { FormControl, FormGroup, Image } from "react-bootstrap";
 import FormLabel from "react-bootstrap/FormLabel";
 import ModalFooter from "react-bootstrap/ModalFooter";
 import Button from "react-bootstrap/Button";
@@ -44,7 +44,7 @@ class PersonalDetailModal extends Component {
     }
 
     componentWillMount() {
-        let {user} = this.props;
+        let { user } = this.props;
         this.setState({
             image: Converter.bufferToBase64(user.profilePic),
             fName: user.name.first,
@@ -67,86 +67,109 @@ class PersonalDetailModal extends Component {
     }
 
     render() {
-        let {image, fName, lName, email, mobile, dob, college, course, city, state, twitter, linkedIn, facebook, github, aboutMe, website} = this.state;
+        let { image, fName, lName, email, mobile, dob, college, course, city, state, twitter, linkedIn, facebook, github, aboutMe, website } = this.state;
         return (
             <Modal show={this.props.show}
-                   onHide={this.props.onHide}
-                   animation={true}>
+                onHide={this.props.onHide}
+                animation={true}>
                 <ModalHeader closeButton>
                     <Modal.Title>Edit Personal Details</Modal.Title>
                 </ModalHeader>
                 <ModalBody>
                     <div className="scrollable-modal-div w-100">
-                        <Form>
-                            <div className="row">
-                                <div className="col-12 text-align-center">
-                                    <FormGroup>
+
+                        <div className="w-100 position-relative"
+                            style={{ backgroundImage: "url(" + require("../insight/Mobile4.jpg") + ")", height: "150px" }}>
+                            <label className="btn rounded-pill ml-auto position-relative" style={{ left: "90%", top: "5%" }}>
+                                <i class="fa fa-pencil" />
+                                <input type="file" className="ml-auto" style={{ display: "none" }} />
+                            </label>
+                            <img className="rounded-circle position-relative mx-auto" src={image || require("../insight/rock.png")}
+                                height="100px" width="100px"
+                                style={{ display: "block", top: "40%", border: "5px solid orange" }} />
+                            <label className="btn rounded-pill position-relative mt-3" style={{ left: "60%" }}>
+                                <i class="fa fa-pencil" />
+                                <input type="file" style={{ display: "none" }} onChange={this.updateProfilePic} />
+                            </label>
+                        </div>
+
+                        <Form className="mr-3 mt-5">
+
+                            <div className="row ">
+                                <div className="col-12">
+                                    {/* <FormGroup>
                                         <Image src={image}
-                                               style={{width: "400px"}}/>
-                                        <FormControl type="file" name="profilePic" onChange={this.updateProfilePic}/>
-                                    </FormGroup>
+                                            style={{ width: "400px" }} />
+                                        <label className="btn btn-primary rounded-pill position-relative"
+                                            style={{ left: "60%" }}>
+                                            <i class="fa fa-pencil" />
+                                            <FormControl type="file" name="profilePic" onChange={this.updateProfilePic} style={{ display: "none" }} />
+                                        </label>
+                                    </FormGroup> */}
                                 </div>
                             </div>
-                            <div className="row">
+                            <div className="row mt-3">
                                 <div className="col-md-6 col-xs-12">
                                     <FormGroup>
                                         <FormLabel className="">Full name</FormLabel>
                                         <Row>
                                             <Col>
                                                 <Form.Control type="text" name="firstName" placeholder="First name"
-                                                              value={fName}
-                                                              onChange={this.updateName}
-                                                              required/>
+                                                    value={fName}
+                                                    onChange={this.updateName}
+                                                    required />
                                             </Col>
                                             <Col>
                                                 <Form.Control type="text" name="lastName" placeholder="Last Name"
-                                                              value={lName}
-                                                              onChange={this.updateName}
-                                                              required/>
+                                                    value={lName}
+                                                    onChange={this.updateName}
+                                                    required />
                                             </Col>
                                         </Row>
                                     </FormGroup>
                                     <FormGroup>
                                         <FormLabel className="">Email</FormLabel>
                                         <FormControl type="text" name="email" placeholder="abc@xyz.com" value={email}
-                                                     onChange={this.updateEmail} required/>
+                                            onChange={this.updateEmail} required />
                                     </FormGroup>
-                                    <FormGroup>
+                                    <FormGroup >
                                         <FormLabel>D.O.B.</FormLabel>
                                         <DatePicker placeholderText="Click to select a date (mm/dd/yyyy)"
-                                                    maxDate={new Date()} onChange={this.updateDOB}
-                                                    selected={new Date(dob)}/>
+                                            className="rounded border p-2"
+                                            // 
+                                            maxDate={new Date()} onChange={this.updateDOB}
+                                            selected={new Date(dob)} />
                                     </FormGroup>
                                     <FormGroup>
                                         <FormLabel>Mobile</FormLabel>
                                         <FormControl type="number" name="mobile" placeholder="Mobile number"
-                                                     onChange={this.updateMobile} value={mobile}/>
+                                            onChange={this.updateMobile} value={mobile} />
                                     </FormGroup>
                                     <FormGroup>
                                         <FormLabel>Gender</FormLabel>
-                                        <br/>
+                                        <br />
                                         <div className="custom-control custom-radio custom-control-inline">
                                             <FormControl type="radio" className="custom-control-input" id="customRadio"
-                                                         name="gender"
-                                                         value="Male" onChange={this.updateGender}/>
+                                                name="gender"
+                                                value="Male" onChange={this.updateGender} />
                                             <FormLabel className="custom-control-label"
-                                                       htmlFor="customRadio">Male </FormLabel>
+                                                htmlFor="customRadio">Male </FormLabel>
                                         </div>
                                         <div className="custom-control custom-radio custom-control-inline">
                                             <FormControl type="radio" className="custom-control-input" id="customRadio1"
-                                                         name="gender"
-                                                         value="Female"
-                                                         onChange={this.updateGender}/>
+                                                name="gender"
+                                                value="Female"
+                                                onChange={this.updateGender} />
                                             <FormLabel className="custom-control-label"
-                                                       htmlFor="customRadio1">Female </FormLabel>
+                                                htmlFor="customRadio1">Female </FormLabel>
                                         </div>
                                         <div className="custom-control custom-radio custom-control-inline">
                                             <FormControl type="radio" className="custom-control-input" id="customRadio2"
-                                                         name="gender"
-                                                         value="Other"
-                                                         onChange={this.updateGender}/>
+                                                name="gender"
+                                                value="Other"
+                                                onChange={this.updateGender} />
                                             <FormLabel className="custom-control-label"
-                                                       htmlFor="customRadio2">Other </FormLabel>
+                                                htmlFor="customRadio2">Other </FormLabel>
                                         </div>
                                     </FormGroup>
                                 </div>
@@ -154,33 +177,36 @@ class PersonalDetailModal extends Component {
                                     <FormGroup>
                                         <FormLabel>City</FormLabel>
                                         <FormControl type="text" name="city" placeholder="City" value={city}
-                                                     onChange={this.updateCity}/>
+                                            onChange={this.updateCity} />
                                     </FormGroup>
                                     <FormGroup>
                                         <FormLabel>State</FormLabel>
                                         <FormControl type="text" name="state" placeholder="State" value={state}
-                                                     onChange={this.updateState}/>
+                                            onChange={this.updateState} />
                                     </FormGroup>
                                     <FormGroup>
                                         <FormLabel className="">Social Profile</FormLabel>
                                         <FormControl type="input" name="twitter" placeholder="twitter account url"
-                                                     value={twitter} onChange={this.updateTwitter}/>
+                                            value={twitter} onChange={this.updateTwitter} />
                                         <FormControl type="input" name="linkedIn" placeholder="linkedIn account url"
-                                                     value={linkedIn} onChange={this.updateLinkedIn}/>
+                                            className="mt-3"
+                                            value={linkedIn} onChange={this.updateLinkedIn} />
                                         <FormControl type="input" name="facebook" placeholder="facebook account url"
-                                                     value={facebook} onChange={this.updateFacebook}/>
+                                            className="mt-3"
+                                            value={facebook} onChange={this.updateFacebook} />
                                         <FormControl type="input" name="github" placeholder="github account url"
-                                                     value={github} onChange={this.updateGithub}/>
+                                            className="mt-3"
+                                            value={github} onChange={this.updateGithub} />
                                     </FormGroup>
                                     <FormGroup>
                                         <FormLabel className="">Website</FormLabel>
                                         <FormControl type="url" name="website" placeholder="https://"
-                                                     value={website} onChange={this.updateWebsite}/>
+                                            value={website} onChange={this.updateWebsite} />
                                     </FormGroup>
                                     <FormGroup>
                                         <FormLabel className="">About Me</FormLabel>
                                         <FormControl type="text" as="textarea" name="aboutMe" placeholder="About Me"
-                                                     value={aboutMe} onChange={this.updateAboutMe}/>
+                                            value={aboutMe} onChange={this.updateAboutMe} />
                                     </FormGroup>
                                 </div>
                             </div>
@@ -207,83 +233,83 @@ class PersonalDetailModal extends Component {
 
     updateName = (event) => {
         if (event.target.name == "firstName") {
-            this.setState({fName: event.target.value});
+            this.setState({ fName: event.target.value });
         } else if (event.target.name == "lastName") {
-            this.setState({lName: event.target.value});
+            this.setState({ lName: event.target.value });
         }
     }
 
     updateEmail = (event) => {
         if (event.target.name == "email") {
-            this.setState({email: event.target.value});
+            this.setState({ email: event.target.value });
         }
     }
 
     updateMobile = (event) => {
         if (event.target.name == "mobile") {
-            this.setState({mobile: event.target.value});
+            this.setState({ mobile: event.target.value });
         }
     }
 
     updateDOB = (date) => {
-        this.setState({dob: date});
+        this.setState({ dob: date });
     }
 
     updateGender = (event) => {
         if (event.target.name == "gender") {
-            this.setState({gender: event.target.value});
+            this.setState({ gender: event.target.value });
         }
     }
 
     updateCity = (event) => {
         if (event.target.name == "city") {
-            this.setState({city: event.target.value});
+            this.setState({ city: event.target.value });
         }
     }
 
     updateState = (event) => {
         if (event.target.name == "state") {
-            this.setState({state: event.target.value});
+            this.setState({ state: event.target.value });
         }
     }
     updateTwitter = (event) => {
         if (event.target.name == "twitter") {
-            this.setState({twitter: event.target.value});
+            this.setState({ twitter: event.target.value });
         }
     }
 
     updateLinkedIn = (event) => {
         if (event.target.name == "linkedIn") {
-            this.setState({linkedIn: event.target.value});
+            this.setState({ linkedIn: event.target.value });
         }
     }
 
     updateFacebook = (event) => {
         if (event.target.name == "facebook") {
-            this.setState({facebook: event.target.value});
+            this.setState({ facebook: event.target.value });
         }
     }
 
     updateGithub = (event) => {
         if (event.target.name == "github") {
-            this.setState({github: event.target.value});
+            this.setState({ github: event.target.value });
         }
     }
 
     updateWebsite = (event) => {
         if (event.target.name == "website") {
-            this.setState({website: event.target.value});
+            this.setState({ website: event.target.value });
         }
     }
 
     updateAboutMe = (event) => {
         if (event.target.name == "aboutMe") {
-            this.setState({aboutMe: event.target.value});
+            this.setState({ aboutMe: event.target.value });
         }
     }
 
     submitDetails = () => {
-        let {image, fName, lName, email, mobile, dob, college, course, city, state, twitter, linkedIn, facebook, github, aboutMe, website} = this.state;
+        let { image, fName, lName, email, mobile, dob, college, course, city, state, twitter, linkedIn, facebook, github, aboutMe, website } = this.state;
         let updatedStudent = {
             name: {
                 first: fName,
@@ -315,7 +341,7 @@ class PersonalDetailModal extends Component {
                 console.log(response)
                 if (response.data.success) {
                     this.props.onHide();
-                }else{
+                } else {
 
                 }
             })
