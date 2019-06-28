@@ -80,14 +80,14 @@ class PersonalDetailModal extends Component {
 
                         <div className="w-100 position-relative"
                             style={{ backgroundImage: "url(" + require("../insight/Mobile4.jpg") + ")", height: "150px" }}>
-                            <label className="btn btn-primary rounded-pill ml-auto position-relative" style={{ left: "90%", top: "5%" }}>
+                            <label className="btn rounded-pill ml-auto position-relative" style={{ left: "90%", top: "5%" }}>
                                 <i class="fa fa-pencil" />
                                 <input type="file" className="ml-auto" style={{ display: "none" }} />
                             </label>
                             <img className="rounded-circle position-relative mx-auto" src={image || require("../insight/rock.png")}
                                 height="100px" width="100px"
                                 style={{ display: "block", top: "40%", border: "5px solid orange" }} />
-                            <label className="btn btn-primary rounded-pill position-relative mt-3" style={{ left: "60%" }}>
+                            <label className="btn rounded-pill position-relative mt-3" style={{ left: "60%" }}>
                                 <i class="fa fa-pencil" />
                                 <input type="file" style={{ display: "none" }} onChange={this.updateProfilePic} />
                             </label>
