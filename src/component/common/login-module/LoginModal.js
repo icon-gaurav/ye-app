@@ -110,16 +110,16 @@ class LoginModal extends React.Component {
                             <div className="oauth-item col-md-4 mr-auto d-inline">
                                 <img src={require("../../../assets/images/icons/linkedin.svg")} alt="LinkedIn" />
                             </div> */}
-                            <div className="oauth-item col-md-4 ml-auto d-inline">
+                            <div className="oauth-item d-inline">
                                 <FacebookLogin />
                             </div>
-                            <div className="oauth-item col-md-4 d-inline">
+                            <div className="oauth-item d-inline">
                                 <GoogleLogin />
                             </div>
-                            <div className="oauth-item col-md-4 mr-auto d-inline">
+                            <div className="oauth-item d-inline">
                                 <LinkedinLogin />
                             </div>
-                            <div className="oauth-item col-md-4 mr-auto d-inline">
+                            <div className="oauth-item d-inline">
                                 <InstagramLogin />
                             </div>
                         </div>
