@@ -18,7 +18,7 @@ class AdminDashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            leftMenuStyle: {marginLeft: "0px"}
+            leftMenuStyle: { marginLeft: "0px" }
         };
     }
 
