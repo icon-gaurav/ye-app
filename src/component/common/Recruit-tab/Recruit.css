@@ -1,0 +1,11 @@
+.main-container{
+    height: 95%;
+}
+
+.recruit-navbar{
+    display: flex;
+    justify-content: center;
+    padding-top: 7px;
+    border-bottom: 2px solid #c5c5c5;
+    color:darkgrey ;
+}

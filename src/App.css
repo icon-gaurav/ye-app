@@ -114,13 +114,8 @@ button:hover {
   overflow-x: hidden;
   overflow-y: scroll;
   max-height: 65vh;
-}
 
-.App {
-  background: #f6f5f7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+
+.navbar-container{
   height: 100vh;
 }
