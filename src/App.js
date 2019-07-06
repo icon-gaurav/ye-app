@@ -17,7 +17,7 @@ import ListingContainer from './component/containers/ListingContainer';
 import IndivisualWork from './component/common/IndividualWork.js';
 import { Container } from "react-bootstrap";
 import MainContainer from './component/sliding-form/Container/Container';
-import Navbar from './component/common/Navbar/Navbar';
+import NavTabs from './component/common/NavTabs/NavTabs';
 
 
 class App extends PureComponent {
@@ -59,7 +59,7 @@ class App extends PureComponent {
                 <Route exact path={"/register"} component={() => <div className="d-flex justify-content-center bg-white vh-100"><Registration/></div>}/>
                 <Route exact path={"/student-registration"} component={() => <div className="d-flex justify-content-center bg-white vh-100"><StudentRegistration/></div>}/>
                 <Route exact path={"/business-registration"} component={() => <div className="d-flex justify-content-center bg-white vh-100"><BusinessRegistration/></div>}/>
-                <Route exact path={"/work-report"} component={() => <div className="navbar-container"><Navbar/></div>}
+                <Route exact path={"/work-report"} component={() => <div className="navbar-container"><NavTabs/></div>}/>
                             {/*{forgotPass ? <ForgotPassword/> : signUp ? <Registration/> :*/}
                             {/*    <Login forgotPassword={() => this.setState({forgotPass: true})}*/}
                             {/*           signUp={() => this.setState({signUp: true})}*/}
