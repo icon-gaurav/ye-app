@@ -1,0 +1,46 @@
+/*
+* @author Gaurav Kumar
+*/
+
+.onboarding-tab.active, .onboarding-tab:hover{
+    color:rgba(0, 123, 255, 1) !important;
+    opacity:1 !important;
+    border:none!important;
+    border-bottom: 2px solid rgba(0, 123, 255, 1)  !important;
+}
+
+.onboarding-tab{
+    border-bottom : 2px solid white!important;
+    opacity:0.50!important;
+}
+
+.pref-item{
+    margin: 1%;
+    border: 0.5px solid rgba(0,0,0,0.3);
+    border-radius: 18px;
+    padding: 1% 4%;
+    cursor: pointer;
+}
+
+.pref-item.internship.selected{
+    border: 0.5px solid #ffbc3c;
+    background-color: #ffbc3c;
+}
+
+.pref-item.mission.selected{
+    border: 0.5px solid #76a3ff;
+    background-color: #76a3ff;
+}
+
+.pref-item.internship:hover{
+    border: 0.5px solid #ffbc3c;
+    background-color: #ffbc3c;
+    color:white;
+}
+
+
+.pref-item.mission:hover{
+    border: 0.5px solid #76a3ff;
+    background-color: #76a3ff;
+    color:white;
+}
