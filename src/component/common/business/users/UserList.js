@@ -195,8 +195,8 @@ class UserList extends Component {
                 </div>
                 {this.state.notificationDialog ? this.renderNotification() : ""}
                 {specificUser ? this.renderVerifyUser() : ""}
-                <div className="">
-                    <header>STUDENTS</header>
+                <div className="mb-2">
+                    <div className="header">STUDENTS</div>
                     <div className="table-responsive">
                         <BootstrapTable data={students} striped hover version='4'
                                         selectRow={selectRowPropForNotification}>
@@ -215,7 +215,7 @@ class UserList extends Component {
                 </div>
 
                 <div>
-                    <header>COMPANIES</header>
+                    <div className="header">COMPANIES</div>
                     <div className="table-responsive">
                         <BootstrapTable data={companies} striped hover version='4'
                                         selectRow={selectRowPropForNotification}>
@@ -245,11 +245,11 @@ class UserList extends Component {
     }
 
     mobileFormatter = (cell, row) => {
-        return cell.mobile;
+        return cell ? cell.mobile : "";
     }
 
     emailFormatter = (cell, row) => {
-        return cell.email;
+        return cell ? cell.email : "";
     }
 
     statusFormatter = (cell, row) => {
@@ -258,7 +258,7 @@ class UserList extends Component {
             return <Link to={"/users/" + row._id}>Verify
             </Link>
         } else {
-            return cell.status;
+            return cell;
         }
     }
 

@@ -14,6 +14,7 @@ import Verification from "../students/settings/Verification";
 import CompanyProfile from "./profile/CompanyProfile";
 import Header from "../Header";
 import CompanyInsights from "./insights/CompanyInsights";
+import WorkReport from "./works/WorkReport";
 
 class CompanyDashboard extends Component {
     constructor(props) {
@@ -25,21 +26,22 @@ class CompanyDashboard extends Component {
     }
 
     componentWillMount() {
-        if (window.innerWidth < 576) {
-            this.setState({leftMenuStyle: {marginLeft: "0px"}, opacity: {opacity: 0.5}});
-        } else {
-            this.setState({leftMenuStyle: {marginLeft: "113px"}});
-        }
-        window.addEventListener("resize", this.resizeWindowHandler);
+
+        // if (window.innerWidth < 576) {
+        //     this.setState({leftMenuStyle: {marginLeft: "0px"}, opacity: {opacity: 0.5}});
+        // } else {
+        //     this.setState({leftMenuStyle: {marginLeft: "113px"}});
+        // }
+        // window.addEventListener("resize", this.resizeWindowHandler);
     }
 
-    resizeWindowHandler = () => {
-        if (window.innerWidth < 576) {
-            this.setState({leftMenuStyle: {marginLeft: "0px"}});
-        } else {
-            this.setState({leftMenuStyle: {marginLeft: "113px"}});
-        }
-    }
+    // resizeWindowHandler = () => {
+    //     if (window.innerWidth < 576) {
+    //         this.setState({leftMenuStyle: {marginLeft: "0px"}});
+    //     } else {
+    //         this.setState({leftMenuStyle: {marginLeft: "113px"}});
+    //     }
+    // }
 
     render() {
         return (
@@ -49,17 +51,19 @@ class CompanyDashboard extends Component {
                 </div>
                 <div className="main-app" style={this.props.leftMenu ? this.state.leftMenuStyle : {marginLeft: "0px"}}>
                     <header className="main-head"></header>
-                    <Route path="/home" component={CompanyInsights}/>
+                    <Route path="/home" component={() => <CompanyInsights user={this.props.user}/>}/>
                     <Route exact path="/profile" component={() => <CompanyProfile user={this.props.user}/>}/>
                     <Route exact path="/internships"
                            component={() => <WorkList work={"internship"} user={this.props.user}/>}/>
                     <Route path="/internships/:id" component={(props) => <IndividualWork {...props}/>}/>
+                    <Route exact path="/:workMode/:id/report" component={(props)=><WorkReport {...props}/>}/>
                     <Route exact path="/missions"
                            component={() => <WorkList work={"mission"} user={this.props.user}/>}/>
                     <Route exact path="/notifications" component={() => <NotificationList
                         user={this.props.user}/>}/>
                     <Route exact path="/settings" component={() => <Verification user={this.props.user}/>}/>
                     <Route exct path="/help-center" component={HelpCenter}/>
+                    <Route exact path="/" component={() => <CompanyInsights user={this.props.user}/>}/>
                 </div>
             </div>
         );

@@ -1,5 +1,4 @@
 import React from "react";
-import ModalBody from "react-bootstrap/ModalBody";
 import Form from "react-bootstrap/Form";
 import {FormControl, FormGroup} from "react-bootstrap";
 import FormLabel from "react-bootstrap/FormLabel";
@@ -10,8 +9,6 @@ import "../../../assets/stylesheet/UserDetails.css";
 import ApiAction from "../../../actions/ApiAction";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import ModalHeader from "react-bootstrap/ModalHeader";
-import ModalTitle from "react-bootstrap/ModalTitle";
 
 
 class StudentDetails extends React.Component {
@@ -37,7 +34,7 @@ class StudentDetails extends React.Component {
     render() {
         let {fName, lName, email, dob, college, course, city, state, password, cnfPassword} = this.state;
         return (
-            <div>
+            <div className="mt-lg-0 mt-md-0 mt-auto p-lg-0 p-md-0 p-5">
                 {/*<ModalHeader style={{borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%"}}*/}
                 {/*             closeButton>*/}
                 {/*    <ModalTitle>Student Details</ModalTitle>*/}
@@ -74,9 +71,9 @@ class StudentDetails extends React.Component {
                                 </FormGroup>
                                 <FormGroup>
                                     <FormLabel>D.O.B.</FormLabel>
-                                    <DatePicker placeholderText="Click to select a date (mm/dd/yyyy)"
+                                    <DatePicker placeholderText="mm/dd/yyyy"
+                                                className="ml-2 form-control"
                                                 maxDate={new Date()} onChange={this.updateDOB} selected={dob}/>
-                                    {/*<FormControl type="date" value={dob} onChange={this.updateDOB} required/>*/}
                                 </FormGroup>
                                 <FormGroup>
                                     <FormLabel>Gender</FormLabel>
@@ -257,6 +254,9 @@ class StudentDetails extends React.Component {
             ApiAction.studentRegistration(student)
                 .then((response) => {
                     console.log(response);
+                    if(response.data.success){
+                        window.location = '/';
+                    }
                 })
                 .catch((error) => {
                     console.log(error);

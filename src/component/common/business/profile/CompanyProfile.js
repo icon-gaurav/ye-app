@@ -24,7 +24,7 @@ class CompanyProfile extends Component {
             <div className="profile-wrapper-item1 bg-white sticky shadow">
                 <div className="abstract row">
                     <div className="pic-wrapper col-lg-3 col-md-3 col-sm-12 d-flex align-items-center justify-content-center p-3">
-                            <input type="image" src={Converter.bufferToBase64(user.logo)}
+                            <input type="image" src={user.logo?Converter.bufferToBase64(user.logo):require("../../../../assets/images/avatar/company.png")}
                                    onClick={() => this.setState({edit: true})}
                                    className="m-2 ml-3"
                                    width="200px"/>

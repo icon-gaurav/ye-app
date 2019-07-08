@@ -35,7 +35,7 @@ class Offer extends Component {
         return (
             <>
                 <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                    <div className="coupon">
+                    <div className="coupon bg-white">
                         <div className="container coupon-header">
                             <div className="row">
                                 <div className="org-logo rounded-circle">
@@ -120,9 +120,9 @@ class Offer extends Component {
         let {offer, edit} = this.props;
         let {showDetails} = this.state;
         return (
-            <div className="mt-1 mb-2">
-                <div className="col-12 offer-abstract border-danger">
-                    <div className="row border position-relative">
+            <div className="mt-1 mb-2 bg-white">
+                <div className="col-12 offer-abstract -danger">
+                    <div className="row  position-relative">
                         <div className="category-code"></div>
                         <div className="col-2 col-lg-1 logo-wrapper align-self-center">
                             <Image className="img-fluid" src={offer.companyLogo} alt="companyLogo"/>
@@ -136,17 +136,17 @@ class Offer extends Component {
                             </div>
                         </div>
                         <div className="col-2 text-align-right align-self-center">
-                            <Button className="m-1" onClick={() => this.setState({showDetails: !showDetails})}>
+                            <button className="m-1 transparent-button" onClick={() => this.setState({showDetails: !showDetails})}>
                                 <i className="fas fa-greater-than"></i>
-                            </Button>
-                            <Button className="m-1" onClick={edit}>
+                            </button>
+                            <button className="m-1 transparent-button" onClick={edit}>
                                 <i className="far fa-edit"></i>
-                            </Button>
+                            </button>
                         </div>
                     </div>
                 </div>
-                {this.state.showDetails ? <div className="col-12 offer-detailed">
-                    <div className="row border">
+                {this.state.showDetails ? <div className="col-12 offer-detailed bg-white">
+                    <div className="row ye-border">
                         <div className="col-6">
                             <div className="start-date">
                                 <h6>Start Date</h6>
@@ -160,7 +160,7 @@ class Offer extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="row border">
+                    <div className="row ye-border">
                         <div className="col-9 border">
                             <h6>Terms and Condition</h6>
                             <ul>

@@ -13,6 +13,7 @@ import DatePicker from "react-datepicker/es";
 import Input from "reactstrap/es/Input";
 import FormFeedback from "reactstrap/es/FormFeedback";
 import ApiAction from "../../../actions/ApiAction";
+import Converter from "../../utilities/Converter";
 
 class OfferModal extends Component {
     constructor(props) {
@@ -65,7 +66,7 @@ class OfferModal extends Component {
                         </FormGroup>
                         <FormGroup className="form-group">
                             <FormLabel className="form-label">Offer Image</FormLabel>
-                            <Image src={offerImageUrl} width="400px"/>
+                            <Image src={offerImage} width="400px"/>
                             <FormControl type="file" placeholder="Offer Image" name="offerImage"
                                          onChange={this.updateOfferImage}/>
                         </FormGroup>
@@ -146,10 +147,13 @@ class OfferModal extends Component {
 
     updateOfferImage = (event) => {
         if (event.target.name == "offerImage") {
-            this.setState({
-                offerImageUrl: URL.createObjectURL(event.target.files[0]),
-                offerImage: event.target.files[0]
-            });
+            Converter.imageFileToBase64(event.target.files[0])
+                .then((base64)=>{
+                    this.setState({
+                        offerImage: base64
+                    });
+                })
+
         }
     }
 
@@ -244,24 +248,15 @@ class OfferModal extends Component {
                 offerImage: offerImage,
                 category: category.toLowerCase()
             };
-            let reader = new FileReader();
-            let base64 = "";
-            reader.onload = function (event) {
-                let binary = event.target.result;
-                base64 = window.btoa(binary);
-                console.log(base64)
-                offer.offerImage = base64;
-                ApiAction.addOffer(offer)
-                    .then((response) => {
-                        if (response.data.success) {
-                            this.props.onHide();
-                        }
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            }
-            reader.readAsBinaryString(offer.offerImage);
+            ApiAction.addOffer(offer)
+                .then((response) => {
+                    if (response.data.success) {
+                        this.props.onHide();
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
     }
 }

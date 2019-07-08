@@ -2,22 +2,22 @@ import React from "react";
 import "font-awesome/css/font-awesome.min.css";
 import "../../../assets/stylesheet/Dashboard.css";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import {Link, Redirect} from "react-router-dom";
 import Insights from "./insight/StudentInsight";
 import OfferList from "../offers/OfferList";
 import WorkList from "../WorkList";
-import {BrowserRouter, Route} from "react-router-dom";
+import {Route, Link} from "react-router-dom";
 import IndividualWork from "../IndividualWork";
 import StudentProfile from "./profile/StudentProfile";
 import HelpCenter from "../HelpCenter";
 import ApiAction from "../../../actions/ApiAction";
 import CategoryOffers from "../offers/CategoryOffers";
-import Notification from "../notification/Notification";
 import NotificationList from "../notification/NotificationList";
 import Verification from "./settings/Verification";
 import CompletedInternship from './insight/CompletedInternship.js'
 import MissionCompleted from './insight/MissionCompleted.js'
 import TotalEarnings from './insight/TotalEarnings.js'
+import OnBoarding from "./onboarding/OnBoarding";
+
 class StudentDashboard extends React.Component {
 
     constructor(props) {
@@ -29,12 +29,12 @@ class StudentDashboard extends React.Component {
     }
 
     componentWillMount() {
-        if (window.innerWidth < 576) {
-            this.setState({leftMenuStyle: {marginLeft: "0px"}, opacity: {opacity: 0.5}});
-        } else {
-            this.setState({leftMenuStyle: {marginLeft: "113px"}});
-        }
-        window.addEventListener("resize", this.resizeWindowHandler);
+        // if (window.innerWidth < 576) {
+        //     this.setState({leftMenuStyle: {marginLeft: "0px"}, opacity: {opacity: 0.5}});
+        // } else {
+        //     this.setState({leftMenuStyle: {marginLeft: "113px"}});
+        // }
+        // window.addEventListener("resize", this.resizeWindowHandler);
     }
 
     resizeWindowHandler = () => {
@@ -58,9 +58,8 @@ class StudentDashboard extends React.Component {
                 <div className="aside-left-menu" style={this.props.leftMenu ? {display: "block"} : {display: "none"}}>
                     {this.props.leftMenu ? this.renderLeftMenu() : ""}
                 </div>
-                <div className="main-app" style={this.props.leftMenu ? this.state.leftMenuStyle : {marginLeft: "0px"}}>
+                <div className="" style={this.props.leftMenu ? this.state.leftMenuStyle : {marginLeft: "0px"}}>
                     {/*{this.state.redirect ? <Redirect to="/"/> : ""}*/}
-                    <header className="main-head"></header>
                     <Route exact path="/home" component={() => <Insights user={this.props.user}/>}/>
                     <Route exact path="/profile" component={() => <StudentProfile user={this.props.user}/>}/>
                     <Route exact path="/internships"
@@ -76,10 +75,11 @@ class StudentDashboard extends React.Component {
                     <Route exact path="/help-center" component={HelpCenter}/>
                     <Route exact path="/notifications" component={() => <NotificationList user={this.props.user}/>}/>
                     <Route exact path="/settings" component={() => <Verification user={this.props.user}/>}/>
-                    <Route exact path="/completed-internship" component={()=><CompletedInternship />}/>
-                    <Route exact path="/missions-completed" component={()=>< MissionCompleted/>}/>
-                    <Route exact path="/total-earnings" component={()=>< TotalEarnings/>}/>
-
+                    <Route exact path="/completed-internship" component={() => <CompletedInternship/>}/>
+                    <Route exact path="/missions-completed" component={() => < MissionCompleted/>}/>
+                    <Route exact path="/total-earnings" component={() => < TotalEarnings/>}/>
+                    <Route exact path="/" component={() => <Insights user={this.props.user}/>}/>
+                    <Route exact path="/edit-profile" component={() => <OnBoarding/>}/>
                 </div>
             </div>
         );

@@ -2,34 +2,38 @@
 * @author Gaurav Kumar
 */
 
-.head{
+.head {
     opacity: 0.6;
 }
 
-.work-specs .table-responsive .table thead th{
-    opacity:0.6;
+.work-specs .table-responsive .table thead th {
+    opacity: 0.6;
     font-weight: normal;
 }
 
-.header{
-    padding:10px 10px 10px 10px;
-}
-
-.logo-wrapper{
+.logo-wrapper {
     padding: 0px 10px 0px 10px;
 }
 
-.work-meta .company{
-    opacity:0.6;
+.work-meta .company {
+    opacity: 0.6;
     font-size: smaller;
 }
 
-.work-details{
-    padding:10px 10px 10px 10px;
+.work-details {
+    padding: 10px 10px 10px 10px;
 }
 
-.apply-section{
-    padding:0px 10px 10px 10px;
+.work-p {
+    font-weight: 300;
+    font-size: 13px;
+    padding-top: 8px;
+    line-height: 1.5rem;
+    margin-bottom: 32px;
+}
+
+.apply-section {
+    padding: 0px 10px 10px 10px;
     align-items: center;
     text-align: center;
 }

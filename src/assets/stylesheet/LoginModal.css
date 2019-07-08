@@ -109,4 +109,14 @@
 }
 
 
+.ig-login,
+.btn-linkedin,
+.google-login,
+.facebook-login {
+    background-color: inherit !important;
+    border: none !important;
+}
+
+
+
 

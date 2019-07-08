@@ -9,12 +9,10 @@ import ForgotPassword from "./component/common/login-module/ForgotPassword";
 import Registration from "./component/common/signup-module/Registration";
 import AuthorizedUser from "./AuthorizedUser";
 import ApiAction from "./actions/ApiAction";
-import {BrowserRouter} from "react-router-dom";
-import Route from "react-router-dom/es/Route";
+import {BrowserRouter,Route} from "react-router-dom";
 import StudentRegistration from "./component/common/signup-module/StudentRegistration";
 import BusinessRegistration from "./component/common/signup-module/BusinessRegistration";
-import ListingContainer from './component/containers/ListingContainer';
-import IndivisualWork from './component/common/IndividualWork.js'
+import IndividualWork from "./component/common/IndividualWork";
 
 class App extends PureComponent {
     constructor(props) {
@@ -37,7 +35,7 @@ class App extends PureComponent {
                 } else {
                     localStorage.removeItem("loggedIn");
                     localStorage.removeItem("user");
-                    // this.setState({loggedIn: false, user: null});
+                    this.setState({logIn: false});
                 }
             })
             .catch((error) => {
@@ -49,13 +47,15 @@ class App extends PureComponent {
         let {forgotPass, signUp, logIn} = this.state;
         return (
 
-            logIn ? <AuthorizedUser/> :
-                <div className="d-flex justify-content-center bg-white vh-100">
+            logIn ? <AuthorizedUser user={JSON.parse(localStorage.getItem("user")) }/> :
+                <div className="d-flex justify-content-center align-items-center bg-white vh-100">
                     <BrowserRouter>
                         <Route exact path={"/forgot-password"} component={() => <ForgotPassword/>}/>
                         <Route exact path={"/register"} component={() => <Registration/>}/>
                         <Route exact path={"/student-registration"} component={() => <StudentRegistration/>}/>
                         <Route exact path={"/business-registration"} component={() => <BusinessRegistration/>}/>
+                        <Route path="/internships/:id" component={(props) => <IndividualWork {...props}/>}/>
+                        <Route path="/missions/:id" component={(props) => <IndividualWork {...props}/>}/>
                         <Route exact path={"/"} component={() => <Login/>}/>
                         {/*{forgotPass ? <ForgotPassword/> : signUp ? <Registration/> :*/}
                         {/*    <Login forgotPassword={() => this.setState({forgotPass: true})}*/}

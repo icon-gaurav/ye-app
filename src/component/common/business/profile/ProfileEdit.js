@@ -7,7 +7,7 @@ import ModalHeader from "react-bootstrap/ModalHeader";
 import Modal from "react-bootstrap/Modal";
 import ModalBody from "react-bootstrap/ModalBody";
 import Form from "react-bootstrap/Form";
-import {FormControl, FormGroup, Image} from "react-bootstrap";
+import {Col, FormControl, FormGroup, Image, Row} from "react-bootstrap";
 import FormLabel from "react-bootstrap/FormLabel";
 import ModalFooter from "react-bootstrap/ModalFooter";
 import Button from "react-bootstrap/Button";
@@ -37,7 +37,7 @@ class ProfileEdit extends Component {
             logo: Converter.bufferToBase64(user.logo),
             city: user.contact.address.city,
             state: user.contact.address.state,
-            email:user.contact.email,
+            email: user.contact.email,
             mobile: user.contact.mobile,
             website: user.summary ? user.summary.website : "",
             description: user.summary ? user.summary.description : "",
@@ -57,10 +57,19 @@ class ProfileEdit extends Component {
                     <Form>
                         <div className="row">
                             <div className="col-12 text-align-center">
-                                <FormGroup>
-                                    <Image src={logo}
-                                           style={{width: "400px"}}/>
-                                    <FormControl type="file" name="profilePic" onChange={this.updateProfilePic}/>
+                                <FormGroup as={Row}>
+                                    <Col className="col-6">
+                                        <Image
+                                            src={logo ? logo : require("../../../../assets/images/avatar/company.png")}
+                                            width={100}/>
+                                    </Col>
+                                    <Col className="col-6">
+                                        <FormLabel htmlFor="company-profile-pic" className="btn btn-success">Upload
+                                            Photo</FormLabel>
+                                        <FormControl type="file" id="company-profile-pic" name="profilePic"
+                                                     hidden accept="image/*"
+                                                     onChange={this.updateProfilePic}/>
+                                    </Col>
                                 </FormGroup>
                             </div>
                         </div>

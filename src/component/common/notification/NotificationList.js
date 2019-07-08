@@ -17,13 +17,18 @@ class NotificationList extends Component {
         let {user} = this.props;
         let notification = this.filterNotification(user.notification);
         return (
-            user.notification.reverse().map((not, key) => {
-                return <Notification notification={not} key={key} user={user}/>
-            })
+            <div className="main-app">
+                <div className="header">NOTIFICATIONS</div>
+                <div className="ye-border bg-white" style={{padding:"0px 17px 15px 15px"}}>
+                    {user.notification.map((not, key) => {
+                        return <Notification notification={not} key={key} user={user}/>
+                    })}
+                </div>
+            </div>
         );
     }
 
-    filterNotification(notification){
+    filterNotification(notification) {
 
     }
 }

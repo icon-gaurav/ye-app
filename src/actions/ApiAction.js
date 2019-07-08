@@ -12,6 +12,12 @@ class ApiAction {
         });
     }
 
+    static resendOtp(mobile) {
+        return Api.post("/api/auth/resend-otp", {
+            mobile: mobile
+        });
+    }
+
     static verifyOtp(mobile, otp) {
         return Api.post("/api/auth/register/verify", {
             mobile: mobile,
@@ -19,7 +25,14 @@ class ApiAction {
         });
     }
 
-    static verifyCode(email, otp) {
+    static sendEmailCode(email) {
+        return Api.post('/api/auth/register', {
+            email: email
+        });
+    }
+
+
+    static verifyEmail(email, otp) {
         return Api.post("/api/auth/register/verify", {
             email: email,
             otp: otp
@@ -100,7 +113,7 @@ class ApiAction {
         return Api.get(`/api/offers/${category}/${id}`);
     }
 
-    static getTopOffers(){
+    static getTopOffers() {
         return Api.get('/api/offers/top');
     }
 
@@ -134,12 +147,16 @@ class ApiAction {
         return Api.get(`/api/students/${student._id}/ongoing`);
     }
 
-    static getStudentApplications(student){
+    static getStudentApplications(student) {
         return Api.get(`/api/students/${student._id}/applications`);
     }
 
-    static getWallet(student){
+    static getWallet(student) {
         return Api.get(`/api/students/${student._id}/wallet`);
+    }
+
+    static uploadDocumentForTask(activity) {
+        return Api.post(`/api/students/ongoing/tasks/upload`, {activity: activity});
     }
 
     // admin insights
@@ -223,12 +240,12 @@ class ApiAction {
         return Api.put(`/api/students/${user._id}`, {student: student});
     }
 
-    static acceptCompanyOffer(user, notification){
-        return Api.post(`/api/students/accept/${notification._id}`, {work:notification.work});
+    static acceptCompanyOffer(user, notification) {
+        return Api.post(`/api/students/accept/${notification._id}`, {work: notification.work});
     }
 
-    static rejectCompanyOffer(user,notification){
-        return Api.post(`/api/students/reject/${notification._id}`,{work:notification.work});
+    static rejectCompanyOffer(user, notification) {
+        return Api.post(`/api/students/reject/${notification._id}`, {work: notification.work});
     }
 
     // verification document
@@ -246,9 +263,13 @@ class ApiAction {
 
     // company
     // get application for a work
+    static getCurrentWorks(company) {
+        console.log(company)
+        return Api.get(`/api/business/${company._id}/work/active`);
+    }
 
-    static getApplication(work) {
-        return Api.get(`/api/works/${work.mode}/${work._id}/applications`);
+    static getApplication(workMode, id) {
+        return Api.get(`/api/works/${workMode}/${id}/applications`);
     }
 
     static updateApplication(work, notification, application) {
@@ -261,6 +282,10 @@ class ApiAction {
 
     static updateCompany(user, company) {
         return Api.put(`/api/business/${user._id}`, {company: company});
+    }
+
+    static getAllAdvertisement() {
+        return Api.get('/api/advertisement');
     }
 }
 

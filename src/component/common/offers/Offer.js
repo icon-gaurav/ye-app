@@ -8,8 +8,6 @@ import ModalHeader from "react-bootstrap/ModalHeader";
 import Modal from "react-bootstrap/Modal";
 import ModalBody from "react-bootstrap/ModalBody";
 import ModalFooter from "react-bootstrap/ModalFooter";
-import ModalDialog from "react-bootstrap/ModalDialog";
-import {Link} from "react-router-dom";
 import Converter from "../../utilities/Converter";
 import ApiAction from "../../../actions/ApiAction";
 
@@ -30,21 +28,27 @@ class Offer extends Component {
 
     render() {
         let {offer} = this.props;
+        console.log(offer)
         return (
             <>
                 <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                    <div className="coupon">
+                    <div className="coupon bg-white ye-border">
                         <div className="container coupon-header border-bottom">
                             <div className="row">
-                                <div className="org-logo rounded-circle">
-                                    <img src={offer.companyLogo}/>
+                                <div className="org-logo">
+                                    <img src={offer.companyLogo?
+                                        Converter.bufferToBase64(offer.companyLogo)
+                                    :require("../../../assets/images/avatar/company.png")}
+                                         className="rounded-circle"/>
                                 </div>
                                 <div className="org-name">
                                     <h5 className="overflow-hidden">{offer.company}</h5>
                                 </div>
                             </div>
                         </div>
-                        <img src={this.state.offerImage} width="100%" height="100px"/>
+                        <img
+                            src={offer.offerImage ? Converter.bufferToBase64(offer.offerImage) : require("../../../assets/images/avatar/company.png")}
+                            width="100%" height="100px"/>
                         <div className="container coupon-body border-top" style={{backgroundColor: "white"}}>
                             <h2>
                                 <b>{offer.title}</b>
@@ -116,7 +120,7 @@ class Offer extends Component {
                     <Modal.Title>Terms and Conditions</Modal.Title>
                 </ModalHeader>
                 <ModalBody>
-                    <div className="terms-and-condition" style={{maxHeight:"60%"}}>
+                    <div className="terms-and-condition" style={{maxHeight: "60%"}}>
                         <p>{offer.terms}</p>
                     </div>
                 </ModalBody>

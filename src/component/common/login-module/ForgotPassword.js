@@ -163,34 +163,30 @@ class ForgotPassword extends Component {
     }
 
     sendOtp = () => {
-        this.setState({otpSent: true, showResendOtp: true, validated: true});
-        // ApiAction.forgotPass(this.state.mobile)
-        //     .then((response) => {
-        //         console.log(response);
-        //         if (response.data.success) {
-        //             this.setState({otpSent: true, showResendOtp: true});
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
-        console.log("send otp");
+        ApiAction.forgotPass(this.state.mobile)
+            .then((response) => {
+                console.log(response);
+                if (response.data.success) {
+                    this.setState({otpSent: true, showResendOtp: true});
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     verifyOtp = () => {
+        ApiAction.passResetVerification(parseInt(this.state.mobile, 10), parseInt(this.state.otp.join(''), 10))
+            .then((response) => {
+                console.log(response);
+                if (response.data.success) {
+                    this.setState({verified: true});
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         this.setState({verified: true});
-        // ApiAction.passResetVerification(parseInt(this.state.mobile, 10), parseInt(this.state.otp.join(''), 10))
-        //     .then((response) => {
-        //         console.log(response);
-        //         if (response.data.success) {
-        //             this.setState({verified: true});
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
-        // this.setState({verified: true});
-        console.log("Inside Otp verification");
 
     }
 

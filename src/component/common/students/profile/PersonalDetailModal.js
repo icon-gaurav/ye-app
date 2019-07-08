@@ -2,7 +2,7 @@
  * @author Gaurav Kumar    
 */
 
-import React, {Component} from 'react';
+import React from 'react';
 import ModalHeader from "react-bootstrap/ModalHeader";
 import Modal from "react-bootstrap/Modal";
 import ModalBody from "react-bootstrap/ModalBody";
@@ -16,8 +16,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import DatePicker from "react-datepicker/es";
 import Converter from "../../../utilities/Converter";
+import "./PersonalDetailEdit.css";
 
-class PersonalDetailModal extends Component {
+class PersonalDetailModal extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -57,12 +58,12 @@ class PersonalDetailModal extends Component {
             city: user.contact.address.city,
             state: user.contact.address.state,
             mobile: user.contact.mobile,
-            twitter: user.social.twitter,
-            linkedIn: user.social.linkedIn,
-            facebook: user.social.facebook,
-            github: user.social.github,
-            aboutMe: user.summary.aboutMe,
-            website: user.summary.website,
+            twitter: user.social ? user.social.twitter : "",
+            linkedIn: user.social ? user.social.linkedIn : "",
+            facebook: user.social ? user.social.facebook : "",
+            github: user.social ? user.social.github : "",
+            aboutMe: user.summary ? user.summary.aboutMe : "",
+            website: user.summary ? user.summary.website : "",
         });
     }
 
@@ -76,114 +77,117 @@ class PersonalDetailModal extends Component {
                     <Modal.Title>Edit Personal Details</Modal.Title>
                 </ModalHeader>
                 <ModalBody>
-                    <Form>
-                        <div className="row">
-                            <div className="col-12 text-align-center">
-                                <FormGroup>
-                                    <Image src={image}
-                                           style={{width: "400px"}}/>
-                                    <FormControl type="file" name="profilePic" onChange={this.updateProfilePic}/>
-                                </FormGroup>
+                    <div className="scrollable-modal-div w-100">
+                        <Form>
+                            <div className="row">
+                                <div className="col-12 text-align-center">
+                                    <FormGroup>
+                                        <Image src={image}
+                                               style={{width: "400px"}}/>
+                                        <FormControl type="file" name="profilePic" onChange={this.updateProfilePic}/>
+                                    </FormGroup>
+                                </div>
                             </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-md-6 col-xs-12">
-                                <FormGroup>
-                                    <FormLabel className="">Full name</FormLabel>
-                                    <Row>
-                                        <Col>
-                                            <Form.Control type="text" name="firstName" placeholder="First name"
-                                                          value={fName}
-                                                          onChange={this.updateName}
-                                                          required/>
-                                        </Col>
-                                        <Col>
-                                            <Form.Control type="text" name="lastName" placeholder="Last Name"
-                                                          value={lName}
-                                                          onChange={this.updateName}
-                                                          required/>
-                                        </Col>
-                                    </Row>
-                                </FormGroup>
-                                <FormGroup>
-                                    <FormLabel className="">Email</FormLabel>
-                                    <FormControl type="text" name="email" placeholder="abc@xyz.com" value={email}
-                                                 onChange={this.updateEmail} required/>
-                                </FormGroup>
-                                <FormGroup>
-                                    <FormLabel>D.O.B.</FormLabel>
-                                    <DatePicker placeholderText="Click to select a date (mm/dd/yyyy)"
-                                                maxDate={new Date()} onChange={this.updateDOB}
-                                                selected={new Date(dob)}/>
-                                </FormGroup>
-                                <FormGroup>
-                                    <FormLabel>Mobile</FormLabel>
-                                    <FormControl type="number" name="mobile" placeholder="Mobile number"
-                                                 onChange={this.updateMobile} selected={mobile}/>
-                                </FormGroup>
-                                <FormGroup>
-                                    <FormLabel>Gender</FormLabel>
-                                    <br/>
-                                    <div className="custom-control custom-radio custom-control-inline">
-                                        <FormControl type="radio" className="custom-control-input" id="customRadio"
-                                                     name="gender"
-                                                     value="Male" onChange={this.updateGender}/>
-                                        <FormLabel className="custom-control-label"
-                                                   htmlFor="customRadio">Male </FormLabel>
-                                    </div>
-                                    <div className="custom-control custom-radio custom-control-inline">
-                                        <FormControl type="radio" className="custom-control-input" id="customRadio1"
-                                                     name="gender"
-                                                     value="Female"
-                                                     onChange={this.updateGender}/>
-                                        <FormLabel className="custom-control-label"
-                                                   htmlFor="customRadio1">Female </FormLabel>
-                                    </div>
-                                    <div className="custom-control custom-radio custom-control-inline">
-                                        <FormControl type="radio" className="custom-control-input" id="customRadio2"
-                                                     name="gender"
-                                                     value="Other"
-                                                     onChange={this.updateGender}/>
-                                        <FormLabel className="custom-control-label"
-                                                   htmlFor="customRadio2">Other </FormLabel>
-                                    </div>
-                                </FormGroup>
+                            <div className="row">
+                                <div className="col-md-6 col-xs-12">
+                                    <FormGroup>
+                                        <FormLabel className="">Full name</FormLabel>
+                                        <Row>
+                                            <Col>
+                                                <Form.Control type="text" name="firstName" placeholder="First name"
+                                                              value={fName}
+                                                              onChange={this.updateName}
+                                                              required/>
+                                            </Col>
+                                            <Col>
+                                                <Form.Control type="text" name="lastName" placeholder="Last Name"
+                                                              value={lName}
+                                                              onChange={this.updateName}
+                                                              required/>
+                                            </Col>
+                                        </Row>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <FormLabel className="">Email</FormLabel>
+                                        <FormControl type="text" name="email" placeholder="abc@xyz.com" value={email}
+                                                     onChange={this.updateEmail} required/>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <FormLabel>D.O.B.</FormLabel>
+                                        <DatePicker placeholderText="Click to select a date (mm/dd/yyyy)"
+                                                    maxDate={new Date()} onChange={this.updateDOB}
+                                                    selected={new Date(dob)}/>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <FormLabel>Mobile</FormLabel>
+                                        <FormControl type="number" name="mobile" placeholder="Mobile number"
+                                                     onChange={this.updateMobile} value={mobile}/>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <FormLabel>Gender</FormLabel>
+                                        <br/>
+                                        <div className="custom-control custom-radio custom-control-inline">
+                                            <FormControl type="radio" className="custom-control-input" id="customRadio"
+                                                         name="gender"
+                                                         value="Male" onChange={this.updateGender}/>
+                                            <FormLabel className="custom-control-label"
+                                                       htmlFor="customRadio">Male </FormLabel>
+                                        </div>
+                                        <div className="custom-control custom-radio custom-control-inline">
+                                            <FormControl type="radio" className="custom-control-input" id="customRadio1"
+                                                         name="gender"
+                                                         value="Female"
+                                                         onChange={this.updateGender}/>
+                                            <FormLabel className="custom-control-label"
+                                                       htmlFor="customRadio1">Female </FormLabel>
+                                        </div>
+                                        <div className="custom-control custom-radio custom-control-inline">
+                                            <FormControl type="radio" className="custom-control-input" id="customRadio2"
+                                                         name="gender"
+                                                         value="Other"
+                                                         onChange={this.updateGender}/>
+                                            <FormLabel className="custom-control-label"
+                                                       htmlFor="customRadio2">Other </FormLabel>
+                                        </div>
+                                    </FormGroup>
+                                </div>
+                                <div className="col-md-6 col-xs-12">
+                                    <FormGroup>
+                                        <FormLabel>City</FormLabel>
+                                        <FormControl type="text" name="city" placeholder="City" value={city}
+                                                     onChange={this.updateCity}/>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <FormLabel>State</FormLabel>
+                                        <FormControl type="text" name="state" placeholder="State" value={state}
+                                                     onChange={this.updateState}/>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <FormLabel className="">Social Profile</FormLabel>
+                                        <FormControl type="input" name="twitter" placeholder="twitter account url"
+                                                     value={twitter} onChange={this.updateTwitter}/>
+                                        <FormControl type="input" name="linkedIn" placeholder="linkedIn account url"
+                                                     value={linkedIn} onChange={this.updateLinkedIn}/>
+                                        <FormControl type="input" name="facebook" placeholder="facebook account url"
+                                                     value={facebook} onChange={this.updateFacebook}/>
+                                        <FormControl type="input" name="github" placeholder="github account url"
+                                                     value={github} onChange={this.updateGithub}/>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <FormLabel className="">Website</FormLabel>
+                                        <FormControl type="url" name="website" placeholder="https://"
+                                                     value={website} onChange={this.updateWebsite}/>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <FormLabel className="">About Me</FormLabel>
+                                        <FormControl type="text" as="textarea" name="aboutMe" placeholder="About Me"
+                                                     value={aboutMe} onChange={this.updateAboutMe}/>
+                                        <div className="ye-limit-tracker">{`${255 - aboutMe.length}`}</div>
+                                    </FormGroup>
+                                </div>
                             </div>
-                            <div className="col-md-6 col-xs-12">
-                                <FormGroup>
-                                    <FormLabel>City</FormLabel>
-                                    <FormControl type="text" name="city" placeholder="City" value={city}
-                                                 onChange={this.updateCity}/>
-                                </FormGroup>
-                                <FormGroup>
-                                    <FormLabel>State</FormLabel>
-                                    <FormControl type="text" name="state" placeholder="State" value={state}
-                                                 onChange={this.updateState}/>
-                                </FormGroup>
-                                <FormGroup>
-                                    <FormLabel className="">Social Profile</FormLabel>
-                                    <FormControl type="input" name="twitter" placeholder="twitter account url"
-                                                 value={twitter} onChange={this.updateTwitter}/>
-                                    <FormControl type="input" name="linkedIn" placeholder="linkedIn account url"
-                                                 value={linkedIn} onChange={this.updateLinkedIn}/>
-                                    <FormControl type="input" name="facebook" placeholder="facebook account url"
-                                                 value={facebook} onChange={this.updateFacebook}/>
-                                    <FormControl type="input" name="github" placeholder="github account url"
-                                                 value={github} onChange={this.updateGithub}/>
-                                </FormGroup>
-                                <FormGroup>
-                                    <FormLabel className="">Website</FormLabel>
-                                    <FormControl type="url" name="website" placeholder="https://"
-                                                 value={website} onChange={this.updateWebsite}/>
-                                </FormGroup>
-                                <FormGroup>
-                                    <FormLabel className="">About Me</FormLabel>
-                                    <FormControl type="text" as="textarea" name="aboutMe" placeholder="About Me"
-                                                 value={aboutMe} onChange={this.updateAboutMe}/>
-                                </FormGroup>
-                            </div>
-                        </div>
-                    </Form>
+                        </Form>
+                    </div>
                 </ModalBody>
                 <ModalFooter>
                     <Button type="button" className="btn btn-success" onClick={this.submitDetails}>Save</Button>
@@ -276,7 +280,9 @@ class PersonalDetailModal extends Component {
 
     updateAboutMe = (event) => {
         if (event.target.name == "aboutMe") {
-            this.setState({aboutMe: event.target.value});
+            if (255 - event.target.value.length > 0) {
+                this.setState({aboutMe: event.target.value});
+            }
         }
     }
 
@@ -312,7 +318,9 @@ class PersonalDetailModal extends Component {
             .then((response) => {
                 console.log(response)
                 if (response.data.success) {
-                    console.log("success");
+                    this.props.onHide();
+                } else {
+
                 }
             })
             .catch((error) => {

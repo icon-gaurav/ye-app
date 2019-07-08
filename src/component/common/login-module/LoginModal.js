@@ -11,7 +11,6 @@ import "../../../assets/stylesheet/LoginModal.css";
 import ApiAction from "../../../actions/ApiAction";
 import Registration from "../signup-module/Registration";
 import LoadingAnimation from '../../library/LoadingAnimation'
-import { GoogleLogin, FacebookLogin, InstagramLogin, LinkedinLogin } from './social-login'
 
 class LoginModal extends React.Component {
 
@@ -101,7 +100,7 @@ class LoginModal extends React.Component {
                             <br />
                             <h6>Or SignUp using</h6>
                             <br />
-                            {/* <div className="oauth-item col-md-4 ml-auto d-inline">
+                            <div className="oauth-item col-md-4 ml-auto d-inline">
                                 <img src={require("../../../assets/images/icons/facebook.svg")} alt="Facebook" />
                             </div>
                             <div className="oauth-item col-md-4 d-inline">
@@ -109,18 +108,6 @@ class LoginModal extends React.Component {
                             </div>
                             <div className="oauth-item col-md-4 mr-auto d-inline">
                                 <img src={require("../../../assets/images/icons/linkedin.svg")} alt="LinkedIn" />
-                            </div> */}
-                            <div className="oauth-item d-inline">
-                                <FacebookLogin />
-                            </div>
-                            <div className="oauth-item d-inline">
-                                <GoogleLogin />
-                            </div>
-                            <div className="oauth-item d-inline">
-                                <LinkedinLogin />
-                            </div>
-                            <div className="oauth-item d-inline">
-                                <InstagramLogin />
                             </div>
                         </div>
                         <br />

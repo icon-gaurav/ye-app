@@ -1,17 +1,8 @@
 import React from "react";
-import Tabs from "react-bootstrap/Tabs";
-import Tab from "react-bootstrap/Tab";
 import StudentRegistration from "./StudentRegistration";
 import BusinessRegistration from "./BusinessRegistration";
-import {FormGroup, ModalDialog} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import FormLabel from "react-bootstrap/FormLabel";
-import ModalBody from "react-bootstrap/ModalBody";
 import "../../../assets/stylesheet/Registration.css";
-import ModalHeader from "react-bootstrap/ModalHeader";
-import ModalTitle from "react-bootstrap/ModalTitle";
-import Modal from "react-bootstrap/Modal";
 import {Link} from "react-router-dom";
 
 class Registration extends React.Component {
@@ -33,7 +24,7 @@ class Registration extends React.Component {
 
     renderForm() {
         return (
-            <div className="w-25 mt-5">
+            <div className="">
                 {/*<ModalHeader style={{borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%"}}*/}
                 {/*             closeButton>*/}
                 {/*    <ModalTitle>Registration</ModalTitle>*/}

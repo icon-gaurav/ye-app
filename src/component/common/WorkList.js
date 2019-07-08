@@ -4,8 +4,6 @@
 
 import React, {Component} from 'react';
 import Filters from "./Filters";
-import Tabs from "react-bootstrap/Tabs";
-import Tab from "react-bootstrap/Tab";
 import ListingContainer from "../containers/ListingContainer";
 import Modal from "react-bootstrap/Modal";
 import ModalHeader from "react-bootstrap/ModalHeader";
@@ -15,7 +13,6 @@ import WorkModal from "./business/works/WorkModal";
 
 import '../../assets/stylesheet/WorkList.css';
 import ApiAction from "../../actions/ApiAction";
-import Filter from "./students/filters/Filter";
 
 class WorkList extends Component {
     constructor(props) {
@@ -24,7 +21,8 @@ class WorkList extends Component {
             modalType: "Add",
             modalShow: false,
             workList: [],
-            filteredList:[],
+            filteredList: [],
+            filterModal: false,
         };
         console.log(this.props);
     }
@@ -33,7 +31,7 @@ class WorkList extends Component {
         ApiAction.getTypeWorks(this.props.work)
             .then((response) => {
                 if (response.data.success) {
-                    this.setState({workList: response.data.workList, filteredList:response.data.workList});
+                    this.setState({workList: response.data.workList, filteredList: response.data.workList});
                 } else {
 
                 }
@@ -83,7 +81,8 @@ class WorkList extends Component {
     render() {
         let {user} = this.props;
         return (
-            <div className="container-fluid">
+            <div className="main-app position-relative">
+                <div className="header">{this.props.work.toUpperCase()}S</div>
                 <div className="">
                     {/*<header className="main-head">{this.props.work}</header>*/}
                     {user.role == "ADMIN" ? <div className="">
@@ -96,7 +95,7 @@ class WorkList extends Component {
                     <WorkModal show={this.state.modalShow} onHide={() => this.setState({modalShow: false})}
                                type={this.state.modalType} workType={this.props.work}/> : ""}
                 {this.state.workList.length == 0 ? this.renderNoWork() : this.renderList()}
-
+                {this.state.filterModal ? this.renderFiltersInModal() : ""}
             </div>
         );
     }
@@ -110,21 +109,48 @@ class WorkList extends Component {
     }
 
     renderList() {
-        let {workList,filteredList} = this.state;
+        let {workList, filteredList} = this.state;
         return (
-            <div className="row listing-details">
-                <div className="col-12">
-                    <Filter workList={workList} filter={this.filter}/>
+            <div className="row workList-details">
+                <div className="ye-filter-icon d-lg-none d-md-none d-block">
+                    <button className="transparent-button"
+                            onClick={() => this.setState({filterModal: !this.state.filterModal})}>
+                        <img src={require("../../assets/images/icons/filter.svg")}
+                             className="rounded-circle ye-glow bg-white border p-1"
+                             height={30} width={30} alt="filter icon"/>
+                    </button>
+                </div>
+                <div className="mb-lg-0 mb-4 col-lg-3 col-sm-12">
+                    <Filters workList={workList} filter={this.filter}/>
                 </div>
                 {/*<div className="col-md-3 col-xs-12">*/}
                 {/*    <div className="filter-static">*/}
                 {/*        <Filters/>*/}
                 {/*    </div>*/}
                 {/*</div>*/}
-                <div className="col-12">
-                    <ListingContainer workList={filteredList}/>
+                <div className="col-lg-9 col-sm-12">
+                    <div className="bg-white ye-border">
+                        <div className="border-bottom p-2">
+                            {`${this.props.work.toUpperCase()}S`}<span
+                            className="opacity-60"
+                            style={{fontSize: "12px"}}>{` (${filteredList.length} results)`}</span>
+                        </div>
+                        <div className="col-12">
+                            <ListingContainer workList={filteredList}/>
+                        </div>
+                    </div>
                 </div>
             </div>
+        );
+    }
+
+    renderFiltersInModal() {
+        return (
+            <Modal show={this.state.filterModal} onHide={() => this.setState({filterModal: false})}>
+                <ModalBody>
+                    <Filters workList={this.state.workList} filter={this.filter}/>
+                </ModalBody>
+            </Modal>
         );
     }
 

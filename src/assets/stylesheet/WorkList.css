@@ -2,9 +2,25 @@
 * @author Gaurav Kumar
 */
 
-.list-header{
+.list-header {
     display: flex;
     justify-content: flex-end;
     padding: 10px 10px 10px 10px;
+}
+
+.workList-details {
+
+}
+
+.ye-filter-icon {
+    position: absolute;
+    top: 80vh;
+    left: 4vw;
+    z-index: 20;
+    opacity: 0.8;
+}
+
+.ye-glow {
+    box-shadow: 0px 0px 4px 3px rgb(0, 123, 255);
 }
 

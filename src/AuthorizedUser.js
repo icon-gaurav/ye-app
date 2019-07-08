@@ -1,9 +1,8 @@
-import React, { PureComponent } from 'react';
-import { BrowserRouter } from "react-router-dom";
+import React, {PureComponent} from 'react';
+import {BrowserRouter} from "react-router-dom";
 
 import Header from './component/common/Header';
 import Footer from './component/common/Footer';
-import PreLoginHeader from './component/common/PreLoginHeader';
 
 import './App.css';
 import AdminDashboard from "./component/common/business/AdminDashboard";
@@ -11,11 +10,7 @@ import StudentDashboard from "./component/common/students/StudentDashboard";
 import YEProvider from "./component/utilities/YEProvider";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Pusher from "pusher-js";
-import ApiAction from "./actions/ApiAction";
 import CompanyDashboard from "./component/common/business/CompanyDashboard";
-import LoginModal from "./component/common/login-module/LoginModal";
-import ListingContainer from './component/containers/ListingContainer';
-
 
 class AuthorizedUser extends PureComponent {
     constructor(props) {
@@ -25,7 +20,6 @@ class AuthorizedUser extends PureComponent {
             user: JSON.parse(localStorage.getItem("user")),
             leftMenu: false
         };
-        console.log(this.state);
     }
 
     componentWillMount() {
@@ -63,29 +57,6 @@ class AuthorizedUser extends PureComponent {
             username: "admin",
             role: "ADMIN"
         };
-        let student1 = {
-            name: { first: 'mridul', last: 'khurana' },
-            role: 'STUDENT'
-        }
-        // localStorage.setItem("loggedIn", true);
-        // localStorage.setItem("user", student);
-        ApiAction.refreshUser()
-            .then((response) => {
-                console.log(response);
-                if (response.data.success) {
-                    localStorage.setItem("loggedIn", JSON.stringify(true));
-                    localStorage.setItem("user", JSON.stringify(response.data.user));
-                    // this.setState({user: response.data.user, loggedIn: true})
-                } else {
-                    localStorage.removeItem("loggedIn");
-                    localStorage.removeItem("user");
-                    // this.setState({loggedIn: false, user: null});
-                }
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-        this.setState({ user: student, loggedIn: true })
     }
 
     componentDidMount() {
@@ -100,10 +71,10 @@ class AuthorizedUser extends PureComponent {
     }
 
     addNotifications = (data) => {
-        let { user } = this.state;
+        let {user} = this.state;
         if (data.user == user._id) {
             user.notification.push(data.notification);
-            this.setState({ user: user });
+            this.setState({user: user});
         } else {
             console.log(data);
         }
@@ -111,21 +82,19 @@ class AuthorizedUser extends PureComponent {
 
     renderHeader(props) {
         return this.checkUserValidated() ?
-            <Header toggleLeftMenu={() => this.setState({ leftMenu: !this.state.leftMenu })} user={this.state.user}
-                addNotification={this.addNotifications} /> :
+            <Header toggleLeftMenu={() => this.setState({leftMenu: !this.state.leftMenu})} user={this.state.user}
+                    addNotification={this.addNotifications}/> :
             "";
-        // return <Header {...props}/>
     }
 
     renderBody() {
         if (this.state.loggedIn) {
-            // return this.checkUserValidated() ? <StudentDashboard/> : <StudentDashboard/>;
             if (this.state.user.role == "ADMIN") {
-                return <AdminDashboard leftMenu={this.state.leftMenu} user={this.state.user} />
+                return <AdminDashboard leftMenu={this.state.leftMenu} user={this.state.user}/>
             } else if (this.state.user.role == "STUDENT") {
-                return <StudentDashboard leftMenu={this.state.leftMenu} user={this.state.user} />
+                return <StudentDashboard leftMenu={this.state.leftMenu} user={this.state.user}/>
             } else if (this.state.user.role == "COMPANY") {
-                return <CompanyDashboard leftMenu={this.state.leftMenu} user={this.state.user} />
+                return <CompanyDashboard leftMenu={this.state.leftMenu} user={this.state.user}/>
             } else {
                 return "";
             }
@@ -134,7 +103,6 @@ class AuthorizedUser extends PureComponent {
                 <>
                     <div>
                     </div>
-                    {/*<StudentDashboard leftMenu={this.state.leftMenu}/>*/}
                 </>
             );
         }
@@ -142,10 +110,6 @@ class AuthorizedUser extends PureComponent {
 
     renderFooter(props) {
         return <Footer {...props} />
-    }
-
-    renderHome(props) {
-        return <Header />
     }
 
     render() {
@@ -162,11 +126,6 @@ class AuthorizedUser extends PureComponent {
             </YEProvider>
         );
     }
-    // render(){
-    //     return(
-    //        <WorkList/>
-    //     )
-    // }
 
     checkUserValidated() {
         return this.state.loggedIn;
@@ -178,11 +137,11 @@ class AuthorizedUser extends PureComponent {
     }
 
     loggedIn = (user) => {
-        this.setState({ loggedIn: true, user: user });
+        this.setState({loggedIn: true, user: user});
     }
 
     loggedOut = () => {
-        this.setState({ loggedIn: false });
+        this.setState({loggedIn: false});
     }
 
 

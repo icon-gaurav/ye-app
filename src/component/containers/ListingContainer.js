@@ -1,271 +1,72 @@
 import React from "react";
 import ListingCard from "../common/ListingCard";
-import image from './Mobile2.png';
-import './ListingContainer.css'
-class ListingContainer extends React.Component {
+import ApiAction from "../../actions/ApiAction";
+import Converter from "../utilities/Converter";
+
+class ListingContainer extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            adds: [],
     }
-    
-    render() {
-       let workList = [{
-            _id:"ferkj",
-            mode:"internship",
-            company:{
-                name:"youngengine"
-            },
-            profile:"work-profile",
-            duration:{
-                start:new Date().toString(),
-                last:new Date().toString(),
-                end:new Date().toString(),
-                weeks:5,
-            },
-            vacancy:3,
-            stipend:500,
-        },
-        {
-            _id:"ferkj",
-            mode:"internship",
-            company:{
-                name:"youngengine"
-            },
-            profile:"work-profile",
-            duration:{
-                start:new Date().toString(),
-                last:new Date().toString(),
-                end:new Date().toString(),
-                weeks:5,
-            },
-            vacancy:3,
-            stipend:500,
-        },
-        {
-            _id:"ferkj",
-            mode:"internship",
-            company:{
-                name:"youngengine"
-            },
-            profile:"work-profile",
-            duration:{
-                start:new Date().toString(),
-                last:new Date().toString(),
-                end:new Date().toString(),
-                weeks:5,
-            },
-            vacancy:3,
-            stipend:500,
-        },
-        {
-            _id:"ferkj",
-            mode:"internship",
-            company:{
-                name:"youngengine"
-            },
-            profile:"work-profile",
-            duration:{
-                start:new Date().toString(),
-                last:new Date().toString(),
-                end:new Date().toString(),
-                weeks:5,
-            },
-            vacancy:3,
-            stipend:500,
-        },
-        {
-            _id:"ferkj",
-            mode:"internship",
-            company:{
-                name:"youngengine"
-            },
-            profile:"work-profile",
-            duration:{
-                start:new Date().toString(),
-                last:new Date().toString(),
-                end:new Date().toString(),
-                weeks:5,
-            },
-            vacancy:3,
-            stipend:500,
-        },
-        {
-            _id:"ferkj",
-            mode:"internship",
-            company:{
-                name:"youngengine"
-            },
-            profile:"work-profile",
-            duration:{
-                start:new Date().toString(),
-                last:new Date().toString(),
-                end:new Date().toString(),
-                weeks:5,
-            },
-            vacancy:3,
-            stipend:500,
-        },
-        {
-            _id:"ferkj",
-            mode:"internship",
-            company:{
-                name:"youngengine"
-            },
-            profile:"work-profile",
-            duration:{
-                start:new Date().toString(),
-                last:new Date().toString(),
-                end:new Date().toString(),
-                weeks:5,
-            },
-            vacancy:3,
-            stipend:500,
-        },
-        {
-            buttonTitle:'BOOK NOW'
-        },
-        {
-            _id:"ferkj",
-            mode:"internship",
-            company:{
-                name:"youngengine"
-            },
-            profile:"work-profile",
-            duration:{
-                start:new Date().toString(),
-                last:new Date().toString(),
-                end:new Date().toString(),
-                weeks:5,
-            },
-            vacancy:3,
-            stipend:500,
-        },
-        {
-            _id:"ferkj",
-            mode:"internship",
-            company:{
-                name:"youngengine"
-            },
-            profile:"work-profile",
-            duration:{
-                start:new Date().toString(),
-                last:new Date().toString(),
-                end:new Date().toString(),
-                weeks:5,
-            },
-            vacancy:3,
-            stipend:500,
-        },
-        {
-            _id:"ferkj",
-            mode:"internship",
-            company:{
-                name:"youngengine"
-            },
-            profile:"work-profile",
-            duration:{
-                start:new Date().toString(),
-                last:new Date().toString(),
-                end:new Date().toString(),
-                weeks:5,
-            },
-            vacancy:3,
-            stipend:500,
-        },
-        {
-            _id:"ferkj",
-            mode:"internship",
-            company:{
-                name:"youngengine"
-            },
-            profile:"work-profile",
-            duration:{
-                start:new Date().toString(),
-                last:new Date().toString(),
-                end:new Date().toString(),
-                weeks:5,
-            },
-            vacancy:3,
-            stipend:500,
-        },
-        {
-            _id:"ferkj",
-            mode:"internship",
-            company:{
-                name:"youngengine"
-            },
-            profile:"work-profile",
-            duration:{
-                start:new Date().toString(),
-                last:new Date().toString(),
-                end:new Date().toString(),
-                weeks:5,
-            },
-            vacancy:3,
-            stipend:500,
-        },
-        {
-            _id:"ferkj",
-            mode:"internship",
-            company:{
-                name:"youngengine"
-            },
-            profile:"work-profile",
-            duration:{
-                start:new Date().toString(),
-                last:new Date().toString(),
-                end:new Date().toString(),
-                weeks:5,
-            },
-            vacancy:3,
-            stipend:500,
-        },
-        {
-            _id:"ferkj",
-            mode:"internship",
-            company:{
-                name:"youngengine"
-            },
-            profile:"work-profile",
-            duration:{
-                start:new Date().toString(),
-                last:new Date().toString(),
-                end:new Date().toString(),
-                weeks:5,
-            },
-            vacancy:3,
-            stipend:500,
-        },
-        {
-            buttonTitle:'BOOK NOW'
-        }];
-        let arr = [0, 1, 2, 3, 4, 5];
-        let stylesheet = {
-            paddingTop: 10,
-            borderRadius: 10,
-        };
-        // let {workList} = this.props;
-        var workcard=workList.map((work,index) => {
-              if((index+1)%8===0){
+        ;
+    }
 
-                 return <div className="text-white text-center listing-card-wrapper col-md-3 col-xs-12 heightclass">
-                 <img className="card-img" src={image}  alt="Card image"/>
-                 <div className="card-img-overlay col-lg-4 col-md-4">
-                   <button className="button-class"><strong>{work.buttonTitle}</strong></button>
-                 </div>
-               </div>
-              }
-              else{
-                return <div key={index} className="col-md-3 col-xs-12">
-                  <ListingCard work={work}/>
-              </div>;
-              }
-                    
-        })
+    componentWillMount() {
+        ApiAction.getAllAdvertisement()
+            .then((response) => {
+                console.log(response)
+                if (response.data.success) {
+                    this.setState({adds: response.data.advertisementList});
+                } else {
+
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    render() {
+        let stylesheet = {
+            padding: 15,
+        };
+        let {workList} = this.props;
+        let {adds} = this.state;
+        let addIndex = 0;
         return (
             <div className="row list-wrapper" style={stylesheet}>
-                
-            {workcard}
+                {workList.map((work, key) => {
+                    if (key % 8 != 0)
+                        return (
+                            <div key={key} className="col-md-4 col-xs-12">
+                                <ListingCard work={work}/>
+                            </div>
+                        );
+                    else {
+                        addIndex++;
+                        return (
+                            <React.Fragment>
+                                <div key={key} className="col-md-4 col-xs-12">
+                                    <ListingCard work={work}/>
+                                </div>
+                                {adds[addIndex] ?
+                                    <div className="col-md-4 col-xs-12">
+                                        <div className="listing-card-wrapper">
+                                            <a href={adds[addIndex].url}>
+                                                <img className="card-img"
+                                                     src={Converter.bufferToBase64(adds[addIndex].image)}
+                                                     alt="Card image"/>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    : ""}
+
+                            </React.Fragment>
+                        );
+                    }
+                })}
+
             </div>
         );
     }

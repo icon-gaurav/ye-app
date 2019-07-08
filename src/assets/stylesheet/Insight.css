@@ -10,9 +10,11 @@
     width: 100%;
     background-color: white;
     border-radius: 5px;
-    padding-left: 15px;
-    padding-right:15px;
 
+}
+
+.completed-insights{
+    padding:30px 30px 15px 30px;
 }
 
 .insights.insight{
@@ -47,18 +49,24 @@
 }
 
 .trending-section{
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    background-color: white;
+    padding:0px 0px 39px 39px;
 }
 
 .trending-item{
-    border-radius: 15px;
-    border: 1px solid #d64541;
-    min-width: 200px;
-    min-height:280px;
-    background-color: #f1a9a0;
-    color:#d64541;
-    font-weight: bold;
+    color: black;
+    padding: 10px 0px;
+    background-color: #f5f5f5;
+}
+
+.ongoing-section{
+    padding:0px 44px 18px 44px;
+}
+
+.ye-hover:hover{
+    box-shadow: 0px 0px 5px 1px rgba(0, 123, 255, 0.5) !important;
+}
+
+.owl-stage{
+    padding: 5px 0px 5px 0px !important;
+    margin: 0px 5px 0px 5px !important;
 }

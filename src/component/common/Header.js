@@ -8,9 +8,8 @@ import Converter from "../utilities/Converter";
 import {Nav, Dropdown, Image} from "react-bootstrap";
 import NavbarToggle from "react-bootstrap/NavbarToggle";
 import NavbarCollapse from "react-bootstrap/NavbarCollapse";
-import {NavLink, Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import ApiAction from '../../actions/ApiAction';
-import DropdownToggle from "react-bootstrap/DropdownToggle";
 
 class Header extends React.Component {
 
@@ -37,45 +36,54 @@ class Header extends React.Component {
             });
         }
         let activeStyle = {
-            backgroundColor: "lightgrey",
-            color: "#FF5A29",
-            borderBottom: "2px solid #FF5A29"
+            backgroundColor: "#E0E0E0",
+            marginTop: "-4px",
+            marginBottom: "-3px",
+            // color: "#FF5A29",
+            // borderBottom: "2px solid #FF5A29"
         };
         let name = user.name.first ? user.name.first + " " + user.name.last : user.name;
 
         return (
-            <Navbar className="global-header ml-1 mr-1" expand="lg" sticky="top">
+            <Navbar className="global-header border-bottom pt-0 pb-0" expand="lg" sticky="top">
                 {/* <NavItem className="float-left">
                     <button className="btn rounded-circle" onClick={this.props.toggleLeftMenu}>
                         <i className="fas fa-align-justify"></i></button>
                 </NavItem> */}
 
                 <NavbarBrand className="float-left pl-0 pr-0 mr-auto border-right">
-                    <img className="img-fluid mr-3 " src={require("../../assets/images/logo/YE-Merge-Black.png")}
-                         alt="Young Engine" width="100"
-                         height="46"/>
+                    <NavLink to="/">
+                        <img className="img-fluid mr-3 " src={require("../../assets/images/logo/YE-Merge-Black.png")}
+                             alt="Young Engine" width="100"
+                             height="46"/>
+                    </NavLink>
                 </NavbarBrand>
                 <NavbarToggle id="navbar-toggler" aria-controls="responsive-navbar-nav" style={{padding: "0"}}>
                     <ToggleBtnAnimation/>
                 </NavbarToggle>
 
 
-
-
-
-
-                <NavbarCollapse id="responsive-navbar-nav" style={{ zIndex: "1000" }}>
+                <NavbarCollapse id="responsive-navbar-nav" style={{zIndex: "1000", marginLeft: "-40px"}}>
                     <Nav id="mobile-header">
 
                         <ul className="nav navbar-nav">
 
                             <li>
                                 <div className="text-dark position-relative  pl-0">
-                                    <NavLink className="text-dark nav-link pl-0" to="/profile"
-                                             activeStyle={activeStyle}>
+                                    <NavLink className="text-dark nav-link pl-0" to="/profile">
                                         <div>
                                             <img className="rounded-circle"
-                                                 src={Converter.bufferToBase64(user.logo ? user.logo : user.profilePic)}
+                                                 src={
+                                                     user.role == "COMPANY" ?
+                                                         (user.logo ? Converter.bufferToBase64(user.logo) : require("../../assets/images/avatar/company.png"))
+                                                         :
+                                                         user.role == "STUDENT" ?
+                                                             (user.profilePic ? Converter.bufferToBase64(user.profilePic) :
+                                                                 (user.gender == "Female" ? require("../../assets/images/avatar/female.png")
+                                                                     : require("../../assets/images/avatar/male.png")))
+                                                             :
+                                                             require("../../assets/images/avatar/company.png")
+                                                 }
                                                  alt='profile_image'
                                                  width="16px" height="20px"/>
                                             <span className="ml-3">Profile</span>
@@ -86,10 +94,9 @@ class Header extends React.Component {
 
                             <li>
                                 <div className="text-dark position-relative pl-0">
-                                    <NavLink className="text-dark nav-link pl-0" to="/home"
-                                             activeStyle={activeStyle}>
+                                    <NavLink className="text-dark nav-link pl-0" to="/home">
                                         <div>
-                                            <i className="fa fa-home"/>
+                                            <i className="fa fa-home" style={{height: "16px", width: "16px"}}/>
                                             <span className="ml-3">Home</span>
                                         </div>
                                     </NavLink>
@@ -98,10 +105,9 @@ class Header extends React.Component {
 
                             <li>
                                 <div className="text-dark position-relative pl-0">
-                                    <NavLink className="text-dark nav-link pl-0" to="/internships"
-                                             activeStyle={activeStyle}>
+                                    <NavLink className="text-dark nav-link pl-0" to="/internships">
                                         <div>
-                                            <i className=" fa fa-briefcase"/>
+                                            <i className=" fa fa-briefcase" style={{height: "16px", width: "16px"}}/>
                                             <span className="ml-3">Internships</span>
                                         </div>
                                     </NavLink>
@@ -112,19 +118,17 @@ class Header extends React.Component {
                                 {user.role == "COMPANY" ? "" :
                                     <>
                                         <div className="text-dark position-relative pl-0">
-                                            <NavLink className="text-dark nav-link pl-0" to="/missions"
-                                                     activeStyle={activeStyle}>
+                                            <NavLink className="text-dark nav-link pl-0" to="/missions">
                                                 <div>
-                                                    <i className="fa fa-fire"/>
+                                                    <i className="fa fa-fire" style={{height: "16px", width: "16px"}}/>
                                                     <span className="ml-3">Missions</span>
                                                 </div>
                                             </NavLink>
                                         </div>
                                         <div className="text-dark position-relative pl-0">
-                                            <NavLink className="text-dark nav-link pl-0" to="/offers"
-                                                     activeStyle={activeStyle}>
+                                            <NavLink className="text-dark nav-link pl-0" to="/offers">
                                                 <div>
-                                                    <i className="fa fa-tag"/>
+                                                    <i className="fa fa-tag" style={{height: "16px", width: "16px"}}/>
                                                     <span className="ml-3">Offers</span>
                                                 </div>
                                             </NavLink>
@@ -137,10 +141,9 @@ class Header extends React.Component {
                                 {user.role == "ADMIN" ?
                                     <>
                                         <div className="text-dark position-relative pl-0">
-                                            <NavLink className="text-dark nav-link pl-0" to="/users"
-                                                     activeStyle={activeStyle}>
+                                            <NavLink className="text-dark nav-link pl-0" to="/users">
                                                 <div>
-                                                    <i className="fa fa-fire"/>
+                                                    <i className="fa fa-fire" style={{height: "16px", width: "16px"}}/>
                                                     <span className="ml-3">Users</span>
                                                 </div>
                                             </NavLink>
@@ -151,10 +154,9 @@ class Header extends React.Component {
 
                             <li>
                                 <div className="text-dark position-relative pl-0">
-                                    <NavLink className="text-dark nav-link pl-0" to="/help-center"
-                                             activeStyle={activeStyle}>
+                                    <NavLink className="text-dark nav-link pl-0" to="/help-center">
                                         <div>
-                                            <i className="fa fa-question"/>
+                                            <i className="fa fa-question" style={{height: "16px", width: "16px"}}/>
                                             <span className="ml-3">Help</span>
                                         </div>
                                     </NavLink>
@@ -163,36 +165,35 @@ class Header extends React.Component {
 
                             <li>
                                 <div className="text-dark position-relative pl-0">
-                                    <NavLink className="text-dark nav-link pl-0" to="/notifications"
-                                             activeStyle={activeStyle}>
+                                    <NavLink className="text-dark nav-link pl-0" to="/notifications">
                                         <div>
-                                            <i className="fa fa-bell"/>
+                                            <i className="fa fa-bell" style={{height: "16px", width: "16px"}}/>
                                             <span className="ml-3">Notification</span>
                                         </div>
                                         <span
-                                            className="unseen-notification align-self-center scale-up-center">{unSeenNotifications}</span>
+                                            className="unseen-notification align-self-center scale-up-center d-none">{unSeenNotifications}</span>
                                     </NavLink>
                                 </div>
                             </li>
 
-                            <li>
-                                <div className="text-dark position-relative pl-0">
-                                    <NavLink className="text-dark nav-link pl-0" to="/settings"
-                                             activeStyle={activeStyle}>
-                                        <div>
-                                            <i className="fa fa-cogs"/>
-                                            <span className="ml-3">Settings</span>
-                                        </div>
-                                    </NavLink>
-                                </div>
-                            </li>
+                            {/*<li>*/}
+                            {/*    <div className="text-dark position-relative pl-0">*/}
+                            {/*        <NavLink className="text-dark nav-link pl-0" to="/settings"*/}
+                            {/*                 activeStyle={activeStyle}>*/}
+                            {/*            <div>*/}
+                            {/*                <i className="fa fa-cogs"/>*/}
+                            {/*                <span className="ml-3">Settings</span>*/}
+                            {/*            </div>*/}
+                            {/*        </NavLink>*/}
+                            {/*    </div>*/}
+                            {/*</li>*/}
 
                             <li>
                                 <div className="text-dark position-relative pl-0" to="/notifications">
                                     <button className="transparent-button nav-link pl-0 d-flex justify-content-start"
                                             style={{width: "100%"}} id="logout-btn">
                                         <div>
-                                            <i className="fa fa-power-off "/>
+                                            <i className="fa fa-power-off " style={{height: "16px", width: "16px"}}/>
                                             <span className="ml-3" onClick={this.logout}>Logout</span>
                                         </div>
                                     </button>
@@ -210,39 +211,39 @@ class Header extends React.Component {
                     sdgdf s t tsg t gfghg rfs bs t gh std tg sh s rtg dt s hs fh sh h rh fs hrt h rsr hrs th t h  fg er g re rt h stg dkjg ddgnd ldjs idd bdds ;dgrduogihsl alljga  hrjhlreg
                 </div> */}
 
-                <Nav className="ml-auto pr-3" id="header">
+                <Nav className="ml-auto" id="header">
 
-                    <NavLink className="ye-dark nav-link" to="/home"
+                    <NavLink className="ye-dark nav-link d-flex align-items-center pt-0 pb-0" to="/home"
                              activeStyle={activeStyle}>
                         <div className="icon-div text-align-center">
-                            <img src={require("../../assets/images/logo/work.svg")}/>
+                            {/*<img src={require("../../assets/images/logo/work.svg")}/>*/}
                             <div>Home</div>
                         </div>
                     </NavLink>
 
-                    <NavLink className="ye-dark nav-link" to="/internships"
+                    <NavLink className="ye-dark nav-link d-flex align-items-center pt-0 pb-0" to="/internships"
                              activeStyle={activeStyle}>
                         <div className="icon-div text-align-center">
                             {/*<svg xmlnsXlink={require("../../assets/images/logo/work.svg")} fill="red"></svg>*/}
-                            <img src={require("../../assets/images/logo/work.svg")}/>
+                            {/*<img src={require("../../assets/images/logo/work.svg")}/>*/}
                             <div>Internships</div>
                         </div>
                     </NavLink>
 
                     {user.role == "COMPANY" ? "" :
                         <>
-                            <NavLink className="ye-dark nav-link" to="/missions"
+                            <NavLink className="ye-dark nav-link d-flex align-items-center pt-0 pb-0" to="/missions"
                                      activeStyle={activeStyle}>
                                 <div className="icon-div text-align-center">
-                                    <img src={require("../../assets/images/logo/work.svg")}/>
+                                    {/*<img src={require("../../assets/images/logo/work.svg")}/>*/}
                                     <div>Missions</div>
                                 </div>
                             </NavLink>
 
-                            <NavLink className="ye-dark nav-link" to="/offers"
+                            <NavLink className="ye-dark nav-link d-flex align-items-center pt-0 pb-0" to="/offers"
                                      activeStyle={activeStyle}>
                                 <div className="icon-div text-align-center">
-                                    <img src={require("../../assets/images/logo/work.svg")}/>
+                                    {/*<img src={require("../../assets/images/logo/work.svg")}/>*/}
                                     <div>Offers</div>
                                 </div>
                             </NavLink>
@@ -251,10 +252,10 @@ class Header extends React.Component {
                     }
                     {user.role == "ADMIN" ?
                         <>
-                            <NavLink className="ye-dark nav-link" to="/users"
+                            <NavLink className="ye-dark nav-link d-flex align-items-center pt-0 pb-0" to="/users"
                                      activeStyle={activeStyle}>
                                 <div className="icon-div text-align-center">
-                                    <img src={require("../../assets/images/logo/work.svg")}/>
+                                    {/*<img src={require("../../assets/images/logo/work.svg")}/>*/}
                                     <div>Users</div>
                                 </div>
                             </NavLink>
@@ -286,34 +287,50 @@ class Header extends React.Component {
                     {/*</NavLink>*/}
                     <NavItem className="d-flex justify-content-center border-left">
                         <Dropdown alignRight>
-                            <Dropdown.Toggle className="d-flex justify-content-center" id="dropdown">
+                            <Dropdown.Toggle className="d-flex justify-content-center align-items-center" id="dropdown">
                                 <div className="position-relative">
-                                    <Image className="rounded-circle border mr-1"
-                                           src={Converter.bufferToBase64(user.logo ? user.logo : user.profilePic)}
+                                    <Image className="rounded-circle border mr-1 align-items-center"
+                                           src={user.role == "COMPANY" ?
+                                               (user.logo ? Converter.bufferToBase64(user.logo) : require("../../assets/images/avatar/company.png"))
+                                               :
+                                               user.role == "STUDENT" ?
+                                                   (user.profilePic ? Converter.bufferToBase64(user.profilePic) :
+                                                       (user.gender == "Female" ? require("../../assets/images/avatar/female.png")
+                                                           : require("../../assets/images/avatar/male.png")))
+                                                   :
+                                                   require("../../assets/images/avatar/company.png")}
                                            width="30px" height="30px"/>
-                                    {unSeenNotifications == 0 ?
+                                    {unSeenNotifications > 0 ?
                                         <>
-                                            <span className="unseen-notification align-self-center scale-up-center"></span>
+                                            <span
+                                                className="unseen-notification align-self-center scale-up-center"></span>
                                             <span className="unseen-notification inner-circle"></span>
                                         </> : ""}
                                 </div>
-                                <div className="ml-2 mr-3 text-left">
-                                    <div style={{fontSize: "10px"}} className="opacity-60">Welcome Back</div>
-                                    <div style={{fontSize: "14px"}}>{name}</div>
+                                <div className="ml-2 mr-2 text-left">
+                                    <div style={{fontSize: "10px", marginBottom: "-6px", color: "#707070"}}
+                                         className="opacity-75">Welcome
+                                        Back,
+                                    </div>
+                                    <div style={{fontSize: "13px", color: "#707070"}}>{name}</div>
                                 </div>
                                 <div>
-                                    <i className="fa fa-caret-down"></i>
+                                    <i className="fa fa-caret-down" style={{color: "#707070"}}></i>
                                 </div>
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
-                                <Dropdown.Item className="ye-dark w-100"><NavLink className="ye-dark w-100"
-                                                                                  to="/profile">Profile</NavLink></Dropdown.Item>
-                                <Dropdown.Item className="ye-dark"><NavLink className="ye-dark"
-                                                                            to="/settings">Settings</NavLink></Dropdown.Item>
-                                <Dropdown.Item className="ye-dark"><NavLink className="ye-dark"
-                                                                            to="/notifications">Notification</NavLink></Dropdown.Item>
-                                <Dropdown.Item className="ye-dark"><NavLink className="ye-dark" to="/help-center">Help &
-                                    Support</NavLink></Dropdown.Item>
+                                {user.role == "STUDENT" ?
+                                    <>
+                                        <NavLink className="ye-dark dropdown-item" to="/my-internships">My
+                                            Internships</NavLink>
+                                        <NavLink className="ye-dark dropdown-item" to="/my-missions">My
+                                            Missions</NavLink>
+                                    </>
+                                    : ""}
+                                <NavLink className="ye-dark dropdown-item" to="/notifications">Notification</NavLink>
+                                <NavLink className="ye-dark dropdown-item" to="/profile">Profile</NavLink>
+                                {/*<NavLink className="ye-dark dropdown-item" to="/settings">Settings</NavLink>*/}
+                                <NavLink className="ye-dark dropdown-item" to="/help-center">Support</NavLink>
                                 <Dropdown.Item className="ye-dark" onClick={this.logout}>Logout</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>

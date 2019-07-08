@@ -35,14 +35,14 @@ class CompanyDetails extends Component {
     render() {
         let {name, contact, cin, password, cnfPassword, city, state, website} = this.state;
         return (
-            <div>
+            <div className="mt-lg-0 mt-md-0 mt-auto p-lg-0 p-md-0 p-5">
                 {/*<ModalHeader style={{borderBottom: "none", paddingLeft: "10%", paddingRight: "10%", paddingTop: "8%"}}*/}
                 {/*             closeButton>*/}
                 {/*    <ModalTitle>Company Details</ModalTitle>*/}
                 {/*</ModalHeader>*/}
                 {/*<ModalBody style={{paddingLeft: "10%", paddingRight: "10%"}}>*/}
                 {/*    {this.state.errors.length > 0 ? this.renderError() : ""}*/}
-                <div className="pt-3 pb-3">
+                <div className="pb-3">
                     <h4>Company Details</h4>
                 </div>
                 <Form>

@@ -7,12 +7,14 @@ import {Button} from "react-bootstrap";
 import Image from "react-bootstrap/Image";
 import Converter from "../../../utilities/Converter";
 import ApiAction from "../../../../actions/ApiAction";
+import "./Application.css";
 
-class Application extends Component {
+class Application extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            summary: false
+            summary: false,
+            application:this.props.application
         }
     }
 
@@ -21,23 +23,24 @@ class Application extends Component {
     }
 
     render() {
-        let {application} = this.props;
-        console.log(application)
+        let {application, summary} = this.state;
         let {student} = application;
-        let {summary} = this.state;
         return (
             <div className="user-wrapper pt-2 pb-2">
-                <div className="row">
-                    <div className="col-lg-1 col-md-1 col-sm-2 col-2">
-                        <Image className="rounded-circle img-fluid"
+                <div className="d-flex">
+                    <div className="pr-4">
+                        <Image className="rounded-circle"
                                src={Converter.bufferToBase64(student.profilePic)}
                                width="50px" height="50px"/>
                     </div>
-                    <div className="col-lg-10 col-md-10 col-sm-8 col-8">
+                    <div className="flex-column position-relative">
                         <h6>{student.name.first + " " + student.name.last}</h6>
                         <div className="rating-wrapper">
                             {this.renderRating()}
                         </div>
+                    </div>
+                    <div className="justify-content-end ml-auto">
+                        <p className={`${student.status.toLowerCase()}-status status-box ye-border pl-2 pr-2 pt-1 pb-1`}>{student.status}</p>
                     </div>
                     <div className="justify-content-end ml-auto mr-2 ">
                         <button className="transparent-button" onClick={() => this.setState({summary: !summary})}><i
@@ -167,7 +170,7 @@ class Application extends Component {
         ApiAction.updateApplication(work, notification, application)
             .then((response) => {
                 if (response.data.success) {
-                    console.log("notification send to user for rejection")
+                    this.setState({application:application});
                 }
             })
             .catch((error) => {
@@ -189,8 +192,9 @@ class Application extends Component {
         application.status = "Selected";
         ApiAction.updateApplication(work, notification, application)
             .then((response) => {
+                console.log(response)
                 if (response.data.success) {
-                    console.log("notification send to user for rejection")
+                    this.setState({application:application});
                 }
             })
             .catch((error) => {

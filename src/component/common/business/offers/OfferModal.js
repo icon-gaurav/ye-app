@@ -125,7 +125,11 @@ class OfferModal extends Component {
                                 <option value="">Select Category</option>
                                 <option value="Food">Food</option>
                                 <option value="Fitness">Fitness</option>
-                                <option value="Health">Health</option>
+                                <option value="Education">Education</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Shopping">Shopping</option>
+                                <option value="Living">Living</option>
+                                <option value="Travel">Travel</option>
                             </Input>
                             <FormFeedback>Select Category</FormFeedback>
                         </FormGroup>
@@ -228,7 +232,6 @@ class OfferModal extends Component {
         if (event.target.name == "category") {
             let {categoryClass} = this.state;
             let category = event.target.value;
-            console.log(category)
             if (category.length > 0) {
                 categoryClass = "is-valid";
             } else {

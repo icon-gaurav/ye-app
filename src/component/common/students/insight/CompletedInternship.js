@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './CompletedInternship.css'
 import Background  from './Mobile5.png'
+import ApiAction from "../../../../actions/ApiAction";
 class CompletedInternship extends Component {
     constructor(props){
         super(props);
@@ -9,7 +10,11 @@ class CompletedInternship extends Component {
         }
     }
     componentWillMount() {
-
+        ApiAction.getAllWork()
+            .then((response)=>{
+                console.log(response)
+                this.setState({works:response.data.workList})
+            })
     }
 
     render() {

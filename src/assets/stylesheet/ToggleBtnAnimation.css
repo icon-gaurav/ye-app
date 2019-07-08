@@ -15,12 +15,6 @@
 .hamRotate180.active {
   transform: rotate(180deg);
 }
-.ham:hover .line {
-  stroke: orangered;
-}
-.active .line {
-  stroke: orangered;
-}
 .line {
   fill: none;
   transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
