@@ -17,7 +17,8 @@ import CompletedInternship from './insight/CompletedInternship.js'
 import MissionCompleted from './insight/MissionCompleted.js'
 import TotalEarnings from './insight/TotalEarnings.js'
 import OnBoarding from "./onboarding/OnBoarding";
-
+import MyInternship from './business/myinternships/MyInternship.js'
+import MyMissions from './business/mymission/MyMissions.js'
 class StudentDashboard extends React.Component {
 
     constructor(props) {
@@ -80,6 +81,8 @@ class StudentDashboard extends React.Component {
                     <Route exact path="/total-earnings" component={() => < TotalEarnings/>}/>
                     <Route exact path="/" component={() => <Insights user={this.props.user}/>}/>
                     <Route exact path="/edit-profile" component={() => <OnBoarding/>}/>
+                    <Route exact path="/myinternships" component={() => <MyInternship/>}/>
+                    <Route exact path="/mymissions" component={() => <MyMissions/>}/>
                 </div>
             </div>
         );

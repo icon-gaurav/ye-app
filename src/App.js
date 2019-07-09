@@ -48,7 +48,7 @@ class App extends PureComponent {
         return (
 
             logIn ? <AuthorizedUser user={JSON.parse(localStorage.getItem("user")) }/> :
-                <div className="d-flex justify-content-center align-items-center bg-white vh-100">
+                <div className="d-flex justify-content-center align-items-center bg-white ">
                     <BrowserRouter>
                         <Route exact path={"/forgot-password"} component={() => <ForgotPassword/>}/>
                         <Route exact path={"/register"} component={() => <Registration/>}/>

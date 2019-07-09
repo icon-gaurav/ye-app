@@ -11,8 +11,7 @@ import ApiAction from "../../actions/ApiAction";
 import {Link} from "react-router-dom";
 import Converter from "../utilities/Converter";
 import Loader from "react-loader-spinner";
-
-
+import image from "./Mobile13.jpg"
 class IndividualWork extends Component {
     constructor(props) {
         super(props);
@@ -24,33 +23,34 @@ class IndividualWork extends Component {
     }
 
     componentWillMount() {
-        ApiAction.getWork(this.props.match.params.id)
-            .then((response) => {
-                if (response.data.success) {
-                    this.setState({work: response.data.work});
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-        // this.setState({
-        //     work: {
-        //         _id:"vrjnvojwncjhevnow",
-        //         mode: "mission",
-        //         company: "young engine mission",
-        //         profile: "web profile mission",
-        //         duration: {
-        //             start: new Date(),
-        //             end: new Date(new Date().getTime() + 2000000000),
-        //             last: new Date()
-        //         },
-        //         vacancy: 4,
-        //         stipend: 5000,
-        //         workDetails: "here is work details mission",
-        //         skillSet: ["skill1", "skill2", "skill3"],
-        //         location: "Home mission"
-        //     }
-        // // });
+        // ApiAction.getWork(this.props.match.params.id)
+        //     .then((response) => {
+        //         if (response.data.success) {
+        //             this.setState({work: response.data.work});
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     });
+        this.setState({
+            work: {
+                _id:"vrjnvojwncjhevnow",
+                mode: "mission",
+                company: "young engine mission",
+                profile: "web profile mission",
+                duration: {
+                    start: new Date(),
+                    end: new Date(new Date().getTime() + 2000000000),
+                    last: new Date()
+                },
+                vacancy: 4,
+                stipend: 5000,
+                workDetails: "here is work details mission",
+                skillSet: ["skill1", "skill2", "skill3"],
+                location: "Home mission"
+            },
+            windowSize: window.innerWidth
+        });
         // this.setState({windowSize: window.innerWidth});
         // window.addEventListener("resize", this.windowResizeHandler);
     }
@@ -94,7 +94,7 @@ class IndividualWork extends Component {
                         <div className="bg-white ye-border">
                             <div className="internship-detail">
                                 <div className="item work-meta">
-                                    <div style={{backgroundColor: "#aeff4c"}}>
+                                    <div style={{backgroundColor: "#1A2844", color:'white'}}>
                                         <div className="d-flex justify-content-center align-items-center p-5">
                                             <div>
                                             <img src={work.company.logo ? Converter.bufferToBase64(work.company.logo) :
@@ -158,9 +158,12 @@ class IndividualWork extends Component {
                                                                 Date
                                                             </div>
                                                         </div>
-                                                        <div className="opacity-60" style={{minWidth: "fit-content"}}>
+                                                        {/* <div className="opacity-60" style={{minWidth: "fit-content"}}>
                                                             {work.duration.last.split("T")[0]}
-                                                        </div>
+                                                        </div> */}
+                                                        <div className="opacity-60" style={{minWidth: "fit-content"}}>
+                                                            2/9/19
+                                                        </div> 
                                                     </div>
                                                 </div>
                                             </div>
@@ -280,7 +283,7 @@ class IndividualWork extends Component {
                                         </div>
                                     </div>
                                     <div className="apply-section">
-                                        <button className="btn-success btn" onClick={this.application}>Apply Now
+                                        <button className="btn-success btn col-sm-12 col-12 col-md-3 col-lg-3" onClick={this.application}>Apply Now
                                         </button>
                                     </div>
                                 </div>
@@ -298,7 +301,7 @@ class IndividualWork extends Component {
                                          width="100%"
                                          height="150px"/>
                                 </div>
-                                <div className="p-2">
+                                <div className="pl-3 pt-3 pb-1 pr-3">
                                     <div className="opacity-75 font-13">By : <span>{work.company.name}</span></div>
                                     <div className="pt-2 pb-2">
                                         <div className="d-flex">
@@ -306,23 +309,23 @@ class IndividualWork extends Component {
                                                 <i className="fa fa-clock-o opacity-50" style={{color: "#000000"}}
                                                    aria-hidden="true"/>
                                             </div>
-                                            <div className="duration"><span
+                                            <div className="duration "><span
                                                 className="font-15" style={{color:"rgba(13,3,0,0.89)"}}>{work.duration.weeks} Weeks</span></div>
                                         </div>
                                         <div className="d-flex">
-                                            <div className="vacancy-icon icon-wrapper d-flex align-items-center">
-                                                <i className="fa fa-group opacity-50" style={{color: "#000000"}}
+                                            <div className="vacancy-icon  icon-wrapper d-flex align-items-center" >
+                                                <i className="fa fa-group opacity-50 " style={{color: "#000000"}}
                                                    aria-hidden="true"/>
                                             </div>
-                                            <div className="vacancy"><span
-                                                className="font-15" style={{color:"rgba(13,3,0,0.89)"}}>{work.vacancy} Positions</span></div>
+                                            <div className="vacancy "><span
+                                                className="font-15 " style={{color:"rgba(13,3,0,0.89)"}}>{work.vacancy} Positions</span></div>
                                         </div>
                                         <div className="d-flex">
                                             <div className="stipend-icon icon-wrapper d-flex align-items-center">
                                                 <i className="fa fa-money opacity-50" style={{color: "#000000"}}
                                                    aria-hidden="true"/>
                                             </div>
-                                            <div className="stipend"><span className="font-15" style={{color:"rgba(13,3,0,0.89)"}}>Rs. {work.stipend}</span></div>
+                                            <div className="stipend "><span className="font-15" style={{color:"rgba(13,3,0,0.89)"}}>Rs. {work.stipend}</span></div>
                                         </div>
                                     </div>
                                 </div>
