@@ -20,24 +20,24 @@ class PreLoginHeader extends React.Component {
     render() {
         return (
             <>
-                <Navbar className="pre-login-header bg-light" expand="lg" sticky="top">
+                <Navbar className="pre-login-header bg-light w-100" expand="lg" sticky="top">
                     <NavbarBrand href="/" className="brand-logo">
                         <img src={require("../../assets/images/logo/YE-Merge-Black.png")} alt="Young Engine" width="162"
                              height="46"/>
                     </NavbarBrand>
-                    <NavbarToggle aria-controls="responsive-navbar-nav"/>
-                    <NavbarCollapse id="responsive-navbar-nav">
+                    {/* <NavbarToggle aria-controls="responsive-navbar-nav"/> */}
+                    {/* <NavbarCollapse id="responsive-navbar-nav"> */}
                         <Nav className="justify-content-end ml-auto">
-                            <NavLink className="nav-item text-dark" href="/internships">Internships</NavLink>
+                            {/* <NavLink className="nav-item text-dark" href="/internships">Internships</NavLink>
                             <NavLink className="nav-item text-dark" href="/events">Events</NavLink>
                             <NavLink className="nav-item text-dark" href="/hire-interns">Hire-Interns</NavLink>
                             <NavLink className="nav-item text-dark" href="/partners">Partners</NavLink>
                             <NavLink className="nav-item text-dark" href="/contact">Contact</NavLink>
-                            <NavLink className="nav-item text-dark" href="/for-business">For Business</NavLink>
+                            <NavLink className="nav-item text-dark" href="/for-business">For Business</NavLink> */}
                             <NavLink className="nav-item text-dark"
                                      onClick={() => this.setState({displayModal: true})}>LogIn</NavLink>
                         </Nav>
-                    </NavbarCollapse>
+                    {/* </NavbarCollapse> */}
                     {this.state.displayModal ? <LoginModal show={this.state.displayModal}
                                                             onHide={() => this.setState({displayModal: false})} loggedIn={this.props.loggedIn}/> : null}
                 </Navbar>

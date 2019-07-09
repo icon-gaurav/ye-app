@@ -2,13 +2,13 @@
  * @author Gaurav Kumar    
 */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import '../../assets/stylesheet/IndividualWork.css';
 import Modal from "react-bootstrap/Modal";
 import ModalHeader from "react-bootstrap/ModalHeader";
 import ModalBody from "react-bootstrap/ModalBody";
 import ApiAction from "../../actions/ApiAction";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Converter from "../utilities/Converter";
 import Loader from "react-loader-spinner";
 import image from "./Mobile13.jpg"
@@ -34,29 +34,43 @@ class IndividualWork extends Component {
         //     });
         this.setState({
             work: {
+<<<<<<< HEAD
                 _id:"vrjnvojwncjhevnow",
+=======
+                _id: "vrjnvojwncjhevnow",
+>>>>>>> 65737580c17e4d082a622cafcfe02d6746502d51
                 mode: "mission",
                 company: "young engine mission",
                 profile: "web profile mission",
                 duration: {
+<<<<<<< HEAD
                     start: new Date(),
                     end: new Date(new Date().getTime() + 2000000000),
                     last: new Date()
+=======
+                    start: new Date().toString(),
+                    end: new Date(new Date().getTime() + 2000000000),
+                    last: new Date().toString()
+>>>>>>> 65737580c17e4d082a622cafcfe02d6746502d51
                 },
                 vacancy: 4,
                 stipend: 5000,
                 workDetails: "here is work details mission",
                 skillSet: ["skill1", "skill2", "skill3"],
                 location: "Home mission"
+<<<<<<< HEAD
             },
             windowSize: window.innerWidth
+=======
+            }
+>>>>>>> 65737580c17e4d082a622cafcfe02d6746502d51
         });
         // this.setState({windowSize: window.innerWidth});
         // window.addEventListener("resize", this.windowResizeHandler);
     }
 
     windowResizeHandler = () => {
-        this.setState({windowSize: window.innerWidth});
+        this.setState({ windowSize: window.innerWidth });
     }
 
     calculateDuration = (start, end) => {
@@ -70,41 +84,45 @@ class IndividualWork extends Component {
     }
 
     render() {
-        let {work} = this.state;
+        let { work } = this.state;
         if (work) {
             return this.renderDetails();
         } else {
             return (
                 <div className="d-flex justify-content-center align-items-center vh-100">
                     <Loader type="Plane" color="#00BFFF"
-                            height="100"
-                            width="100"/>
+                        height="100"
+                        width="100" />
                 </div>
             );
         }
     }
 
     renderDetails() {
-        let {work} = this.state;
+        let { work } = this.state;
         return (
             <div className="main-app">
                 <header className="header">WORK DETAILS</header>
-                <div className="row">
+                <div className="row" >
                     <div className="col-lg-9 col-md-9 col-12">
                         <div className="bg-white ye-border">
                             <div className="internship-detail">
                                 <div className="item work-meta">
+<<<<<<< HEAD
                                     <div style={{backgroundColor: "#1A2844", color:'white'}}>
+=======
+                                    <div style={{ backgroundColor: "#aeff4c" }}>
+>>>>>>> 65737580c17e4d082a622cafcfe02d6746502d51
                                         <div className="d-flex justify-content-center align-items-center p-5">
                                             <div>
-                                            <img src={work.company.logo ? Converter.bufferToBase64(work.company.logo) :
-                                                require("../../assets/images/avatar/company.png")}
-                                                 className="rounded-circle"
-                                                 width="75"
-                                                 height="75"/>
-                                                 <div className="font-13 opacity-75 pt-2">
-                                                     {work.company.name}
-                                                 </div>
+                                                <img src={work.company.logo ? Converter.bufferToBase64(work.company.logo) :
+                                                    require("../../assets/images/avatar/company.png")}
+                                                    className="rounded-circle"
+                                                    width="75"
+                                                    height="75" />
+                                                <div className="font-13 opacity-75 pt-2">
+                                                    {work.company.name}
+                                                </div>
                                             </div>
                                         </div>
                                         <div className="pl-lg-5 pr-lg-5 pb-5">
@@ -154,11 +172,15 @@ class IndividualWork extends Component {
                                                             <div className="pr-1">
                                                                 <i className="fa fa-clock-o"></i>
                                                             </div>
-                                                            <div className="" style={{minWidth: "fit-content"}}>Last
+                                                            <div className="" style={{ minWidth: "fit-content" }}>Last
                                                                 Date
                                                             </div>
                                                         </div>
+<<<<<<< HEAD
                                                         {/* <div className="opacity-60" style={{minWidth: "fit-content"}}>
+=======
+                                                        <div className="opacity-60" style={{ minWidth: "fit-content" }}>
+>>>>>>> 65737580c17e4d082a622cafcfe02d6746502d51
                                                             {work.duration.last.split("T")[0]}
                                                         </div> */}
                                                         <div className="opacity-60" style={{minWidth: "fit-content"}}>
@@ -195,15 +217,15 @@ class IndividualWork extends Component {
                                     {/*</div>*/}
                                     {/*<div className="ye-border">*/}
                                     <div className="work-details flex-column justify-content-center"
-                                         style={{padding: "2% 5% 0% 5%"}}>
+                                        style={{ padding: "2% 5% 0% 5%" }}>
                                         <div className="about-the-program">
                                             <div className="internship-header">
                                                 <div className="flex-column">
                                                     <h4 className="mb-0 pb-2 font-16 letter-spacing-1 font-weight-400">ABOUT
                                                         THE PROGRAM</h4>
-                                                    <div style={{width: "8%"}}>
+                                                    <div style={{ width: "8%" }}>
                                                         <hr className="mb-0 mt-0 pb-0 pt-0"
-                                                            style={{border: "1px solid rgb(255,145,54)"}}/>
+                                                            style={{ border: "1px solid rgb(255,145,54)" }} />
                                                     </div>
                                                 </div>
                                             </div>
@@ -227,9 +249,9 @@ class IndividualWork extends Component {
                                                 <div className="flex-column">
                                                     <h4 className="mb-0 pb-2 font-16 letter-spacing-1 font-weight-400">ABOUT
                                                         THE COMPANY</h4>
-                                                    <div style={{width: "8%"}}>
+                                                    <div style={{ width: "8%" }}>
                                                         <hr className="mb-0 mt-0 pb-0 pt-0"
-                                                            style={{border: "1px solid rgb(255,145,54)"}}/>
+                                                            style={{ border: "1px solid rgb(255,145,54)" }} />
                                                     </div>
                                                 </div>
                                             </div>
@@ -240,9 +262,9 @@ class IndividualWork extends Component {
                                             <div className="internship-header">
                                                 <div className="flex-column">
                                                     <h4 className="mb-0 pb-2 font-16 letter-spacing-1 font-weight-400">SKILLS</h4>
-                                                    <div style={{width: "8%"}}>
+                                                    <div style={{ width: "8%" }}>
                                                         <hr className="mb-0 mt-0 pb-0 pt-0"
-                                                            style={{border: "1px solid rgb(255,145,54)"}}/>
+                                                            style={{ border: "1px solid rgb(255,145,54)" }} />
                                                     </div>
                                                 </div>
                                             </div>
@@ -258,9 +280,9 @@ class IndividualWork extends Component {
                                                 <div className="flex-column">
                                                     <h4 className="mb-0 pb-2 font-16 letter-spacing-1 font-weight-400">REWARD
                                                         AND BENEFITS</h4>
-                                                    <div style={{width: "8%"}}>
+                                                    <div style={{ width: "8%" }}>
                                                         <hr className="mb-0 mt-0 pb-0 pt-0"
-                                                            style={{border: "1px solid rgb(255,145,54)"}}/>
+                                                            style={{ border: "1px solid rgb(255,145,54)" }} />
                                                     </div>
                                                 </div>
                                             </div>
@@ -272,9 +294,9 @@ class IndividualWork extends Component {
                                                 <div className="flex-column">
                                                     <h4 className="mb-0 pb-2 font-16 letter-spacing-1 font-weight-400">SELECTION
                                                         PROCEDURE</h4>
-                                                    <div style={{width: "8%"}}>
+                                                    <div style={{ width: "8%" }}>
                                                         <hr className="mb-0 mt-0 pb-0 pt-0"
-                                                            style={{border: "1px solid rgb(255,145,54)"}}/>
+                                                            style={{ border: "1px solid rgb(255,145,54)" }} />
                                                     </div>
                                                 </div>
                                             </div>
@@ -297,18 +319,19 @@ class IndividualWork extends Component {
                                 <div className="">
                                     <img src={work.company.logo ? Converter.bufferToBase64(work.company.logo) :
                                         require("../../assets/images/avatar/company.png")}
-                                         className="rounded-top"
-                                         width="100%"
-                                         height="150px"/>
+                                        className="rounded-top"
+                                        width="100%"
+                                        height="150px" />
                                 </div>
                                 <div className="pl-3 pt-3 pb-1 pr-3">
                                     <div className="opacity-75 font-13">By : <span>{work.company.name}</span></div>
                                     <div className="pt-2 pb-2">
                                         <div className="d-flex">
                                             <div className="duration-icon icon-wrapper d-flex align-items-center">
-                                                <i className="fa fa-clock-o opacity-50" style={{color: "#000000"}}
-                                                   aria-hidden="true"/>
+                                                <i className="fa fa-clock-o opacity-50" style={{ color: "#000000" }}
+                                                    aria-hidden="true" />
                                             </div>
+<<<<<<< HEAD
                                             <div className="duration "><span
                                                 className="font-15" style={{color:"rgba(13,3,0,0.89)"}}>{work.duration.weeks} Weeks</span></div>
                                         </div>
@@ -319,19 +342,35 @@ class IndividualWork extends Component {
                                             </div>
                                             <div className="vacancy "><span
                                                 className="font-15 " style={{color:"rgba(13,3,0,0.89)"}}>{work.vacancy} Positions</span></div>
+=======
+                                            <div className="duration"><span
+                                                className="font-15" style={{ color: "rgba(13,3,0,0.89)" }}>{work.duration.weeks} Weeks</span></div>
+                                        </div>
+                                        <div className="d-flex">
+                                            <div className="vacancy-icon icon-wrapper d-flex align-items-center">
+                                                <i className="fa fa-group opacity-50" style={{ color: "#000000" }}
+                                                    aria-hidden="true" />
+                                            </div>
+                                            <div className="vacancy"><span
+                                                className="font-15" style={{ color: "rgba(13,3,0,0.89)" }}>{work.vacancy} Positions</span></div>
+>>>>>>> 65737580c17e4d082a622cafcfe02d6746502d51
                                         </div>
                                         <div className="d-flex">
                                             <div className="stipend-icon icon-wrapper d-flex align-items-center">
-                                                <i className="fa fa-money opacity-50" style={{color: "#000000"}}
-                                                   aria-hidden="true"/>
+                                                <i className="fa fa-money opacity-50" style={{ color: "#000000" }}
+                                                    aria-hidden="true" />
                                             </div>
+<<<<<<< HEAD
                                             <div className="stipend "><span className="font-15" style={{color:"rgba(13,3,0,0.89)"}}>Rs. {work.stipend}</span></div>
+=======
+                                            <div className="stipend"><span className="font-15" style={{ color: "rgba(13,3,0,0.89)" }}>Rs. {work.stipend}</span></div>
+>>>>>>> 65737580c17e4d082a622cafcfe02d6746502d51
                                         </div>
                                     </div>
                                 </div>
                                 <div role="button"
-                                     className="d-flex justify-content-center pt-2 pb-2 cursor-pointer btn-success rounded-bottom"
-                                     width="100%" onClick={this.application}>Apply Now
+                                    className="d-flex justify-content-center pt-2 pb-2 cursor-pointer btn-success rounded-bottom"
+                                    width="100%" onClick={this.application}>Apply Now
                                 </div>
 
                             </div>
@@ -375,22 +414,22 @@ class IndividualWork extends Component {
                 <div className="table-responsive">
                     <table className="table">
                         <thead>
-                        <tr>
-                            <th>Start Date</th>
-                            <th>Duration</th>
-                            <th>Stipend</th>
-                            <th>Work Location</th>
-                            <th>Last Date</th>
-                        </tr>
+                            <tr>
+                                <th>Start Date</th>
+                                <th>Duration</th>
+                                <th>Stipend</th>
+                                <th>Work Location</th>
+                                <th>Last Date</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>{work.duration.start.split("T")[0]}</td>
-                            <td>{work.duration.weeks} Weeks</td>
-                            <td>{work.stipend}</td>
-                            <td>{work.location}</td>
-                            <td>{work.duration.last.split("T")[0]}</td>
-                        </tr>
+                            <tr>
+                                <td>{work.duration.start.split("T")[0]}</td>
+                                <td>{work.duration.weeks} Weeks</td>
+                                <td>{work.stipend}</td>
+                                <td>{work.location}</td>
+                                <td>{work.duration.last.split("T")[0]}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -399,35 +438,35 @@ class IndividualWork extends Component {
     }
 
     application = () => {
-        let {work} = this.state;
+        let { work } = this.state;
         ApiAction.applyApplication(work)
             .then((response) => {
                 console.log(response);
-                this.setState({modalShow: true, success: response.data.success});
+                this.setState({ modalShow: true, success: response.data.success });
                 window.setTimeout(() => {
-                    this.setState({modalShow: false})
+                    this.setState({ modalShow: false })
                 }, 5000);
             })
             .catch(error => {
                 console.log(error);
-                this.setState({modalShow: true, error: true});
+                this.setState({ modalShow: true, error: true });
                 window.setTimeout(() => {
-                    this.setState({modalShow: false})
+                    this.setState({ modalShow: false })
                 }, 5000);
             });
     }
 
     renderApplyModal() {
-        let {modalShow, success, error} = this.state;
+        let { modalShow, success, error } = this.state;
         return (
-            <Modal show={modalShow} onHide={() => this.setState({modalShow: false})}>
+            <Modal show={modalShow} onHide={() => this.setState({ modalShow: false })}>
                 <ModalHeader classname="" closeButton>Application</ModalHeader>
                 <ModalBody>
                     <div>
                         <div className="d-flex justify-content-center">
-                            {success ? <img src={require("../../assets/images/success.png")} alt="success-image"/> :
-                                error ? <img src={require("../../assets/images/error.gif")} alt="error-image"/> :
-                                    <img src={require("../../assets/images/happy.png")} alt="funny-image"/>
+                            {success ? <img src={require("../../assets/images/success.png")} alt="success-image" /> :
+                                error ? <img src={require("../../assets/images/error.gif")} alt="error-image" /> :
+                                    <img src={require("../../assets/images/happy.png")} alt="funny-image" />
                             }
 
                         </div>
