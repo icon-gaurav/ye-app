@@ -133,6 +133,18 @@ class StudentDashboard extends React.Component {
                     </div>
                     <div className="nav-label">Logout</div>
                 </Link>
+                <Link to="/myinternships" className="aside-item">
+                    <div className="nav-logo">
+                        <i className="fab fa-free-code-camp"></i>
+                    </div>
+                    <div className="nav-label">MyInternships</div>
+                </Link>
+                <Link to="/mymissions" className="aside-item">
+                    <div className="nav-logo">
+                        <i className="fab fa-free-code-camp"></i>
+                    </div>
+                    <div className="nav-label">MyMissions</div>
+                </Link>
             </aside>
         );
     }

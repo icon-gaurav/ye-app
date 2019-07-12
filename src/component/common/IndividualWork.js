@@ -34,36 +34,21 @@ class IndividualWork extends Component {
         //     });
         this.setState({
             work: {
-<<<<<<< HEAD
-                _id:"vrjnvojwncjhevnow",
-=======
                 _id: "vrjnvojwncjhevnow",
->>>>>>> 65737580c17e4d082a622cafcfe02d6746502d51
                 mode: "mission",
                 company: "young engine mission",
                 profile: "web profile mission",
                 duration: {
-<<<<<<< HEAD
-                    start: new Date(),
-                    end: new Date(new Date().getTime() + 2000000000),
-                    last: new Date()
-=======
                     start: new Date().toString(),
                     end: new Date(new Date().getTime() + 2000000000),
                     last: new Date().toString()
->>>>>>> 65737580c17e4d082a622cafcfe02d6746502d51
                 },
                 vacancy: 4,
                 stipend: 5000,
                 workDetails: "here is work details mission",
                 skillSet: ["skill1", "skill2", "skill3"],
                 location: "Home mission"
-<<<<<<< HEAD
-            },
-            windowSize: window.innerWidth
-=======
             }
->>>>>>> 65737580c17e4d082a622cafcfe02d6746502d51
         });
         // this.setState({windowSize: window.innerWidth});
         // window.addEventListener("resize", this.windowResizeHandler);
@@ -108,11 +93,7 @@ class IndividualWork extends Component {
                         <div className="bg-white ye-border">
                             <div className="internship-detail">
                                 <div className="item work-meta">
-<<<<<<< HEAD
-                                    <div style={{backgroundColor: "#1A2844", color:'white'}}>
-=======
                                     <div style={{ backgroundColor: "#aeff4c" }}>
->>>>>>> 65737580c17e4d082a622cafcfe02d6746502d51
                                         <div className="d-flex justify-content-center align-items-center p-5">
                                             <div>
                                                 <img src={work.company.logo ? Converter.bufferToBase64(work.company.logo) :
@@ -176,11 +157,7 @@ class IndividualWork extends Component {
                                                                 Date
                                                             </div>
                                                         </div>
-<<<<<<< HEAD
-                                                        {/* <div className="opacity-60" style={{minWidth: "fit-content"}}>
-=======
                                                         <div className="opacity-60" style={{ minWidth: "fit-content" }}>
->>>>>>> 65737580c17e4d082a622cafcfe02d6746502d51
                                                             {work.duration.last.split("T")[0]}
                                                         </div> */}
                                                         <div className="opacity-60" style={{minWidth: "fit-content"}}>
@@ -331,18 +308,6 @@ class IndividualWork extends Component {
                                                 <i className="fa fa-clock-o opacity-50" style={{ color: "#000000" }}
                                                     aria-hidden="true" />
                                             </div>
-<<<<<<< HEAD
-                                            <div className="duration "><span
-                                                className="font-15" style={{color:"rgba(13,3,0,0.89)"}}>{work.duration.weeks} Weeks</span></div>
-                                        </div>
-                                        <div className="d-flex">
-                                            <div className="vacancy-icon  icon-wrapper d-flex align-items-center" >
-                                                <i className="fa fa-group opacity-50 " style={{color: "#000000"}}
-                                                   aria-hidden="true"/>
-                                            </div>
-                                            <div className="vacancy "><span
-                                                className="font-15 " style={{color:"rgba(13,3,0,0.89)"}}>{work.vacancy} Positions</span></div>
-=======
                                             <div className="duration"><span
                                                 className="font-15" style={{ color: "rgba(13,3,0,0.89)" }}>{work.duration.weeks} Weeks</span></div>
                                         </div>
@@ -353,18 +318,13 @@ class IndividualWork extends Component {
                                             </div>
                                             <div className="vacancy"><span
                                                 className="font-15" style={{ color: "rgba(13,3,0,0.89)" }}>{work.vacancy} Positions</span></div>
->>>>>>> 65737580c17e4d082a622cafcfe02d6746502d51
                                         </div>
                                         <div className="d-flex">
                                             <div className="stipend-icon icon-wrapper d-flex align-items-center">
                                                 <i className="fa fa-money opacity-50" style={{ color: "#000000" }}
                                                     aria-hidden="true" />
                                             </div>
-<<<<<<< HEAD
-                                            <div className="stipend "><span className="font-15" style={{color:"rgba(13,3,0,0.89)"}}>Rs. {work.stipend}</span></div>
-=======
                                             <div className="stipend"><span className="font-15" style={{ color: "rgba(13,3,0,0.89)" }}>Rs. {work.stipend}</span></div>
->>>>>>> 65737580c17e4d082a622cafcfe02d6746502d51
                                         </div>
                                     </div>
                                 </div>

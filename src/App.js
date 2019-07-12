@@ -48,24 +48,6 @@ class App extends PureComponent {
         let { forgotPass, signUp, logIn } = this.state;
         return (
 
-<<<<<<< HEAD
-            logIn ? <AuthorizedUser user={JSON.parse(localStorage.getItem("user")) }/> :
-                <div className="d-flex justify-content-center align-items-center bg-white ">
-                    <BrowserRouter>
-                        <Route exact path={"/forgot-password"} component={() => <ForgotPassword/>}/>
-                        <Route exact path={"/register"} component={() => <Registration/>}/>
-                        <Route exact path={"/student-registration"} component={() => <StudentRegistration/>}/>
-                        <Route exact path={"/business-registration"} component={() => <BusinessRegistration/>}/>
-                        <Route path="/internships/:id" component={(props) => <IndividualWork {...props}/>}/>
-                        <Route path="/missions/:id" component={(props) => <IndividualWork {...props}/>}/>
-                        <Route exact path={"/"} component={() => <Login/>}/>
-                        {/*{forgotPass ? <ForgotPassword/> : signUp ? <Registration/> :*/}
-                        {/*    <Login forgotPassword={() => this.setState({forgotPass: true})}*/}
-                        {/*           signUp={() => this.setState({signUp: true})}*/}
-                        {/*           logIn={() => this.setState({logIn: true})}/>}*/}
-                    </BrowserRouter>
-                </div>
-=======
             // logIn ? <AuthorizedUser user={JSON.parse(localStorage.getItem("user")) }/> :
             <div className="d-flex justify-content-center align-items-center bg-white vh-100">
                 <BrowserRouter>
@@ -95,7 +77,6 @@ class App extends PureComponent {
                     {/*           logIn={() => this.setState({logIn: true})}/>}*/}
                 </BrowserRouter>
             </div>
->>>>>>> 65737580c17e4d082a622cafcfe02d6746502d51
 
         );
     }
